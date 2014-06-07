@@ -1,0 +1,486 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3F42DDCF1943CEA4008B3CCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42DDCE1943CEA4008B3CCC /* Foundation.framework */; };
+		3F42DDD11943CEA4008B3CCC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42DDD01943CEA4008B3CCC /* CoreGraphics.framework */; };
+		3F42DDD31943CEA4008B3CCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42DDD21943CEA4008B3CCC /* UIKit.framework */; };
+		3F42DDD51943CEA4008B3CCC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42DDD41943CEA4008B3CCC /* CoreData.framework */; };
+		3F42DDDB1943CEA4008B3CCC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F42DDD91943CEA4008B3CCC /* InfoPlist.strings */; };
+		3F42DDDD1943CEA4008B3CCC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F42DDDC1943CEA4008B3CCC /* main.m */; };
+		3F42DDE11943CEA4008B3CCC /* GPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F42DDE01943CEA4008B3CCC /* GPAppDelegate.m */; };
+		3F42DDE41943CEA4008B3CCC /* GamePlanIOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F42DDE21943CEA4008B3CCC /* GamePlanIOS.xcdatamodeld */; };
+		3F42DDE61943CEA4008B3CCC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F42DDE51943CEA4008B3CCC /* Images.xcassets */; };
+		3F42DDED1943CEA4008B3CCC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42DDEC1943CEA4008B3CCC /* XCTest.framework */; };
+		3F42DDEE1943CEA4008B3CCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42DDCE1943CEA4008B3CCC /* Foundation.framework */; };
+		3F42DDEF1943CEA4008B3CCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42DDD21943CEA4008B3CCC /* UIKit.framework */; };
+		3F42DDF01943CEA4008B3CCC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42DDD41943CEA4008B3CCC /* CoreData.framework */; };
+		3F42DDF81943CEA4008B3CCC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F42DDF61943CEA4008B3CCC /* InfoPlist.strings */; };
+		3F42DDFA1943CEA4008B3CCC /* GamePlanIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F42DDF91943CEA4008B3CCC /* GamePlanIOSTests.m */; };
+		3F42DE051943CF89008B3CCC /* GPMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F42DE041943CF89008B3CCC /* GPMapViewController.m */; };
+		3F42DE071943D100008B3CCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F42DE061943D100008B3CCC /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3F42DDF11943CEA4008B3CCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F42DDC31943CEA4008B3CCC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F42DDCA1943CEA4008B3CCC;
+			remoteInfo = GamePlanIOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3F42DDCB1943CEA4008B3CCC /* GamePlanIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamePlanIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F42DDCE1943CEA4008B3CCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3F42DDD01943CEA4008B3CCC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3F42DDD21943CEA4008B3CCC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3F42DDD41943CEA4008B3CCC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		3F42DDD81943CEA4008B3CCC /* GamePlanIOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GamePlanIOS-Info.plist"; sourceTree = "<group>"; };
+		3F42DDDA1943CEA4008B3CCC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3F42DDDC1943CEA4008B3CCC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3F42DDDE1943CEA4008B3CCC /* GamePlanIOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GamePlanIOS-Prefix.pch"; sourceTree = "<group>"; };
+		3F42DDDF1943CEA4008B3CCC /* GPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPAppDelegate.h; sourceTree = "<group>"; };
+		3F42DDE01943CEA4008B3CCC /* GPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPAppDelegate.m; sourceTree = "<group>"; };
+		3F42DDE31943CEA4008B3CCC /* GamePlanIOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GamePlanIOS.xcdatamodel; sourceTree = "<group>"; };
+		3F42DDE51943CEA4008B3CCC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3F42DDEB1943CEA4008B3CCC /* GamePlanIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GamePlanIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F42DDEC1943CEA4008B3CCC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		3F42DDF51943CEA4008B3CCC /* GamePlanIOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GamePlanIOSTests-Info.plist"; sourceTree = "<group>"; };
+		3F42DDF71943CEA4008B3CCC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3F42DDF91943CEA4008B3CCC /* GamePlanIOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GamePlanIOSTests.m; sourceTree = "<group>"; };
+		3F42DE031943CF89008B3CCC /* GPMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPMapViewController.h; path = GamePlanIOS/GPMapViewController.h; sourceTree = "<group>"; };
+		3F42DE041943CF89008B3CCC /* GPMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPMapViewController.m; path = GamePlanIOS/GPMapViewController.m; sourceTree = "<group>"; };
+		3F42DE061943D100008B3CCC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3F42DDC81943CEA4008B3CCC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F42DDD11943CEA4008B3CCC /* CoreGraphics.framework in Frameworks */,
+				3F42DDD51943CEA4008B3CCC /* CoreData.framework in Frameworks */,
+				3F42DDD31943CEA4008B3CCC /* UIKit.framework in Frameworks */,
+				3F42DDCF1943CEA4008B3CCC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F42DDE81943CEA4008B3CCC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F42DDED1943CEA4008B3CCC /* XCTest.framework in Frameworks */,
+				3F42DDF01943CEA4008B3CCC /* CoreData.framework in Frameworks */,
+				3F42DDEF1943CEA4008B3CCC /* UIKit.framework in Frameworks */,
+				3F42DDEE1943CEA4008B3CCC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3F42DDC21943CEA4008B3CCC = {
+			isa = PBXGroup;
+			children = (
+				3F42DE031943CF89008B3CCC /* GPMapViewController.h */,
+				3F42DE041943CF89008B3CCC /* GPMapViewController.m */,
+				3F42DE061943D100008B3CCC /* Main.storyboard */,
+				3F42DDD61943CEA4008B3CCC /* GamePlanIOS */,
+				3F42DDF31943CEA4008B3CCC /* GamePlanIOSTests */,
+				3F42DDCD1943CEA4008B3CCC /* Frameworks */,
+				3F42DDCC1943CEA4008B3CCC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3F42DDCC1943CEA4008B3CCC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3F42DDCB1943CEA4008B3CCC /* GamePlanIOS.app */,
+				3F42DDEB1943CEA4008B3CCC /* GamePlanIOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3F42DDCD1943CEA4008B3CCC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3F42DDCE1943CEA4008B3CCC /* Foundation.framework */,
+				3F42DDD01943CEA4008B3CCC /* CoreGraphics.framework */,
+				3F42DDD21943CEA4008B3CCC /* UIKit.framework */,
+				3F42DDD41943CEA4008B3CCC /* CoreData.framework */,
+				3F42DDEC1943CEA4008B3CCC /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3F42DDD61943CEA4008B3CCC /* GamePlanIOS */ = {
+			isa = PBXGroup;
+			children = (
+				3F42DDDF1943CEA4008B3CCC /* GPAppDelegate.h */,
+				3F42DDE01943CEA4008B3CCC /* GPAppDelegate.m */,
+				3F42DDE51943CEA4008B3CCC /* Images.xcassets */,
+				3F42DDE21943CEA4008B3CCC /* GamePlanIOS.xcdatamodeld */,
+				3F42DDD71943CEA4008B3CCC /* Supporting Files */,
+			);
+			path = GamePlanIOS;
+			sourceTree = "<group>";
+		};
+		3F42DDD71943CEA4008B3CCC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3F42DDD81943CEA4008B3CCC /* GamePlanIOS-Info.plist */,
+				3F42DDD91943CEA4008B3CCC /* InfoPlist.strings */,
+				3F42DDDC1943CEA4008B3CCC /* main.m */,
+				3F42DDDE1943CEA4008B3CCC /* GamePlanIOS-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3F42DDF31943CEA4008B3CCC /* GamePlanIOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				3F42DDF91943CEA4008B3CCC /* GamePlanIOSTests.m */,
+				3F42DDF41943CEA4008B3CCC /* Supporting Files */,
+			);
+			path = GamePlanIOSTests;
+			sourceTree = "<group>";
+		};
+		3F42DDF41943CEA4008B3CCC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3F42DDF51943CEA4008B3CCC /* GamePlanIOSTests-Info.plist */,
+				3F42DDF61943CEA4008B3CCC /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3F42DDCA1943CEA4008B3CCC /* GamePlanIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F42DDFD1943CEA4008B3CCC /* Build configuration list for PBXNativeTarget "GamePlanIOS" */;
+			buildPhases = (
+				3F42DDC71943CEA4008B3CCC /* Sources */,
+				3F42DDC81943CEA4008B3CCC /* Frameworks */,
+				3F42DDC91943CEA4008B3CCC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GamePlanIOS;
+			productName = GamePlanIOS;
+			productReference = 3F42DDCB1943CEA4008B3CCC /* GamePlanIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3F42DDEA1943CEA4008B3CCC /* GamePlanIOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F42DE001943CEA4008B3CCC /* Build configuration list for PBXNativeTarget "GamePlanIOSTests" */;
+			buildPhases = (
+				3F42DDE71943CEA4008B3CCC /* Sources */,
+				3F42DDE81943CEA4008B3CCC /* Frameworks */,
+				3F42DDE91943CEA4008B3CCC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F42DDF21943CEA4008B3CCC /* PBXTargetDependency */,
+			);
+			name = GamePlanIOSTests;
+			productName = GamePlanIOSTests;
+			productReference = 3F42DDEB1943CEA4008B3CCC /* GamePlanIOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3F42DDC31943CEA4008B3CCC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = GP;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Game Plan";
+				TargetAttributes = {
+					3F42DDEA1943CEA4008B3CCC = {
+						TestTargetID = 3F42DDCA1943CEA4008B3CCC;
+					};
+				};
+			};
+			buildConfigurationList = 3F42DDC61943CEA4008B3CCC /* Build configuration list for PBXProject "GamePlanIOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3F42DDC21943CEA4008B3CCC;
+			productRefGroup = 3F42DDCC1943CEA4008B3CCC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3F42DDCA1943CEA4008B3CCC /* GamePlanIOS */,
+				3F42DDEA1943CEA4008B3CCC /* GamePlanIOSTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3F42DDC91943CEA4008B3CCC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F42DE071943D100008B3CCC /* Main.storyboard in Resources */,
+				3F42DDDB1943CEA4008B3CCC /* InfoPlist.strings in Resources */,
+				3F42DDE61943CEA4008B3CCC /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F42DDE91943CEA4008B3CCC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F42DDF81943CEA4008B3CCC /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3F42DDC71943CEA4008B3CCC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F42DE051943CF89008B3CCC /* GPMapViewController.m in Sources */,
+				3F42DDDD1943CEA4008B3CCC /* main.m in Sources */,
+				3F42DDE11943CEA4008B3CCC /* GPAppDelegate.m in Sources */,
+				3F42DDE41943CEA4008B3CCC /* GamePlanIOS.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F42DDE71943CEA4008B3CCC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F42DDFA1943CEA4008B3CCC /* GamePlanIOSTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3F42DDF21943CEA4008B3CCC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3F42DDCA1943CEA4008B3CCC /* GamePlanIOS */;
+			targetProxy = 3F42DDF11943CEA4008B3CCC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3F42DDD91943CEA4008B3CCC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3F42DDDA1943CEA4008B3CCC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3F42DDF61943CEA4008B3CCC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3F42DDF71943CEA4008B3CCC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3F42DDFB1943CEA4008B3CCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		3F42DDFC1943CEA4008B3CCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3F42DDFE1943CEA4008B3CCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GamePlanIOS/GamePlanIOS-Prefix.pch";
+				INFOPLIST_FILE = "GamePlanIOS/GamePlanIOS-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3F42DDFF1943CEA4008B3CCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GamePlanIOS/GamePlanIOS-Prefix.pch";
+				INFOPLIST_FILE = "GamePlanIOS/GamePlanIOS-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		3F42DE011943CEA4008B3CCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GamePlanIOS.app/GamePlanIOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GamePlanIOS/GamePlanIOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "GamePlanIOSTests/GamePlanIOSTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		3F42DE021943CEA4008B3CCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GamePlanIOS.app/GamePlanIOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GamePlanIOS/GamePlanIOS-Prefix.pch";
+				INFOPLIST_FILE = "GamePlanIOSTests/GamePlanIOSTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3F42DDC61943CEA4008B3CCC /* Build configuration list for PBXProject "GamePlanIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F42DDFB1943CEA4008B3CCC /* Debug */,
+				3F42DDFC1943CEA4008B3CCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3F42DDFD1943CEA4008B3CCC /* Build configuration list for PBXNativeTarget "GamePlanIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F42DDFE1943CEA4008B3CCC /* Debug */,
+				3F42DDFF1943CEA4008B3CCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3F42DE001943CEA4008B3CCC /* Build configuration list for PBXNativeTarget "GamePlanIOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F42DE011943CEA4008B3CCC /* Debug */,
+				3F42DE021943CEA4008B3CCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3F42DDE21943CEA4008B3CCC /* GamePlanIOS.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3F42DDE31943CEA4008B3CCC /* GamePlanIOS.xcdatamodel */,
+			);
+			currentVersion = 3F42DDE31943CEA4008B3CCC /* GamePlanIOS.xcdatamodel */;
+			path = GamePlanIOS.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 3F42DDC31943CEA4008B3CCC /* Project object */;
+}
