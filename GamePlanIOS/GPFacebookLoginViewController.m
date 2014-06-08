@@ -102,9 +102,7 @@
                         [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:@"FBPictureURL"];
                         [defaults setObject:(NSURL *)[pictureURL absoluteString] forKey:@"pictureURL"];
                     }
-//                    if (userData[@"friends"]){
-//                        [[PFUser currentUser] setObject:userData[@"friends"] forKey:@"friends"];
-//                    }
+
                     
                     [[PFUser currentUser] save];
                     
@@ -114,10 +112,8 @@
             [ friendRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                 if (!error) {
                     NSDictionary *userData = (NSDictionary *)result;
-                    
-                    NSLog(@"USERDATA: %@", userData);
+
                     NSArray *friendObjects = [result objectForKey:@"data"];
-                    NSLog(@"%@", friendObjects);
                     [[PFUser currentUser] setObject:friendObjects forKey:@"friends"];
                     [defaults setObject:friendObjects forKey:@"friends"];
                     [[PFUser currentUser] save];
