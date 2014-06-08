@@ -14,12 +14,29 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+#pragma mark - Parse Methods
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                        withSession:[PFFacebookUtils session]];
+}
+
+
+#pragma mark - iOS Methods
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    //set up parse
+    [Parse setApplicationId:@"nMGo98WE2iXyGWOB0uqHjXTrSZcszs139LBcXiM7" clientKey:@"JScsUziXIpIoD03I0MZ5nA6k1sa1DRHauzfHX4UA"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions: launchOptions];
+    [PFFacebookUtils initializeFacebook];
+    
+    [FBLoginView class];
+    
     return YES;
 }
 
@@ -43,6 +60,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

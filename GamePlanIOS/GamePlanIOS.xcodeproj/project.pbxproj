@@ -24,6 +24,11 @@
 		3F42DDFA1943CEA4008B3CCC /* GamePlanIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F42DDF91943CEA4008B3CCC /* GamePlanIOSTests.m */; };
 		3F42DE051943CF89008B3CCC /* GPMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F42DE041943CF89008B3CCC /* GPMapViewController.m */; };
 		3F42DE071943D100008B3CCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F42DE061943D100008B3CCC /* Main.storyboard */; };
+		C9F1F3BE1943D877005C7846 /* GPFacebookLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1F3BD1943D877005C7846 /* GPFacebookLoginViewController.m */; };
+		C9F1F3C01943DB2F005C7846 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F1F3BF1943DB2F005C7846 /* Parse.framework */; };
+		C9F1F3C31943DCDC005C7846 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F1F3C21943DCDC005C7846 /* FacebookSDK.framework */; };
+		C9F1F3C51943E7FC005C7846 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F1F3C41943E7FC005C7846 /* SystemConfiguration.framework */; };
+		C9F1F3C71943E853005C7846 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F1F3C61943E853005C7846 /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,9 +60,15 @@
 		3F42DDF51943CEA4008B3CCC /* GamePlanIOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GamePlanIOSTests-Info.plist"; sourceTree = "<group>"; };
 		3F42DDF71943CEA4008B3CCC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3F42DDF91943CEA4008B3CCC /* GamePlanIOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GamePlanIOSTests.m; sourceTree = "<group>"; };
-		3F42DE031943CF89008B3CCC /* GPMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPMapViewController.h; path = GamePlanIOS/GPMapViewController.h; sourceTree = "<group>"; };
-		3F42DE041943CF89008B3CCC /* GPMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPMapViewController.m; path = GamePlanIOS/GPMapViewController.m; sourceTree = "<group>"; };
-		3F42DE061943D100008B3CCC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3F42DE031943CF89008B3CCC /* GPMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPMapViewController.h; sourceTree = "<group>"; };
+		3F42DE041943CF89008B3CCC /* GPMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPMapViewController.m; sourceTree = "<group>"; };
+		3F42DE061943D100008B3CCC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
+		C9F1F3BC1943D877005C7846 /* GPFacebookLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPFacebookLoginViewController.h; path = ../GPFacebookLoginViewController.h; sourceTree = "<group>"; };
+		C9F1F3BD1943D877005C7846 /* GPFacebookLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPFacebookLoginViewController.m; path = ../GPFacebookLoginViewController.m; sourceTree = "<group>"; };
+		C9F1F3BF1943DB2F005C7846 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		C9F1F3C21943DCDC005C7846 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		C9F1F3C41943E7FC005C7846 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C9F1F3C61943E853005C7846 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,10 +76,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9F1F3C71943E853005C7846 /* MobileCoreServices.framework in Frameworks */,
+				C9F1F3C51943E7FC005C7846 /* SystemConfiguration.framework in Frameworks */,
 				3F42DDD11943CEA4008B3CCC /* CoreGraphics.framework in Frameworks */,
 				3F42DDD51943CEA4008B3CCC /* CoreData.framework in Frameworks */,
 				3F42DDD31943CEA4008B3CCC /* UIKit.framework in Frameworks */,
 				3F42DDCF1943CEA4008B3CCC /* Foundation.framework in Frameworks */,
+				C9F1F3C01943DB2F005C7846 /* Parse.framework in Frameworks */,
+				C9F1F3C31943DCDC005C7846 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,9 +104,6 @@
 		3F42DDC21943CEA4008B3CCC = {
 			isa = PBXGroup;
 			children = (
-				3F42DE031943CF89008B3CCC /* GPMapViewController.h */,
-				3F42DE041943CF89008B3CCC /* GPMapViewController.m */,
-				3F42DE061943D100008B3CCC /* Main.storyboard */,
 				3F42DDD61943CEA4008B3CCC /* GamePlanIOS */,
 				3F42DDF31943CEA4008B3CCC /* GamePlanIOSTests */,
 				3F42DDCD1943CEA4008B3CCC /* Frameworks */,
@@ -111,6 +123,10 @@
 		3F42DDCD1943CEA4008B3CCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9F1F3C61943E853005C7846 /* MobileCoreServices.framework */,
+				C9F1F3C41943E7FC005C7846 /* SystemConfiguration.framework */,
+				C9F1F3C21943DCDC005C7846 /* FacebookSDK.framework */,
+				C9F1F3BF1943DB2F005C7846 /* Parse.framework */,
 				3F42DDCE1943CEA4008B3CCC /* Foundation.framework */,
 				3F42DDD01943CEA4008B3CCC /* CoreGraphics.framework */,
 				3F42DDD21943CEA4008B3CCC /* UIKit.framework */,
@@ -123,6 +139,11 @@
 		3F42DDD61943CEA4008B3CCC /* GamePlanIOS */ = {
 			isa = PBXGroup;
 			children = (
+				3F42DE031943CF89008B3CCC /* GPMapViewController.h */,
+				3F42DE041943CF89008B3CCC /* GPMapViewController.m */,
+				3F42DE061943D100008B3CCC /* Main.storyboard */,
+				C9F1F3BC1943D877005C7846 /* GPFacebookLoginViewController.h */,
+				C9F1F3BD1943D877005C7846 /* GPFacebookLoginViewController.m */,
 				3F42DDDF1943CEA4008B3CCC /* GPAppDelegate.h */,
 				3F42DDE01943CEA4008B3CCC /* GPAppDelegate.m */,
 				3F42DDE51943CEA4008B3CCC /* Images.xcassets */,
@@ -261,6 +282,7 @@
 				3F42DE051943CF89008B3CCC /* GPMapViewController.m in Sources */,
 				3F42DDDD1943CEA4008B3CCC /* main.m in Sources */,
 				3F42DDE11943CEA4008B3CCC /* GPAppDelegate.m in Sources */,
+				C9F1F3BE1943D877005C7846 /* GPFacebookLoginViewController.m in Sources */,
 				3F42DDE41943CEA4008B3CCC /* GamePlanIOS.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +400,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GamePlanIOS/GamePlanIOS-Prefix.pch";
 				INFOPLIST_FILE = "GamePlanIOS/GamePlanIOS-Info.plist";
@@ -391,6 +417,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GamePlanIOS/GamePlanIOS-Prefix.pch";
 				INFOPLIST_FILE = "GamePlanIOS/GamePlanIOS-Info.plist";
@@ -458,6 +488,7 @@
 				3F42DDFF1943CEA4008B3CCC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3F42DE001943CEA4008B3CCC /* Build configuration list for PBXNativeTarget "GamePlanIOSTests" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +497,7 @@
 				3F42DE021943CEA4008B3CCC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
