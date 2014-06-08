@@ -102,7 +102,7 @@
                         [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:@"FBPictureURL"];
                         [defaults setObject:(NSURL *)[pictureURL absoluteString] forKey:@"pictureURL"];
                     }
-
+                    NSLog(@"%@", pictureURL);
                     
                     [[PFUser currentUser] save];
                     
