@@ -123,7 +123,7 @@
                                   }];
             [defaults setObject:@"YES" forKey:@"userLoggedIn"];
             
-            
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
