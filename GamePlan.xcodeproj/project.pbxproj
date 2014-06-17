@@ -47,6 +47,11 @@
 		C90E817D18B956BA004BF989 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E817C18B956BA004BF989 /* Security.framework */; };
 		C90E817F18B956C4004BF989 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E817E18B956C4004BF989 /* StoreKit.framework */; };
 		C90E818118B956D2004BF989 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E818018B956D1004BF989 /* SystemConfiguration.framework */; };
+		C962E401194FF79E005A4895 /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E400194FF79E005A4895 /* AddEventViewController.m */; };
+		C962E404194FFC06005A4895 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E403194FFC06005A4895 /* Event.m */; };
+		C962E407194FFD28005A4895 /* Tailgate.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E406194FFD28005A4895 /* Tailgate.m */; };
+		C962E40A194FFE65005A4895 /* WatchParty.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E409194FFE65005A4895 /* WatchParty.m */; };
+		C962E40D194FFE7B005A4895 /* AfterParty.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E40C194FFE7B005A4895 /* AfterParty.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +113,16 @@
 		C90E817C18B956BA004BF989 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C90E817E18B956C4004BF989 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C90E818018B956D1004BF989 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C962E3FF194FF79E005A4895 /* AddEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventViewController.h; sourceTree = "<group>"; };
+		C962E400194FF79E005A4895 /* AddEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventViewController.m; sourceTree = "<group>"; };
+		C962E402194FFC06005A4895 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		C962E403194FFC06005A4895 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		C962E405194FFD28005A4895 /* Tailgate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tailgate.h; sourceTree = "<group>"; };
+		C962E406194FFD28005A4895 /* Tailgate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tailgate.m; sourceTree = "<group>"; };
+		C962E408194FFE65005A4895 /* WatchParty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchParty.h; sourceTree = "<group>"; };
+		C962E409194FFE65005A4895 /* WatchParty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchParty.m; sourceTree = "<group>"; };
+		C962E40B194FFE7B005A4895 /* AfterParty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AfterParty.h; sourceTree = "<group>"; };
+		C962E40C194FFE7B005A4895 /* AfterParty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AfterParty.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +190,7 @@
 		3F9B6DE4194E4BBE00B2C3E0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C962E40E194FFF2A005A4895 /* Events */,
 				C90E816B18B94503004BF989 /* GPAppDelegate.h */,
 				C90E816C18B94503004BF989 /* GPAppDelegate.m */,
 			);
@@ -184,6 +200,7 @@
 		3F9B6DE5194E4BD200B2C3E0 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C962E3FE194FF2EA005A4895 /* AddEventViewController */,
 				3F9B6DE7194E4BF100B2C3E0 /* FBLoginViewController */,
 				3F9B6DE6194E4BE400B2C3E0 /* MapViewController */,
 			);
@@ -303,6 +320,30 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		C962E3FE194FF2EA005A4895 /* AddEventViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C962E3FF194FF79E005A4895 /* AddEventViewController.h */,
+				C962E400194FF79E005A4895 /* AddEventViewController.m */,
+			);
+			name = AddEventViewController;
+			sourceTree = "<group>";
+		};
+		C962E40E194FFF2A005A4895 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				C962E402194FFC06005A4895 /* Event.h */,
+				C962E403194FFC06005A4895 /* Event.m */,
+				C962E405194FFD28005A4895 /* Tailgate.h */,
+				C962E406194FFD28005A4895 /* Tailgate.m */,
+				C962E408194FFE65005A4895 /* WatchParty.h */,
+				C962E409194FFE65005A4895 /* WatchParty.m */,
+				C962E40B194FFE7B005A4895 /* AfterParty.h */,
+				C962E40C194FFE7B005A4895 /* AfterParty.m */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -417,10 +458,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C962E40A194FFE65005A4895 /* WatchParty.m in Sources */,
 				C90E811A18B94468004BF989 /* main.m in Sources */,
+				C962E401194FF79E005A4895 /* AddEventViewController.m in Sources */,
 				C90E814B18B944D4004BF989 /* GPMapViewController.m in Sources */,
 				3F9B6DCD194E39DC00B2C3E0 /* AnimatedTransitioning.m in Sources */,
+				C962E404194FFC06005A4895 /* Event.m in Sources */,
+				C962E407194FFD28005A4895 /* Tailgate.m in Sources */,
 				C90E814A18B944D4004BF989 /* GPFacebookLoginViewController.m in Sources */,
+				C962E40D194FFE7B005A4895 /* AfterParty.m in Sources */,
 				C90E816D18B94503004BF989 /* GPAppDelegate.m in Sources */,
 				3F9B6DCE194E39DC00B2C3E0 /* TransitionDelegate.m in Sources */,
 			);
