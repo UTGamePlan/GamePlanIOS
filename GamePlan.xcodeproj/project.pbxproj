@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F62518C1951463C00D24EE8 /* default_profile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F62518A1951463C00D24EE8 /* default_profile.jpg */; };
+		3F62518D1951463C00D24EE8 /* default_profile@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F62518B1951463C00D24EE8 /* default_profile@2x.jpg */; };
+		3F6251901951546B00D24EE8 /* jeremyDorm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3F62518F1951546B00D24EE8 /* jeremyDorm.gpx */; };
 		3F9B6DCD194E39DC00B2C3E0 /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B6DCA194E39DC00B2C3E0 /* AnimatedTransitioning.m */; };
 		3F9B6DCE194E39DC00B2C3E0 /* TransitionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B6DCC194E39DC00B2C3E0 /* TransitionDelegate.m */; };
-		3F9B6DD0194E3BFC00B2C3E0 /* baRy9.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B6DCF194E3BFC00B2C3E0 /* baRy9.png */; };
 		3F9B6DD2194E3D4500B2C3E0 /* burnt_orange.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B6DD1194E3D4500B2C3E0 /* burnt_orange.jpeg */; };
 		3F9B6DD9194E413B00B2C3E0 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B6DD7194E413B00B2C3E0 /* logo.png */; };
 		3F9B6DDA194E413B00B2C3E0 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B6DD8194E413B00B2C3E0 /* logo@2x.png */; };
@@ -65,11 +67,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F62518A1951463C00D24EE8 /* default_profile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_profile.jpg; sourceTree = "<group>"; };
+		3F62518B1951463C00D24EE8 /* default_profile@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "default_profile@2x.jpg"; sourceTree = "<group>"; };
+		3F62518F1951546B00D24EE8 /* jeremyDorm.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = jeremyDorm.gpx; path = GamePlan/jeremyDorm.gpx; sourceTree = "<group>"; };
 		3F9B6DC9194E39DC00B2C3E0 /* AnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedTransitioning.h; sourceTree = "<group>"; };
 		3F9B6DCA194E39DC00B2C3E0 /* AnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransitioning.m; sourceTree = "<group>"; };
 		3F9B6DCB194E39DC00B2C3E0 /* TransitionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionDelegate.h; sourceTree = "<group>"; };
 		3F9B6DCC194E39DC00B2C3E0 /* TransitionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionDelegate.m; sourceTree = "<group>"; };
-		3F9B6DCF194E3BFC00B2C3E0 /* baRy9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baRy9.png; sourceTree = "<group>"; };
 		3F9B6DD1194E3D4500B2C3E0 /* burnt_orange.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = burnt_orange.jpeg; sourceTree = "<group>"; };
 		3F9B6DD7194E413B00B2C3E0 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		3F9B6DD8194E413B00B2C3E0 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
@@ -160,6 +164,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F62518E1951464B00D24EE8 /* MapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3F62518A1951463C00D24EE8 /* default_profile.jpg */,
+				3F62518B1951463C00D24EE8 /* default_profile@2x.jpg */,
+			);
+			name = MapViewController;
+			sourceTree = "<group>";
+		};
 		3F9B6DC8194E39DC00B2C3E0 /* Transition Delegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +184,7 @@
 			path = "Transition Delegate";
 			sourceTree = "<group>";
 		};
-		3F9B6DE3194E4B9000B2C3E0 /* FBLogin */ = {
+		3F9B6DE3194E4B9000B2C3E0 /* FBLoginViewController */ = {
 			isa = PBXGroup;
 			children = (
 				3F9B6DDB194E415600B2C3E0 /* GPLettering.png */,
@@ -184,7 +197,7 @@
 				C90E815218B944E2004BF989 /* FB_Button_Up.png */,
 				C90E815318B944E2004BF989 /* FB_Button_Up@2x.png */,
 			);
-			name = FBLogin;
+			name = FBLoginViewController;
 			sourceTree = "<group>";
 		};
 		3F9B6DE4194E4BBE00B2C3E0 /* Model */ = {
@@ -228,6 +241,7 @@
 		C90E810118B94468004BF989 = {
 			isa = PBXGroup;
 			children = (
+				3F62518F1951546B00D24EE8 /* jeremyDorm.gpx */,
 				C90E811318B94468004BF989 /* GamePlan */,
 				C90E813218B94468004BF989 /* GamePlanTests */,
 				C90E810C18B94468004BF989 /* Frameworks */,
@@ -312,10 +326,10 @@
 		C90E814E18B944E2004BF989 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3F62518E1951464B00D24EE8 /* MapViewController */,
 				3F9B6DDF194E42DE00B2C3E0 /* app_icon.png */,
 				3F9B6DE0194E42DE00B2C3E0 /* app_icon@2x.png */,
-				3F9B6DE3194E4B9000B2C3E0 /* FBLogin */,
-				3F9B6DCF194E3BFC00B2C3E0 /* baRy9.png */,
+				3F9B6DE3194E4B9000B2C3E0 /* FBLoginViewController */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -431,13 +445,15 @@
 				3F9B6DDA194E413B00B2C3E0 /* logo@2x.png in Resources */,
 				C90E812618B94468004BF989 /* Images.xcassets in Resources */,
 				3F9B6DE1194E42DE00B2C3E0 /* app_icon.png in Resources */,
-				3F9B6DD0194E3BFC00B2C3E0 /* baRy9.png in Resources */,
+				3F62518C1951463C00D24EE8 /* default_profile.jpg in Resources */,
 				C90E811818B94468004BF989 /* InfoPlist.strings in Resources */,
 				C90E812118B94468004BF989 /* Main.storyboard in Resources */,
+				3F6251901951546B00D24EE8 /* jeremyDorm.gpx in Resources */,
 				C90E815E18B944E2004BF989 /* FB_Button_Down.png in Resources */,
 				3F9B6DD9194E413B00B2C3E0 /* logo.png in Resources */,
 				C90E816018B944E2004BF989 /* FB_Button_Up.png in Resources */,
 				C90E816118B944E2004BF989 /* FB_Button_Up@2x.png in Resources */,
+				3F62518D1951463C00D24EE8 /* default_profile@2x.jpg in Resources */,
 				3F9B6DD2194E3D4500B2C3E0 /* burnt_orange.jpeg in Resources */,
 				3F9B6DDD194E415600B2C3E0 /* GPLettering.png in Resources */,
 			);

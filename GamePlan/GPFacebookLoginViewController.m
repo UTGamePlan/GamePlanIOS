@@ -98,6 +98,8 @@
                     if ([pictureURL absoluteString]) {
                         [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:@"FBPictureURL"];
                         [defaults setObject:(NSURL *)[pictureURL absoluteString] forKey:@"pictureURL"];
+                        // Set the profile picture button back on the map view screen
+                        [self.userProfilePictureButtonForMapViewController setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[pictureURL absoluteString]]]] forState:UIControlStateNormal];
                     }
                     NSLog(@"%@", pictureURL);
                     
