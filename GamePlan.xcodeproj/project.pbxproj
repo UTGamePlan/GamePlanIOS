@@ -26,6 +26,15 @@
 		3FE178EB19529BEF007AE6F6 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE178E819529BEF007AE6F6 /* gear@2x.png */; };
 		3FE178EC19529BEF007AE6F6 /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE178E919529BEF007AE6F6 /* plus@2x.png */; };
 		3FE178ED19529BEF007AE6F6 /* question-mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE178EA19529BEF007AE6F6 /* question-mark@2x.png */; };
+		3FE178FB19529FCA007AE6F6 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178F019529FCA007AE6F6 /* RECommonFunctions.m */; };
+		3FE178FC19529FCA007AE6F6 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178F219529FCA007AE6F6 /* REFrostedContainerViewController.m */; };
+		3FE178FD19529FCA007AE6F6 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178F419529FCA007AE6F6 /* REFrostedViewController.m */; };
+		3FE178FE19529FCA007AE6F6 /* UIImage+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178F619529FCA007AE6F6 /* UIImage+REFrostedViewController.m */; };
+		3FE178FF19529FCA007AE6F6 /* UIView+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178F819529FCA007AE6F6 /* UIView+REFrostedViewController.m */; };
+		3FE1790019529FCA007AE6F6 /* UIViewController+REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178FA19529FCA007AE6F6 /* UIViewController+REFrostedViewController.m */; };
+		3FE179041952A0F0007AE6F6 /* GPUserMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE179031952A0F0007AE6F6 /* GPUserMenuViewController.m */; };
+		3FE179071952A380007AE6F6 /* GPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE179061952A380007AE6F6 /* GPNavigationController.m */; };
+		3FE1790A1952AB5E007AE6F6 /* GPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE179091952AB5E007AE6F6 /* GPRootViewController.m */; };
 		3FF48341194D7CAC00C05DF5 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF48340194D7CAC00C05DF5 /* Parse.framework */; };
 		3FF48343194D7CE200C05DF5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF48342194D7CE200C05DF5 /* FacebookSDK.framework */; };
 		C90E810E18B94468004BF989 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E810D18B94468004BF989 /* Foundation.framework */; };
@@ -99,6 +108,24 @@
 		3FE178E819529BEF007AE6F6 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear@2x.png"; sourceTree = "<group>"; };
 		3FE178E919529BEF007AE6F6 /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
 		3FE178EA19529BEF007AE6F6 /* question-mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "question-mark@2x.png"; sourceTree = "<group>"; };
+		3FE178EF19529FCA007AE6F6 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
+		3FE178F019529FCA007AE6F6 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
+		3FE178F119529FCA007AE6F6 /* REFrostedContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedContainerViewController.h; sourceTree = "<group>"; };
+		3FE178F219529FCA007AE6F6 /* REFrostedContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedContainerViewController.m; sourceTree = "<group>"; };
+		3FE178F319529FCA007AE6F6 /* REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedViewController.h; sourceTree = "<group>"; };
+		3FE178F419529FCA007AE6F6 /* REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REFrostedViewController.m; sourceTree = "<group>"; };
+		3FE178F519529FCA007AE6F6 /* UIImage+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+REFrostedViewController.h"; sourceTree = "<group>"; };
+		3FE178F619529FCA007AE6F6 /* UIImage+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+REFrostedViewController.m"; sourceTree = "<group>"; };
+		3FE178F719529FCA007AE6F6 /* UIView+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+REFrostedViewController.h"; sourceTree = "<group>"; };
+		3FE178F819529FCA007AE6F6 /* UIView+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+REFrostedViewController.m"; sourceTree = "<group>"; };
+		3FE178F919529FCA007AE6F6 /* UIViewController+REFrostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+REFrostedViewController.h"; sourceTree = "<group>"; };
+		3FE178FA19529FCA007AE6F6 /* UIViewController+REFrostedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+REFrostedViewController.m"; sourceTree = "<group>"; };
+		3FE179021952A0F0007AE6F6 /* GPUserMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUserMenuViewController.h; sourceTree = "<group>"; };
+		3FE179031952A0F0007AE6F6 /* GPUserMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUserMenuViewController.m; sourceTree = "<group>"; };
+		3FE179051952A380007AE6F6 /* GPNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPNavigationController.h; sourceTree = "<group>"; };
+		3FE179061952A380007AE6F6 /* GPNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPNavigationController.m; sourceTree = "<group>"; };
+		3FE179081952AB5E007AE6F6 /* GPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPRootViewController.h; sourceTree = "<group>"; };
+		3FE179091952AB5E007AE6F6 /* GPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPRootViewController.m; sourceTree = "<group>"; };
 		3FF48340194D7CAC00C05DF5 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = GamePlan/Parse.framework; sourceTree = "<group>"; };
 		3FF48342194D7CE200C05DF5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = GamePlan/FacebookSDK.framework; sourceTree = "<group>"; };
 		C90E810A18B94468004BF989 /* GamePlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamePlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,6 +255,10 @@
 				C962E40E194FFF2A005A4895 /* Events */,
 				C90E816B18B94503004BF989 /* GPAppDelegate.h */,
 				C90E816C18B94503004BF989 /* GPAppDelegate.m */,
+				3FE179051952A380007AE6F6 /* GPNavigationController.h */,
+				3FE179061952A380007AE6F6 /* GPNavigationController.m */,
+				3FE179081952AB5E007AE6F6 /* GPRootViewController.h */,
+				3FE179091952AB5E007AE6F6 /* GPRootViewController.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -235,6 +266,7 @@
 		3F9B6DE5194E4BD200B2C3E0 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3FE1790119529FDE007AE6F6 /* UserMenuViewController */,
 				C962E3FE194FF2EA005A4895 /* AddEventViewController */,
 				3F9B6DE7194E4BF100B2C3E0 /* FBLoginViewController */,
 				3F9B6DE6194E4BE400B2C3E0 /* MapViewController */,
@@ -263,6 +295,7 @@
 		3FE178CD19527F24007AE6F6 /* Ouside Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				3FE178EE19529FCA007AE6F6 /* REFrostedViewController */,
 				3FE178CE19527F3A007AE6F6 /* UzysSlideMenu */,
 			);
 			name = "Ouside Libraries";
@@ -282,6 +315,35 @@
 			);
 			name = UzysSlideMenu;
 			path = OutsideLibraries/UzysSlideMenu;
+			sourceTree = "<group>";
+		};
+		3FE178EE19529FCA007AE6F6 /* REFrostedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3FE178EF19529FCA007AE6F6 /* RECommonFunctions.h */,
+				3FE178F019529FCA007AE6F6 /* RECommonFunctions.m */,
+				3FE178F119529FCA007AE6F6 /* REFrostedContainerViewController.h */,
+				3FE178F219529FCA007AE6F6 /* REFrostedContainerViewController.m */,
+				3FE178F319529FCA007AE6F6 /* REFrostedViewController.h */,
+				3FE178F419529FCA007AE6F6 /* REFrostedViewController.m */,
+				3FE178F519529FCA007AE6F6 /* UIImage+REFrostedViewController.h */,
+				3FE178F619529FCA007AE6F6 /* UIImage+REFrostedViewController.m */,
+				3FE178F719529FCA007AE6F6 /* UIView+REFrostedViewController.h */,
+				3FE178F819529FCA007AE6F6 /* UIView+REFrostedViewController.m */,
+				3FE178F919529FCA007AE6F6 /* UIViewController+REFrostedViewController.h */,
+				3FE178FA19529FCA007AE6F6 /* UIViewController+REFrostedViewController.m */,
+			);
+			name = REFrostedViewController;
+			path = OutsideLibraries/REFrostedViewController;
+			sourceTree = "<group>";
+		};
+		3FE1790119529FDE007AE6F6 /* UserMenuViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3FE179021952A0F0007AE6F6 /* GPUserMenuViewController.h */,
+				3FE179031952A0F0007AE6F6 /* GPUserMenuViewController.m */,
+			);
+			name = UserMenuViewController;
 			sourceTree = "<group>";
 		};
 		C90E810118B94468004BF989 = {
@@ -525,19 +587,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				C962E40A194FFE65005A4895 /* WatchParty.m in Sources */,
+				3FE178FC19529FCA007AE6F6 /* REFrostedContainerViewController.m in Sources */,
+				3FE178FB19529FCA007AE6F6 /* RECommonFunctions.m in Sources */,
 				C90E811A18B94468004BF989 /* main.m in Sources */,
 				3FE178D819527F3A007AE6F6 /* UzysSMMenuItem.m in Sources */,
+				3FE178FF19529FCA007AE6F6 /* UIView+REFrostedViewController.m in Sources */,
 				C962E401194FF79E005A4895 /* AddEventViewController.m in Sources */,
 				C90E814B18B944D4004BF989 /* GPMapViewController.m in Sources */,
 				3F9B6DCD194E39DC00B2C3E0 /* AnimatedTransitioning.m in Sources */,
 				C962E404194FFC06005A4895 /* Event.m in Sources */,
+				3FE179071952A380007AE6F6 /* GPNavigationController.m in Sources */,
+				3FE1790019529FCA007AE6F6 /* UIViewController+REFrostedViewController.m in Sources */,
 				C962E407194FFD28005A4895 /* Tailgate.m in Sources */,
 				3FE178D719527F3A007AE6F6 /* UzysSlideMenu.m in Sources */,
+				3FE1790A1952AB5E007AE6F6 /* GPRootViewController.m in Sources */,
 				C90E814A18B944D4004BF989 /* GPFacebookLoginViewController.m in Sources */,
 				C962E40D194FFE7B005A4895 /* AfterParty.m in Sources */,
+				3FE178FE19529FCA007AE6F6 /* UIImage+REFrostedViewController.m in Sources */,
 				3FE178D919527F3A007AE6F6 /* UzysSMMenuItemView.m in Sources */,
+				3FE178FD19529FCA007AE6F6 /* REFrostedViewController.m in Sources */,
 				C90E816D18B94503004BF989 /* GPAppDelegate.m in Sources */,
 				3F9B6DCE194E39DC00B2C3E0 /* TransitionDelegate.m in Sources */,
+				3FE179041952A0F0007AE6F6 /* GPUserMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

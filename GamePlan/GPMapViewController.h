@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import <MapKit/MapKit.h>
 #import "GPFacebookLoginViewController.h"
+#import "REFrostedViewController.h"
 
 @interface GPMapViewController : UIViewController <CLLocationManagerDelegate>
 
@@ -21,5 +22,6 @@
 
 - (IBAction) showMenuPressed:(UIButton *)sender;
 - (IBAction) myLocationPressed:(UIButton *)sender;
+- (IBAction) userProfilePicturePressed:(UIButton *)sender;
 
 @end

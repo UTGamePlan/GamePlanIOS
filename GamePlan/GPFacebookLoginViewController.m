@@ -52,6 +52,8 @@
                                                              delegate:nil
                                                     cancelButtonTitle:@"OK"
                                                     otherButtonTitles:nil];
+            [message show];
+            
         } else {
             NSLog(@"User with facebook signed up and logged in!");
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
