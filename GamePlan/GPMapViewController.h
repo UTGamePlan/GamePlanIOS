@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *userProfileImageButton;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
-- (IBAction) showMenu:(UIButton *)sender;
+- (IBAction) showMenuPressed:(UIButton *)sender;
+- (IBAction) myLocationPressed:(UIButton *)sender;
 
 @end

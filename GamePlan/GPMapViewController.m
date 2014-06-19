@@ -8,12 +8,14 @@
 
 #import "GPMapViewController.h"
 #import "TransitionDelegate.h"
+#import "UzysSlideMenu.h"
 
 @interface GPMapViewController ()
 
 @property (nonatomic, strong) TransitionDelegate *transitionController;
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
+@property (nonatomic,strong) UzysSlideMenu *bottomBarMenu; //UzysSlideMenu is part of an outside library that we modified
 
 @end
 
@@ -41,7 +43,7 @@ int timeInSecondsSinceLocationSavedInParse;
     [self setUpLocationManager];
     [self loadEventPins];
     [self setProfilePhoto];
-    
+    [self initializeMenus];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -74,21 +76,17 @@ int timeInSecondsSinceLocationSavedInParse;
     [self.locationManager startUpdatingLocation];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    if(!(userLocationUpdatedOnce)) {
+        [self setUpMapRegionWithoutUserLocationData];
+    }
+}
+
 // handling the user's choice whether or not to allow us to use their location
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     if (status == kCLAuthorizationStatusDenied) {
-        userAllowedLocationTracking = NO;
-        // If user doesn't allow location permissions, then just zoom in on Bob Bullock
-        MKCoordinateRegion myRegion;
-        CLLocationCoordinate2D center;
-        center.latitude = BB_LAT;
-        center.longitude = BB_LONG;
-        MKCoordinateSpan span;
-        span.latitudeDelta = ZOOM;
-        span.longitudeDelta = ZOOM;
-        myRegion.center = center;
-        myRegion.span = span;
-        [self.mapView setRegion:myRegion animated:YES];
+        [self setUpMapRegionWithoutUserLocationData];
     }
     else if (status == kCLAuthorizationStatusAuthorized) {
         userAllowedLocationTracking = YES;
@@ -100,17 +98,7 @@ int timeInSecondsSinceLocationSavedInParse;
 {
     self.currentLocation = [locations lastObject];
     if(!(userLocationUpdatedOnce)) {
-        MKCoordinateRegion myRegion;
-        CLLocationCoordinate2D center;
-        center.latitude = self.currentLocation.coordinate.latitude;
-        center.longitude = self.currentLocation.coordinate.longitude;
-        MKCoordinateSpan span;
-        span.latitudeDelta = ZOOM;
-        span.longitudeDelta = ZOOM;
-        myRegion.center = center;
-        myRegion.span = span;
-        [self.mapView setRegion:myRegion animated:YES];
-        [self.mapView setShowsUserLocation:YES];
+        [self zoomInOnUserLocation];
         userLocationUpdatedOnce = YES;
     }
     if (timeInSecondsSinceLocationSavedInParse > 60) {
@@ -122,9 +110,47 @@ int timeInSecondsSinceLocationSavedInParse;
     timeInSecondsSinceLocationSavedInParse++;
 }
 
-- (IBAction) showMenu:(UIButton *)sender
+-(void)setUpMapRegionWithoutUserLocationData
 {
-    
+    userAllowedLocationTracking = NO;
+    // If user doesn't allow location permissions, then just zoom in on Bob Bullock
+    MKCoordinateRegion myRegion;
+    CLLocationCoordinate2D center;
+    center.latitude = BB_LAT;
+    center.longitude = BB_LONG;
+    MKCoordinateSpan span;
+    span.latitudeDelta = ZOOM;
+    span.longitudeDelta = ZOOM;
+    myRegion.center = center;
+    myRegion.span = span;
+    [self.mapView setRegion:myRegion animated:YES];
+}
+
+-(void)zoomInOnUserLocation
+{
+    MKCoordinateRegion myRegion;
+    CLLocationCoordinate2D center;
+    center.latitude = self.currentLocation.coordinate.latitude;
+    center.longitude = self.currentLocation.coordinate.longitude;
+    MKCoordinateSpan span;
+    span.latitudeDelta = ZOOM;
+    span.longitudeDelta = ZOOM;
+    myRegion.center = center;
+    myRegion.span = span;
+    [self.mapView setRegion:myRegion animated:YES];
+    [self.mapView setShowsUserLocation:YES];
+}
+
+#pragma mark - Bottom Bar Buttons
+
+- (IBAction) showMenuPressed:(UIButton *)sender
+{
+    [self.bottomBarMenu toggleMenu];
+}
+
+- (IBAction) myLocationPressed:(UIButton *)sender
+{
+    [self zoomInOnUserLocation];
 }
 
 
@@ -179,7 +205,30 @@ int timeInSecondsSinceLocationSavedInParse;
     [self.userProfileImageButton setBackgroundImage:userProfileImage forState:UIControlStateNormal];
 }
 
+-(void) initializeMenus
+{
+    UzysSMMenuItem *item0 = [[UzysSMMenuItem alloc] initWithTitle:@"Add Event" image:[UIImage imageNamed:@"plus.png"] action:^(UzysSMMenuItem *item) {
+       // implement adding an event here
+    }];
+    
+    UzysSMMenuItem *item1 = [[UzysSMMenuItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"gear.png"] action:^(UzysSMMenuItem *item) {
+        // present settings view controller here
+    }];
+    UzysSMMenuItem *item2 = [[UzysSMMenuItem alloc] initWithTitle:@"FAQ" image:[UIImage imageNamed:@"question-mark.png"] action:^(UzysSMMenuItem *item) {
+        // present FAQ view controller here (probably best to do a UIWebView and put this online for ease of updating)
+    }];
+    item0.tag = 1;
+    item1.tag = 1;
+    item2.tag = 2;
+    
+    NSInteger contentAboveHeight = self.view.frame.size.height-(3.0*45.0+44.0); //height of three menu items and our bottom bar
+    
+    self.bottomBarMenu = [[UzysSlideMenu alloc] initWithItems:@[item0,item1,item2]];
+    self.bottomBarMenu.frame = CGRectMake(self.bottomBarMenu.frame.origin.x, self.bottomBarMenu.frame.origin.y+ contentAboveHeight, self.bottomBarMenu.frame.size.width, self.bottomBarMenu.frame.size.height);
+    
+    [self.view addSubview:self.bottomBarMenu];
 
+}
 
 
 

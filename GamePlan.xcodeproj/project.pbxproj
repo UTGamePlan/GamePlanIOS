@@ -19,6 +19,13 @@
 		3F9B6DDE194E415600B2C3E0 /* GPLettering@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B6DDC194E415600B2C3E0 /* GPLettering@2x.png */; };
 		3F9B6DE1194E42DE00B2C3E0 /* app_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B6DDF194E42DE00B2C3E0 /* app_icon.png */; };
 		3F9B6DE2194E42DE00B2C3E0 /* app_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B6DE0194E42DE00B2C3E0 /* app_icon@2x.png */; };
+		3FE178D719527F3A007AE6F6 /* UzysSlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178D119527F3A007AE6F6 /* UzysSlideMenu.m */; };
+		3FE178D819527F3A007AE6F6 /* UzysSMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178D319527F3A007AE6F6 /* UzysSMMenuItem.m */; };
+		3FE178D919527F3A007AE6F6 /* UzysSMMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178D519527F3A007AE6F6 /* UzysSMMenuItemView.m */; };
+		3FE178DA19527F3A007AE6F6 /* UzysSMMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FE178D619527F3A007AE6F6 /* UzysSMMenuItemView.xib */; };
+		3FE178EB19529BEF007AE6F6 /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE178E819529BEF007AE6F6 /* gear@2x.png */; };
+		3FE178EC19529BEF007AE6F6 /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE178E919529BEF007AE6F6 /* plus@2x.png */; };
+		3FE178ED19529BEF007AE6F6 /* question-mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE178EA19529BEF007AE6F6 /* question-mark@2x.png */; };
 		3FF48341194D7CAC00C05DF5 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF48340194D7CAC00C05DF5 /* Parse.framework */; };
 		3FF48343194D7CE200C05DF5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF48342194D7CE200C05DF5 /* FacebookSDK.framework */; };
 		C90E810E18B94468004BF989 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E810D18B94468004BF989 /* Foundation.framework */; };
@@ -81,6 +88,17 @@
 		3F9B6DDC194E415600B2C3E0 /* GPLettering@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GPLettering@2x.png"; sourceTree = "<group>"; };
 		3F9B6DDF194E42DE00B2C3E0 /* app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon.png; sourceTree = "<group>"; };
 		3F9B6DE0194E42DE00B2C3E0 /* app_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon@2x.png"; sourceTree = "<group>"; };
+		3FE178CF19527F3A007AE6F6 /* ARCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCHelper.h; sourceTree = "<group>"; };
+		3FE178D019527F3A007AE6F6 /* UzysSlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysSlideMenu.h; sourceTree = "<group>"; };
+		3FE178D119527F3A007AE6F6 /* UzysSlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysSlideMenu.m; sourceTree = "<group>"; };
+		3FE178D219527F3A007AE6F6 /* UzysSMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysSMMenuItem.h; sourceTree = "<group>"; };
+		3FE178D319527F3A007AE6F6 /* UzysSMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysSMMenuItem.m; sourceTree = "<group>"; };
+		3FE178D419527F3A007AE6F6 /* UzysSMMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysSMMenuItemView.h; sourceTree = "<group>"; };
+		3FE178D519527F3A007AE6F6 /* UzysSMMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysSMMenuItemView.m; sourceTree = "<group>"; };
+		3FE178D619527F3A007AE6F6 /* UzysSMMenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UzysSMMenuItemView.xib; sourceTree = "<group>"; };
+		3FE178E819529BEF007AE6F6 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear@2x.png"; sourceTree = "<group>"; };
+		3FE178E919529BEF007AE6F6 /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
+		3FE178EA19529BEF007AE6F6 /* question-mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "question-mark@2x.png"; sourceTree = "<group>"; };
 		3FF48340194D7CAC00C05DF5 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = GamePlan/Parse.framework; sourceTree = "<group>"; };
 		3FF48342194D7CE200C05DF5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = GamePlan/FacebookSDK.framework; sourceTree = "<group>"; };
 		C90E810A18B94468004BF989 /* GamePlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamePlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +185,9 @@
 		3F62518E1951464B00D24EE8 /* MapViewController */ = {
 			isa = PBXGroup;
 			children = (
+				3FE178E819529BEF007AE6F6 /* gear@2x.png */,
+				3FE178E919529BEF007AE6F6 /* plus@2x.png */,
+				3FE178EA19529BEF007AE6F6 /* question-mark@2x.png */,
 				3F62518A1951463C00D24EE8 /* default_profile.jpg */,
 				3F62518B1951463C00D24EE8 /* default_profile@2x.jpg */,
 			);
@@ -203,6 +224,7 @@
 		3F9B6DE4194E4BBE00B2C3E0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3FE178CD19527F24007AE6F6 /* Ouside Libraries */,
 				C962E40E194FFF2A005A4895 /* Events */,
 				C90E816B18B94503004BF989 /* GPAppDelegate.h */,
 				C90E816C18B94503004BF989 /* GPAppDelegate.m */,
@@ -236,6 +258,30 @@
 				C90E814318B944D4004BF989 /* GPFacebookLoginViewController.m */,
 			);
 			name = FBLoginViewController;
+			sourceTree = "<group>";
+		};
+		3FE178CD19527F24007AE6F6 /* Ouside Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				3FE178CE19527F3A007AE6F6 /* UzysSlideMenu */,
+			);
+			name = "Ouside Libraries";
+			sourceTree = "<group>";
+		};
+		3FE178CE19527F3A007AE6F6 /* UzysSlideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				3FE178CF19527F3A007AE6F6 /* ARCHelper.h */,
+				3FE178D019527F3A007AE6F6 /* UzysSlideMenu.h */,
+				3FE178D119527F3A007AE6F6 /* UzysSlideMenu.m */,
+				3FE178D219527F3A007AE6F6 /* UzysSMMenuItem.h */,
+				3FE178D319527F3A007AE6F6 /* UzysSMMenuItem.m */,
+				3FE178D419527F3A007AE6F6 /* UzysSMMenuItemView.h */,
+				3FE178D519527F3A007AE6F6 /* UzysSMMenuItemView.m */,
+				3FE178D619527F3A007AE6F6 /* UzysSMMenuItemView.xib */,
+			);
+			name = UzysSlideMenu;
+			path = OutsideLibraries/UzysSlideMenu;
 			sourceTree = "<group>";
 		};
 		C90E810118B94468004BF989 = {
@@ -440,12 +486,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F9B6DDE194E415600B2C3E0 /* GPLettering@2x.png in Resources */,
+				3FE178EB19529BEF007AE6F6 /* gear@2x.png in Resources */,
 				3F9B6DE2194E42DE00B2C3E0 /* app_icon@2x.png in Resources */,
 				C90E815F18B944E2004BF989 /* FB_Button_Down@2x.png in Resources */,
 				3F9B6DDA194E413B00B2C3E0 /* logo@2x.png in Resources */,
 				C90E812618B94468004BF989 /* Images.xcassets in Resources */,
 				3F9B6DE1194E42DE00B2C3E0 /* app_icon.png in Resources */,
+				3FE178ED19529BEF007AE6F6 /* question-mark@2x.png in Resources */,
 				3F62518C1951463C00D24EE8 /* default_profile.jpg in Resources */,
+				3FE178DA19527F3A007AE6F6 /* UzysSMMenuItemView.xib in Resources */,
 				C90E811818B94468004BF989 /* InfoPlist.strings in Resources */,
 				C90E812118B94468004BF989 /* Main.storyboard in Resources */,
 				3F6251901951546B00D24EE8 /* jeremyDorm.gpx in Resources */,
@@ -453,6 +502,7 @@
 				3F9B6DD9194E413B00B2C3E0 /* logo.png in Resources */,
 				C90E816018B944E2004BF989 /* FB_Button_Up.png in Resources */,
 				C90E816118B944E2004BF989 /* FB_Button_Up@2x.png in Resources */,
+				3FE178EC19529BEF007AE6F6 /* plus@2x.png in Resources */,
 				3F62518D1951463C00D24EE8 /* default_profile@2x.jpg in Resources */,
 				3F9B6DD2194E3D4500B2C3E0 /* burnt_orange.jpeg in Resources */,
 				3F9B6DDD194E415600B2C3E0 /* GPLettering.png in Resources */,
@@ -476,13 +526,16 @@
 			files = (
 				C962E40A194FFE65005A4895 /* WatchParty.m in Sources */,
 				C90E811A18B94468004BF989 /* main.m in Sources */,
+				3FE178D819527F3A007AE6F6 /* UzysSMMenuItem.m in Sources */,
 				C962E401194FF79E005A4895 /* AddEventViewController.m in Sources */,
 				C90E814B18B944D4004BF989 /* GPMapViewController.m in Sources */,
 				3F9B6DCD194E39DC00B2C3E0 /* AnimatedTransitioning.m in Sources */,
 				C962E404194FFC06005A4895 /* Event.m in Sources */,
 				C962E407194FFD28005A4895 /* Tailgate.m in Sources */,
+				3FE178D719527F3A007AE6F6 /* UzysSlideMenu.m in Sources */,
 				C90E814A18B944D4004BF989 /* GPFacebookLoginViewController.m in Sources */,
 				C962E40D194FFE7B005A4895 /* AfterParty.m in Sources */,
+				3FE178D919527F3A007AE6F6 /* UzysSMMenuItemView.m in Sources */,
 				C90E816D18B94503004BF989 /* GPAppDelegate.m in Sources */,
 				3F9B6DCE194E39DC00B2C3E0 /* TransitionDelegate.m in Sources */,
 			);
