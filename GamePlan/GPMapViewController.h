@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <Parse/Parse.h>
+#import <MapKit/MapKit.h>
+#import "GPFacebookLoginViewController.h"
 
-@interface GPMapViewController : UIViewController
+@interface GPMapViewController : UIViewController <CLLocationManagerDelegate>
+
+@property (strong, nonatomic) UITableView *menuView;
+
+@property (strong, nonatomic) IBOutlet UIButton *userProfileImageButton;
+@property (strong, nonatomic) IBOutlet MKMapView *mapView;
+
+- (IBAction) showMenuPressed:(UIButton *)sender;
+- (IBAction) myLocationPressed:(UIButton *)sender;
 
 @end

@@ -59,15 +59,94 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="baRy9.png" translatesAutoresizingMaskIntoConstraints="NO" id="YPK-PI-V3Q">
+                            <mapView appearanceType="aqua" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xis-EO-bMT">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </mapView>
+                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="burnt_orange.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="e2A-kK-YYV">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="burnt_orange.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="ndz-dN-4Wg">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gAE-RT-Icv">
+                                <rect key="frame" x="20" y="531" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Menu">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showMenuPressed:" destination="rft-fV-lzv" eventType="touchUpInside" id="3He-u8-Tun"/>
+                                </connections>
+                            </button>
+                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wZ-Ag-tk1">
+                                <rect key="frame" x="76" y="531" width="91" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="My Location">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="myLocationPressed:" destination="rft-fV-lzv" eventType="touchUpInside" id="iCY-Ru-6aH"/>
+                                </connections>
+                            </button>
+                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Py7-ct-TNN">
+                                <rect key="frame" x="178" y="531" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Filter">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgf-aP-trf">
+                                <rect key="frame" x="242" y="531" width="58" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Refresh">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTX-1G-zm2">
+                                <rect key="frame" x="270" y="20" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <searchBar appearanceType="aqua" contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="0IN-Ke-fos">
+                                <rect key="frame" x="0.0" y="18" width="270" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="rft-fV-lzv" id="eFW-Sg-wTh"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="xis-EO-bMT" id="8Kt-mK-2Sb"/>
+                        <outlet property="searchDisplayController" destination="EMM-hb-4OQ" id="SJq-9J-F6S"/>
+                        <outlet property="userProfileImageButton" destination="UTX-1G-zm2" id="EIB-fp-93a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5XN-Zt-9JM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Nq4-Y4-X2S">
+                    <connections>
+                        <outlet property="delegate" destination="rft-fV-lzv" id="7qB-RH-fHx"/>
+                        <outlet property="searchContentsController" destination="rft-fV-lzv" id="NL8-Q2-yGY"/>
+                        <outlet property="searchResultsDataSource" destination="rft-fV-lzv" id="abX-y4-xoh"/>
+                        <outlet property="searchResultsDelegate" destination="rft-fV-lzv" id="cnl-pP-CQR"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="EMM-hb-4OQ">
+                    <connections>
+                        <outlet property="delegate" destination="rft-fV-lzv" id="5uF-Zb-AlA"/>
+                        <outlet property="searchBar" destination="0IN-Ke-fos" id="FTN-a8-qS2"/>
+                        <outlet property="searchContentsController" destination="rft-fV-lzv" id="uZk-qL-2ui"/>
+                        <outlet property="searchResultsDataSource" destination="rft-fV-lzv" id="lZv-4x-yge"/>
+                        <outlet property="searchResultsDelegate" destination="rft-fV-lzv" id="BvA-NH-XZm"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1005" y="-2145"/>
         </scene>
@@ -76,7 +155,6 @@
         <image name="FB_Button_Down.png" width="251" height="55"/>
         <image name="FB_Button_Up.png" width="251" height="55"/>
         <image name="GPLettering.png" width="200" height="43"/>
-        <image name="baRy9.png" width="640" height="1136"/>
         <image name="burnt_orange.jpeg" width="100" height="100"/>
         <image name="logo.png" width="175" height="386"/>
     </resources>

@@ -12,6 +12,8 @@
 #import "GPMapViewController.h"
 
 @interface GPFacebookLoginViewController : UIViewController
+
 - (IBAction)loginButtonTouchHandler:(id)sender;
+@property (nonatomic, strong) UIButton *userProfilePictureButtonForMapViewController;
 
 @end
