@@ -63,7 +63,35 @@ int timeInSecondsSinceLocationSavedInParse;
         [facebookLoginViewController setTransitioningDelegate:transitionController];
         facebookLoginViewController.modalPresentationStyle= UIModalPresentationCustom;
         [self presentViewController:facebookLoginViewController animated:YES completion:nil];
+    } else {
+        [self presentMenuBars];
     }
+}
+
+-(void)presentMenuBars
+{
+    CGRect topBarFrame = self.topBar.frame;
+    CGRect searchBarFrame = self.searchBar.frame;
+    CGRect bottomBarFrame = self.bottomBar.frame;
+    CGRect menuButtonFrame = self.menuButton.frame;
+    CGRect filterButtonFrame = self.filterButton.frame;
+    CGRect refreshButtonFrame = self.refreshButton.frame;
+    CGRect profileImageButtonFrame = self.userProfileImageButton.frame;
+    
+    [UIView beginAnimations:@"raise filterView!" context:nil];
+    [UIView setAnimationDuration:.3];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    [self.topBar setFrame:CGRectMake(topBarFrame.origin.x, self.view.frame.origin.y, topBarFrame.size.width, topBarFrame.size.height)];
+    [self.searchBar setFrame:CGRectMake(searchBarFrame.origin.x, self.view.frame.origin.y-searchBarFrame.size.height, searchBarFrame.size.width, searchBarFrame.size.height)];
+    [self.bottomBar setFrame:CGRectMake(bottomBarFrame.origin.x, self.view.frame.size.height, bottomBarFrame.size.width, bottomBarFrame.size.height)];
+    [self.menuButton setFrame:CGRectMake(menuButtonFrame.origin.x, self.view.frame.size.height, menuButtonFrame.size.width, menuButtonFrame.size.height)];
+    CGRect myLocationButtonFrame = self.myLocationButton.frame;
+    [self.myLocationButton setFrame:CGRectMake(myLocationButtonFrame.origin.x, self.view.frame.size.height, myLocationButtonFrame.size.width, myLocationButtonFrame.size.height)];
+    [self.filterButton setFrame:CGRectMake(filterButtonFrame.origin.x, self.view.frame.size.height, filterButtonFrame.size.width, filterButtonFrame.size.height)];
+    [self.refreshButton setFrame:CGRectMake(refreshButtonFrame.origin.x, self.view.frame.size.height, refreshButtonFrame.size.width, refreshButtonFrame.size.height)];
+    
+    [UIView commitAnimations];
 }
 
 #pragma mark - User Location
@@ -223,6 +251,7 @@ int timeInSecondsSinceLocationSavedInParse;
 {
     [self.view endEditing:YES];
     [self.frostedViewController.view endEditing:YES];
+    self.frostedViewController.direction = REFrostedViewControllerDirectionRight;
 
     [self.frostedViewController presentMenuViewController];
 }
