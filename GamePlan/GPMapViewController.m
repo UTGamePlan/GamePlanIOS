@@ -90,6 +90,7 @@ int timeInSecondsSinceLocationSavedInParse;
     [self.myLocationButton setFrame:CGRectMake(myLocationButtonFrame.origin.x, self.view.frame.size.height, myLocationButtonFrame.size.width, myLocationButtonFrame.size.height)];
     [self.filterButton setFrame:CGRectMake(filterButtonFrame.origin.x, self.view.frame.size.height, filterButtonFrame.size.width, filterButtonFrame.size.height)];
     [self.refreshButton setFrame:CGRectMake(refreshButtonFrame.origin.x, self.view.frame.size.height, refreshButtonFrame.size.width, refreshButtonFrame.size.height)];
+    [self.userProfileImageButton setFrame:CGRectMake(profileImageButtonFrame.origin.x, self.view.frame.size.height, profileImageButtonFrame.size.width, profileImageButtonFrame.size.height)];
     
     [UIView commitAnimations];
 }
