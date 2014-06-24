@@ -59,6 +59,13 @@ int timeInSecondsSinceLocationSavedInParse;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         GPFacebookLoginViewController *facebookLoginViewController = [storyboard instantiateViewControllerWithIdentifier:@"FBLogin"];
         facebookLoginViewController.userProfilePictureButtonForMapViewController = self.userProfileImageButton;
+        facebookLoginViewController.topBarForMapViewController = self.topBar;
+        facebookLoginViewController.bottomBarForMapViewController = self.bottomBar;
+        facebookLoginViewController.searchBarForMapViewController = self.searchBar;
+        facebookLoginViewController.menuButtonForMapViewController = self.menuButton;
+        facebookLoginViewController.myLocationButtonForMapViewController = self.myLocationButton;
+        facebookLoginViewController.filterButtonForMapViewController = self.filterButton;
+        facebookLoginViewController.refreshButtonForMapViewController = self.refreshButton;
         facebookLoginViewController.view.backgroundColor = [UIColor clearColor];
         [facebookLoginViewController setTransitioningDelegate:transitionController];
         facebookLoginViewController.modalPresentationStyle= UIModalPresentationCustom;
@@ -76,21 +83,23 @@ int timeInSecondsSinceLocationSavedInParse;
     CGRect menuButtonFrame = self.menuButton.frame;
     CGRect filterButtonFrame = self.filterButton.frame;
     CGRect refreshButtonFrame = self.refreshButton.frame;
+    CGRect myLocationButtonFrame = self.myLocationButton.frame;
     CGRect profileImageButtonFrame = self.userProfileImageButton.frame;
     
     [UIView beginAnimations:@"raise filterView!" context:nil];
-    [UIView setAnimationDuration:.3];
+    [UIView setAnimationDuration:.5];
     [UIView setAnimationBeginsFromCurrentState:YES];
     
     [self.topBar setFrame:CGRectMake(topBarFrame.origin.x, self.view.frame.origin.y, topBarFrame.size.width, topBarFrame.size.height)];
-    [self.searchBar setFrame:CGRectMake(searchBarFrame.origin.x, self.view.frame.origin.y-searchBarFrame.size.height, searchBarFrame.size.width, searchBarFrame.size.height)];
-    [self.bottomBar setFrame:CGRectMake(bottomBarFrame.origin.x, self.view.frame.size.height, bottomBarFrame.size.width, bottomBarFrame.size.height)];
-    [self.menuButton setFrame:CGRectMake(menuButtonFrame.origin.x, self.view.frame.size.height, menuButtonFrame.size.width, menuButtonFrame.size.height)];
-    CGRect myLocationButtonFrame = self.myLocationButton.frame;
-    [self.myLocationButton setFrame:CGRectMake(myLocationButtonFrame.origin.x, self.view.frame.size.height, myLocationButtonFrame.size.width, myLocationButtonFrame.size.height)];
-    [self.filterButton setFrame:CGRectMake(filterButtonFrame.origin.x, self.view.frame.size.height, filterButtonFrame.size.width, filterButtonFrame.size.height)];
-    [self.refreshButton setFrame:CGRectMake(refreshButtonFrame.origin.x, self.view.frame.size.height, refreshButtonFrame.size.width, refreshButtonFrame.size.height)];
-    [self.userProfileImageButton setFrame:CGRectMake(profileImageButtonFrame.origin.x, self.view.frame.size.height, profileImageButtonFrame.size.width, profileImageButtonFrame.size.height)];
+    [self.searchBar setFrame:CGRectMake(searchBarFrame.origin.x, 18.0, searchBarFrame.size.width, searchBarFrame.size.height)];
+    [self.bottomBar setFrame:CGRectMake(bottomBarFrame.origin.x, self.view.frame.size.height-bottomBarFrame.size.height, bottomBarFrame.size.width, bottomBarFrame.size.height)];
+    bottomBarFrame = self.bottomBar.frame;
+    float newButtonYVal = bottomBarFrame.origin.y + 0.5*(bottomBarFrame.size.height - menuButtonFrame.size.height);
+    [self.menuButton setFrame:CGRectMake(menuButtonFrame.origin.x, newButtonYVal, menuButtonFrame.size.width, menuButtonFrame.size.height)];
+    [self.myLocationButton setFrame:CGRectMake(myLocationButtonFrame.origin.x, newButtonYVal, myLocationButtonFrame.size.width, myLocationButtonFrame.size.height)];
+    [self.filterButton setFrame:CGRectMake(filterButtonFrame.origin.x, newButtonYVal, filterButtonFrame.size.width, filterButtonFrame.size.height)];
+    [self.refreshButton setFrame:CGRectMake(refreshButtonFrame.origin.x, newButtonYVal, refreshButtonFrame.size.width, refreshButtonFrame.size.height)];
+    [self.userProfileImageButton setFrame:CGRectMake(profileImageButtonFrame.origin.x, 20, profileImageButtonFrame.size.width, profileImageButtonFrame.size.height)];
     
     [UIView commitAnimations];
 }
