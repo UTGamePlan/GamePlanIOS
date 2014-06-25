@@ -7,6 +7,10 @@
 //
 
 #import "GPAppDelegate.h"
+#import "Event.h"
+#import "Tailgate.h"
+#import "WatchParty.h"
+#import "AfterParty.h"
 
 @implementation GPAppDelegate
 
@@ -32,6 +36,11 @@
     [Parse setApplicationId:@"DrHrpL0Bikli0kNhTEBs6SQ7YvxQG1RfiFQGSosN" clientKey:@"EUWx7bvy66G0zg6f3GuHmqwLlI3gvVSlNRNr6kAe"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     [PFFacebookUtils initializeFacebook];
+    [Event registerSubclass];
+    [Tailgate registerSubclass];
+    [WatchParty registerSubclass];
+    [AfterParty registerSubclass];
+    
     
     return YES;
 }
