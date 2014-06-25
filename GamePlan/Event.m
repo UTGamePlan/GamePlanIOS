@@ -10,7 +10,15 @@
 
 @implementation Event
 
-@dynamic geoPoint, eventName, desc, ownerId, privacy, startTime, endTime;
+@dynamic isPublicEvent, friendsCanInvite, geoPoint, eventName, desc, ownerId, startTime, endTime;
+
+
+
+
++ (NSString *) parseClassName
+{
+    return @"Event";
+}
 
 - (CLLocationCoordinate2D) coordinate
 {

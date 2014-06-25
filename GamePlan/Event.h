@@ -8,6 +8,7 @@
 
 #import <Parse/Parse.h>
 #import <MapKit/MapKit.h>
+#import <Parse/PFObject+Subclass.h>
 
 @interface Event : PFObject <PFSubclassing, MKAnnotation>
 
@@ -15,7 +16,8 @@
 @property (nonatomic, strong) NSString *eventName;
 @property (nonatomic, strong) NSString *desc;
 @property (nonatomic, strong) NSString *ownerId;
-@property (nonatomic, strong) NSString *privacy;
+@property (nonatomic) BOOL isPublicEvent;
+@property (nonatomic) BOOL friendsCanInvite;
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSDate *endTime;
 
