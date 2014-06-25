@@ -37,6 +37,8 @@ int timeInSecondsSinceLocationSavedInParse;
 {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.hidden = YES;
+    
     // This is what allows us to pop transluscent modals
     self.transitionController = [[TransitionDelegate alloc] init];
     
@@ -57,11 +59,49 @@ int timeInSecondsSinceLocationSavedInParse;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         GPFacebookLoginViewController *facebookLoginViewController = [storyboard instantiateViewControllerWithIdentifier:@"FBLogin"];
         facebookLoginViewController.userProfilePictureButtonForMapViewController = self.userProfileImageButton;
+        facebookLoginViewController.topBarForMapViewController = self.topBar;
+        facebookLoginViewController.bottomBarForMapViewController = self.bottomBar;
+        facebookLoginViewController.searchBarForMapViewController = self.searchBar;
+        facebookLoginViewController.menuButtonForMapViewController = self.menuButton;
+        facebookLoginViewController.myLocationButtonForMapViewController = self.myLocationButton;
+        facebookLoginViewController.filterButtonForMapViewController = self.filterButton;
+        facebookLoginViewController.refreshButtonForMapViewController = self.refreshButton;
         facebookLoginViewController.view.backgroundColor = [UIColor clearColor];
         [facebookLoginViewController setTransitioningDelegate:transitionController];
         facebookLoginViewController.modalPresentationStyle= UIModalPresentationCustom;
         [self presentViewController:facebookLoginViewController animated:YES completion:nil];
+    } else {
+        [self presentMenuBars];
     }
+}
+
+-(void)presentMenuBars
+{
+    CGRect topBarFrame = self.topBar.frame;
+    CGRect searchBarFrame = self.searchBar.frame;
+    CGRect bottomBarFrame = self.bottomBar.frame;
+    CGRect menuButtonFrame = self.menuButton.frame;
+    CGRect filterButtonFrame = self.filterButton.frame;
+    CGRect refreshButtonFrame = self.refreshButton.frame;
+    CGRect myLocationButtonFrame = self.myLocationButton.frame;
+    CGRect profileImageButtonFrame = self.userProfileImageButton.frame;
+    
+    [UIView beginAnimations:@"raise filterView!" context:nil];
+    [UIView setAnimationDuration:.5];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    [self.topBar setFrame:CGRectMake(topBarFrame.origin.x, self.view.frame.origin.y, topBarFrame.size.width, topBarFrame.size.height)];
+    [self.searchBar setFrame:CGRectMake(searchBarFrame.origin.x, 18.0, searchBarFrame.size.width, searchBarFrame.size.height)];
+    [self.bottomBar setFrame:CGRectMake(bottomBarFrame.origin.x, self.view.frame.size.height-bottomBarFrame.size.height, bottomBarFrame.size.width, bottomBarFrame.size.height)];
+    bottomBarFrame = self.bottomBar.frame;
+    float newButtonYVal = bottomBarFrame.origin.y + 0.5*(bottomBarFrame.size.height - menuButtonFrame.size.height);
+    [self.menuButton setFrame:CGRectMake(menuButtonFrame.origin.x, newButtonYVal, menuButtonFrame.size.width, menuButtonFrame.size.height)];
+    [self.myLocationButton setFrame:CGRectMake(myLocationButtonFrame.origin.x, newButtonYVal, myLocationButtonFrame.size.width, myLocationButtonFrame.size.height)];
+    [self.filterButton setFrame:CGRectMake(filterButtonFrame.origin.x, newButtonYVal, filterButtonFrame.size.width, filterButtonFrame.size.height)];
+    [self.refreshButton setFrame:CGRectMake(refreshButtonFrame.origin.x, newButtonYVal, refreshButtonFrame.size.width, refreshButtonFrame.size.height)];
+    [self.userProfileImageButton setFrame:CGRectMake(profileImageButtonFrame.origin.x, 20, profileImageButtonFrame.size.width, profileImageButtonFrame.size.height)];
+    
+    [UIView commitAnimations];
 }
 
 #pragma mark - User Location
@@ -148,6 +188,30 @@ int timeInSecondsSinceLocationSavedInParse;
     [self.bottomBarMenu toggleMenu];
 }
 
+-(void) initializeMenus
+{
+    UzysSMMenuItem *item0 = [[UzysSMMenuItem alloc] initWithTitle:@"Add Event" image:[UIImage imageNamed:@"plus.png"] action:^(UzysSMMenuItem *item) {
+        // implement adding an event here
+    }];
+    
+    UzysSMMenuItem *item1 = [[UzysSMMenuItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"gear.png"] action:^(UzysSMMenuItem *item) {
+        // present settings view controller here
+    }];
+    UzysSMMenuItem *item2 = [[UzysSMMenuItem alloc] initWithTitle:@"FAQ" image:[UIImage imageNamed:@"question-mark.png"] action:^(UzysSMMenuItem *item) {
+        // present FAQ view controller here (probably best to do a UIWebView and put this online for ease of updating)
+    }];
+    item0.tag = 0;
+    item1.tag = 1;
+    item2.tag = 2;
+    
+    NSInteger contentAboveHeight = self.view.frame.size.height-(3.0*45.0+44.0); //height of three menu items and our bottom bar
+    
+    self.bottomBarMenu = [[UzysSlideMenu alloc] initWithItems:@[item0,item1,item2]];
+    self.bottomBarMenu.frame = CGRectMake(self.bottomBarMenu.frame.origin.x, self.bottomBarMenu.frame.origin.y+ contentAboveHeight, self.bottomBarMenu.frame.size.width, self.bottomBarMenu.frame.size.height);
+    
+    [self.view addSubview:self.bottomBarMenu];
+}
+
 - (IBAction) myLocationPressed:(UIButton *)sender
 {
     [self zoomInOnUserLocation];
@@ -191,6 +255,17 @@ int timeInSecondsSinceLocationSavedInParse;
 
 }
 
+#pragma mark - User Profile Photo Button
+
+- (IBAction) userProfilePicturePressed:(UIButton *)sender
+{
+    [self.view endEditing:YES];
+    [self.frostedViewController.view endEditing:YES];
+    self.frostedViewController.direction = REFrostedViewControllerDirectionRight;
+
+    [self.frostedViewController presentMenuViewController];
+}
+
 -(void) setProfilePhoto
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -204,38 +279,5 @@ int timeInSecondsSinceLocationSavedInParse;
     }
     [self.userProfileImageButton setBackgroundImage:userProfileImage forState:UIControlStateNormal];
 }
-
--(void) initializeMenus
-{
-    UzysSMMenuItem *item0 = [[UzysSMMenuItem alloc] initWithTitle:@"Add Event" image:[UIImage imageNamed:@"plus.png"] action:^(UzysSMMenuItem *item) {
-       // implement adding an event here
-    }];
-    
-    UzysSMMenuItem *item1 = [[UzysSMMenuItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"gear.png"] action:^(UzysSMMenuItem *item) {
-        // present settings view controller here
-    }];
-    UzysSMMenuItem *item2 = [[UzysSMMenuItem alloc] initWithTitle:@"FAQ" image:[UIImage imageNamed:@"question-mark.png"] action:^(UzysSMMenuItem *item) {
-        // present FAQ view controller here (probably best to do a UIWebView and put this online for ease of updating)
-    }];
-    item0.tag = 1;
-    item1.tag = 1;
-    item2.tag = 2;
-    
-    NSInteger contentAboveHeight = self.view.frame.size.height-(3.0*45.0+44.0); //height of three menu items and our bottom bar
-    
-    self.bottomBarMenu = [[UzysSlideMenu alloc] initWithItems:@[item0,item1,item2]];
-    self.bottomBarMenu.frame = CGRectMake(self.bottomBarMenu.frame.origin.x, self.bottomBarMenu.frame.origin.y+ contentAboveHeight, self.bottomBarMenu.frame.size.width, self.bottomBarMenu.frame.size.height);
-    
-    [self.view addSubview:self.bottomBarMenu];
-
-}
-
-
-
-
-
-
-
-
 
 @end

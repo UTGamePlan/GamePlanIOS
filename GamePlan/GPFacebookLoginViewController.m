@@ -52,6 +52,8 @@
                                                              delegate:nil
                                                     cancelButtonTitle:@"OK"
                                                     otherButtonTitles:nil];
+            [message show];
+            
         } else {
             NSLog(@"User with facebook signed up and logged in!");
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -101,10 +103,9 @@
                         // Set the profile picture button back on the map view screen
                         [self.userProfilePictureButtonForMapViewController setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[pictureURL absoluteString]]]] forState:UIControlStateNormal];
                     }
-                    NSLog(@"%@", pictureURL);
                     
                     [[PFUser currentUser] saveInBackground];
-                    
+                    [self presentMenuBarsOnMapViewController];
                 }
             }];
             
@@ -129,4 +130,34 @@
         }
     }];
 }
+
+-(void)presentMenuBarsOnMapViewController
+{
+    CGRect topBarFrame = self.topBarForMapViewController.frame;
+    CGRect searchBarFrame = self.searchBarForMapViewController.frame;
+    CGRect bottomBarFrame = self.bottomBarForMapViewController.frame;
+    CGRect menuButtonFrame = self.menuButtonForMapViewController.frame;
+    CGRect filterButtonFrame = self.filterButtonForMapViewController.frame;
+    CGRect refreshButtonFrame = self.refreshButtonForMapViewController.frame;
+    CGRect myLocationButtonFrame = self.myLocationButtonForMapViewController.frame;
+    CGRect profileImageButtonFrame = self.userProfilePictureButtonForMapViewController.frame;
+    
+    [UIView beginAnimations:@"raise filterView!" context:nil];
+    [UIView setAnimationDuration:.5];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    [self.topBarForMapViewController setFrame:CGRectMake(topBarFrame.origin.x, self.view.frame.origin.y, topBarFrame.size.width, topBarFrame.size.height)];
+    [self.searchBarForMapViewController setFrame:CGRectMake(searchBarFrame.origin.x, 18.0, searchBarFrame.size.width, searchBarFrame.size.height)];
+    [self.bottomBarForMapViewController setFrame:CGRectMake(bottomBarFrame.origin.x, self.view.frame.size.height-bottomBarFrame.size.height, bottomBarFrame.size.width, bottomBarFrame.size.height)];
+    bottomBarFrame = self.bottomBarForMapViewController.frame;
+    float newButtonYVal = bottomBarFrame.origin.y + 0.5*(bottomBarFrame.size.height - menuButtonFrame.size.height);
+    [self.menuButtonForMapViewController setFrame:CGRectMake(menuButtonFrame.origin.x, newButtonYVal, menuButtonFrame.size.width, menuButtonFrame.size.height)];
+    [self.myLocationButtonForMapViewController setFrame:CGRectMake(myLocationButtonFrame.origin.x, newButtonYVal, myLocationButtonFrame.size.width, myLocationButtonFrame.size.height)];
+    [self.filterButtonForMapViewController setFrame:CGRectMake(filterButtonFrame.origin.x, newButtonYVal, filterButtonFrame.size.width, filterButtonFrame.size.height)];
+    [self.refreshButtonForMapViewController setFrame:CGRectMake(refreshButtonFrame.origin.x, newButtonYVal, refreshButtonFrame.size.width, refreshButtonFrame.size.height)];
+    [self.userProfilePictureButtonForMapViewController setFrame:CGRectMake(profileImageButtonFrame.origin.x, 20, profileImageButtonFrame.size.width, profileImageButtonFrame.size.height)];
+    
+    [UIView commitAnimations];
+}
+
 @end

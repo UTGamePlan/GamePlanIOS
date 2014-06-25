@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Vw6-jo-1BP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="p5n-w5-YGI">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -269,11 +270,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t3H-DB-0WJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="399" y="-2130"/>
+        <!--Navigation Controller-->
+        <scene sceneID="nuN-r9-Cwg">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="JYd-Pp-M1D" customClass="GPNavigationController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="waa-Yk-edH">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="rft-fV-lzv" kind="relationship" relationship="rootViewController" id="peg-dH-R85"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mgO-hh-82L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="476" y="-2145"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="KWR-Ku-deF">
             <objects>
-                <viewController id="rft-fV-lzv" customClass="GPMapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapViewController" id="rft-fV-lzv" customClass="GPMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JTZ-iW-snz"/>
                         <viewControllerLayoutGuide type="bottom" id="o3b-KA-0fG"/>
@@ -286,16 +301,34 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
-                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="burnt_orange.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="e2A-kK-YYV">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="burnt_orange.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="ndz-dN-4Wg">
+                                <rect key="frame" x="0.0" y="-63" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="burnt_orange.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="ndz-dN-4Wg">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTX-1G-zm2">
+                                <rect key="frame" x="270" y="-43" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="userProfilePicturePressed:" destination="rft-fV-lzv" eventType="touchUpInside" id="0Y8-D6-r7P"/>
+                                </connections>
+                            </button>
+                            <searchBar appearanceType="aqua" contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="0IN-Ke-fos">
+                                <rect key="frame" x="0.0" y="-45" width="270" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="rft-fV-lzv" id="eFW-Sg-wTh"/>
+                                </connections>
+                            </searchBar>
+                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="burnt_orange.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="e2A-kK-YYV">
+                                <rect key="frame" x="0.0" y="567" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gAE-RT-Icv">
-                                <rect key="frame" x="20" y="531" width="48" height="30"/>
+                                <rect key="frame" x="20" y="574" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Menu">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -305,7 +338,7 @@
                                 </connections>
                             </button>
                             <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wZ-Ag-tk1">
-                                <rect key="frame" x="76" y="531" width="91" height="30"/>
+                                <rect key="frame" x="76" y="574" width="91" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="My Location">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -315,40 +348,33 @@
                                 </connections>
                             </button>
                             <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Py7-ct-TNN">
-                                <rect key="frame" x="178" y="531" width="46" height="30"/>
+                                <rect key="frame" x="178" y="574" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Filter">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgf-aP-trf">
-                                <rect key="frame" x="242" y="531" width="58" height="30"/>
+                                <rect key="frame" x="242" y="574" width="58" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Refresh">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTX-1G-zm2">
-                                <rect key="frame" x="270" y="20" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <searchBar appearanceType="aqua" contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="0IN-Ke-fos">
-                                <rect key="frame" x="0.0" y="18" width="270" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="rft-fV-lzv" id="eFW-Sg-wTh"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="cQA-Cj-7zN"/>
                     <connections>
+                        <outlet property="bottomBar" destination="e2A-kK-YYV" id="Vcj-0P-jfa"/>
+                        <outlet property="filterButton" destination="Py7-ct-TNN" id="tzh-lW-3o6"/>
                         <outlet property="mapView" destination="xis-EO-bMT" id="8Kt-mK-2Sb"/>
+                        <outlet property="menuButton" destination="gAE-RT-Icv" id="8H3-qI-p0V"/>
+                        <outlet property="myLocationButton" destination="9wZ-Ag-tk1" id="nhj-To-sNQ"/>
+                        <outlet property="refreshButton" destination="zgf-aP-trf" id="hho-Uz-xIj"/>
+                        <outlet property="searchBar" destination="0IN-Ke-fos" id="RfU-39-CKB"/>
                         <outlet property="searchDisplayController" destination="EMM-hb-4OQ" id="SJq-9J-F6S"/>
+                        <outlet property="topBar" destination="ndz-dN-4Wg" id="ydX-EQ-hOO"/>
                         <outlet property="userProfileImageButton" destination="UTX-1G-zm2" id="EIB-fp-93a"/>
                     </connections>
                 </viewController>
@@ -372,6 +398,52 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1005" y="-2145"/>
+        </scene>
+        <!--User Menu View Controller-->
+        <scene sceneID="e7z-Ly-DXc">
+            <objects>
+                <tableViewController restorationIdentifier="menuController" storyboardIdentifier="menuController" id="8Cw-wn-ePs" customClass="GPUserMenuViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yGw-gH-evF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="0K8-dk-eWz">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0K8-dk-eWz" id="Sst-rL-NmK">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="8Cw-wn-ePs" id="4Gt-Br-6eg"/>
+                            <outlet property="delegate" destination="8Cw-wn-ePs" id="M5T-zs-g1I"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ibC-FS-qwB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1393" y="-2145"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="ml5-sk-C4P">
+            <objects>
+                <viewController storyboardIdentifier="rootController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="p5n-w5-YGI" customClass="GPRootViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Yb9-cm-Vsb"/>
+                        <viewControllerLayoutGuide type="bottom" id="grp-04-UCt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Y06-3S-8KE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z3d-sH-SU3" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="28" y="-2145"/>
         </scene>
     </scenes>
     <resources>

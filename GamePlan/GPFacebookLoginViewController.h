@@ -15,5 +15,12 @@
 
 - (IBAction)loginButtonTouchHandler:(id)sender;
 @property (nonatomic, strong) UIButton *userProfilePictureButtonForMapViewController;
+@property (strong, nonatomic) IBOutlet UIImageView *topBarForMapViewController;
+@property (strong, nonatomic) IBOutlet UIImageView *bottomBarForMapViewController;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBarForMapViewController;
+@property (strong, nonatomic) IBOutlet UIButton *menuButtonForMapViewController;
+@property (strong, nonatomic) IBOutlet UIButton *myLocationButtonForMapViewController;
+@property (strong, nonatomic) IBOutlet UIButton *filterButtonForMapViewController;
+@property (strong, nonatomic) IBOutlet UIButton *refreshButtonForMapViewController;
 
 @end
