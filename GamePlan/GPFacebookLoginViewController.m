@@ -150,7 +150,7 @@
     [self.searchBarForMapViewController setFrame:CGRectMake(searchBarFrame.origin.x, 18.0, searchBarFrame.size.width, searchBarFrame.size.height)];
     [self.bottomBarForMapViewController setFrame:CGRectMake(bottomBarFrame.origin.x, self.view.frame.size.height-bottomBarFrame.size.height, bottomBarFrame.size.width, bottomBarFrame.size.height)];
     bottomBarFrame = self.bottomBarForMapViewController.frame;
-    float newButtonYVal = bottomBarFrame.origin.y + 0.5*(bottomBarFrame.size.height - menuButtonFrame.size.height);
+    float newButtonYVal = self.view.frame.size.height - 0.5*(bottomBarFrame.size.height - menuButtonFrame.size.height);
     [self.menuButtonForMapViewController setFrame:CGRectMake(menuButtonFrame.origin.x, newButtonYVal, menuButtonFrame.size.width, menuButtonFrame.size.height)];
     [self.myLocationButtonForMapViewController setFrame:CGRectMake(myLocationButtonFrame.origin.x, newButtonYVal, myLocationButtonFrame.size.width, myLocationButtonFrame.size.height)];
     [self.filterButtonForMapViewController setFrame:CGRectMake(filterButtonFrame.origin.x, newButtonYVal, filterButtonFrame.size.width, filterButtonFrame.size.height)];
