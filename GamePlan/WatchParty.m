@@ -36,7 +36,7 @@
 
 - (NSString *)title
 {
-    return self.eventName;
+    return self.name;
 }
 
 - (NSString *)subtitle

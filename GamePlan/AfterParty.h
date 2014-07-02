@@ -13,7 +13,7 @@
 @interface AfterParty : PFObject <PFSubclassing, MKAnnotation>
 
 @property (nonatomic, strong) PFGeoPoint *geoPoint;
-@property (nonatomic, strong) NSString *eventName;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *desc;
 @property (nonatomic, strong) NSString *ownerId;
 @property (nonatomic) BOOL isPublicEvent;

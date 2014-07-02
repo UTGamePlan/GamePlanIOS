@@ -10,7 +10,7 @@
 
 @implementation Event
 
-@dynamic isPublicEvent, friendsCanInvite, geoPoint, eventName, desc, ownerId, startTime, endTime;
+@dynamic isPublicEvent, friendsCanInvite, geoPoint, name, desc, ownerId, startTime, endTime;
 
 
 
@@ -41,7 +41,7 @@
 
 - (NSString *)title
 {
-    return self.eventName;
+    return self.name;
 }
 
 - (NSString *)subtitle
