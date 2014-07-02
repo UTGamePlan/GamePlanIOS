@@ -74,6 +74,7 @@
 		C962E407194FFD28005A4895 /* Tailgate.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E406194FFD28005A4895 /* Tailgate.m */; };
 		C962E40A194FFE65005A4895 /* WatchParty.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E409194FFE65005A4895 /* WatchParty.m */; };
 		C962E40D194FFE7B005A4895 /* AfterParty.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E40C194FFE7B005A4895 /* AfterParty.m */; };
+		C9C6DF69195A692F00EF3E9C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C6DF68195A692F00EF3E9C /* Restaurant.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +181,8 @@
 		C962E409194FFE65005A4895 /* WatchParty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchParty.m; sourceTree = "<group>"; };
 		C962E40B194FFE7B005A4895 /* AfterParty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AfterParty.h; sourceTree = "<group>"; };
 		C962E40C194FFE7B005A4895 /* AfterParty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AfterParty.m; sourceTree = "<group>"; };
+		C9C6DF67195A692F00EF3E9C /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
+		C9C6DF68195A692F00EF3E9C /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +274,8 @@
 				3FE179061952A380007AE6F6 /* GPNavigationController.m */,
 				3FE179081952AB5E007AE6F6 /* GPRootViewController.h */,
 				3FE179091952AB5E007AE6F6 /* GPRootViewController.m */,
+				C9C6DF67195A692F00EF3E9C /* Restaurant.h */,
+				C9C6DF68195A692F00EF3E9C /* Restaurant.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -618,6 +623,7 @@
 				3FE178D719527F3A007AE6F6 /* UzysSlideMenu.m in Sources */,
 				3FE1790A1952AB5E007AE6F6 /* GPRootViewController.m in Sources */,
 				C90E814A18B944D4004BF989 /* GPFacebookLoginViewController.m in Sources */,
+				C9C6DF69195A692F00EF3E9C /* Restaurant.m in Sources */,
 				C962E40D194FFE7B005A4895 /* AfterParty.m in Sources */,
 				3FE178FE19529FCA007AE6F6 /* UIImage+REFrostedViewController.m in Sources */,
 				3FE178D919527F3A007AE6F6 /* UzysSMMenuItemView.m in Sources */,

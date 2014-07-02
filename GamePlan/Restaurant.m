@@ -1,20 +1,20 @@
 //
-//  Tailgate.m
+//  Restaurant.m
 //  GamePlan
 //
-//  Created by Courtney Bohrer on 6/16/14.
+//  Created by Courtney Bohrer on 6/24/14.
 //  Copyright (c) 2014 Courtney Bohrer. All rights reserved.
 //
 
-#import "Tailgate.h"
+#import "Restaurant.h"
 
-@implementation Tailgate
+@implementation Restaurant
 
-@dynamic isPublicEvent, friendsCanInvite, geoPoint, name, desc, ownerId, startTime, endTime;
+@synthesize geoPoint, name, desc;
 
 + (NSString *) parseClassName
 {
-    return @"Tailgate";
+    return @"Restaurant";
 }
 
 - (CLLocationCoordinate2D) coordinate
@@ -45,7 +45,5 @@
 {
     return self.desc;
 }
-
-
 
 @end

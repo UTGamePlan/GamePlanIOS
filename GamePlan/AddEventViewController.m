@@ -242,7 +242,7 @@
 - (IBAction)doneButton:(id)sender {
     if (type == tailgateType) {
         Tailgate *tg = [[Tailgate alloc]init];
-        tg.eventName = eventNameLabel.text;
+        tg.name = eventNameLabel.text;
         tg.desc = eventDescLabel.text;
         tg.startTime = startTime;
         tg.endTime = endTime;
@@ -253,7 +253,7 @@
         [tg saveInBackground];
     } else if(type == watchPartyType){
         WatchParty *wp = [[WatchParty alloc]init];
-        wp.eventName = eventNameLabel.text;
+        wp.name = eventNameLabel.text;
         wp.desc = eventDescLabel.text;
         wp.startTime = startTime;
         wp.endTime = endTime;
@@ -264,7 +264,7 @@
         [wp saveInBackground];
     } else if(type == afterPartyType){
         AfterParty *ap = [[AfterParty alloc]init];
-        ap.eventName = eventNameLabel.text;
+        ap.name = eventNameLabel.text;
         ap.desc = eventDescLabel.text;
         ap.startTime = startTime;
         ap.endTime = endTime;

@@ -10,6 +10,8 @@
 
 @implementation AfterParty
 
+@dynamic geoPoint, name, desc, ownerId, isPublicEvent, friendsCanInvite, startTime, endTime;
+
 + (NSString *) parseClassName
 {
     return @"After Party";
@@ -36,7 +38,7 @@
 
 - (NSString *)title
 {
-    return self.eventName;
+    return self.name;
 }
 
 - (NSString *)subtitle
