@@ -10,6 +10,8 @@
 #import "TransitionDelegate.h"
 #import "UzysSlideMenu.h"
 #import "EditEventVC.h"
+#import "AddEventViewController.h"
+#import "Tailgate.h"
 
 @interface GPMapViewController ()
 
@@ -42,7 +44,7 @@ int timeInSecondsSinceLocationSavedInParse;
     
     // This is what allows us to pop transluscent modals
     self.transitionController = [[TransitionDelegate alloc] init];
-    
+    self.mapView.delegate = self;
     [self setUpLocationManager];
     [self loadEventPins];
     [self setProfilePhoto];
@@ -220,6 +222,47 @@ int timeInSecondsSinceLocationSavedInParse;
     [self zoomInOnUserLocation];
 }
 
+#pragma mark - Map Functions
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    // If the annotation is the user location, just return nil.
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        return nil;
+    }
+    // Handle any custom annotations.
+    if ([annotation isKindOfClass:[Tailgate class]])
+    {
+        NSString *tgID = @"Tailgates";
+        // Try to dequeue an existing pin view first.
+        MKAnnotationView* pinView = (MKAnnotationView*)[mapView
+                                                        dequeueReusableAnnotationViewWithIdentifier:tgID];
+        if (!pinView)
+        {
+            // If an existing pin view was not available, create one.
+            pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                   reuseIdentifier:tgID];
+            pinView.image = [UIImage imageNamed:@"TailgatesPin-BurntOrange.png"];
+            pinView.canShowCallout = YES;
+            
+            UIButton *disclosure = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            [disclosure addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disclosureTapped)]];
+            pinView.rightCalloutAccessoryView = disclosure;
+            
+        }
+        else
+            pinView.annotation = annotation;
+        return pinView;
+    }
+    
+    return nil;
+}
+
+- (void)disclosureTapped
+{
+    NSLog(@"DISCLOSURE TAPPED");
+}
+
 
 - (void)loadEventPins
 {
@@ -231,7 +274,17 @@ int timeInSecondsSinceLocationSavedInParse;
 
 - (void)loadTailgatePins
 {
-    
+    PFQuery *tailgateQuery = [PFQuery queryWithClassName:@"Tailgate"];
+    [tailgateQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (Tailgate *tailgate in objects) {
+                [self.mapView addAnnotation:tailgate];
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
 
 - (void)loadAfterPartyPins
@@ -255,7 +308,6 @@ int timeInSecondsSinceLocationSavedInParse;
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-
 }
 
 #pragma mark - User Profile Photo Button

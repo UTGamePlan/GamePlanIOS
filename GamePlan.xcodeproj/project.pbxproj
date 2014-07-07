@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0924821968D2790001F9D8 /* TailgatesPin-BurntOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F0924811968D2790001F9D8 /* TailgatesPin-BurntOrange.png */; };
 		3F62518C1951463C00D24EE8 /* default_profile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F62518A1951463C00D24EE8 /* default_profile.jpg */; };
 		3F62518D1951463C00D24EE8 /* default_profile@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F62518B1951463C00D24EE8 /* default_profile@2x.jpg */; };
 		3F6251901951546B00D24EE8 /* jeremyDorm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3F62518F1951546B00D24EE8 /* jeremyDorm.gpx */; };
@@ -89,6 +90,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F0924811968D2790001F9D8 /* TailgatesPin-BurntOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TailgatesPin-BurntOrange.png"; sourceTree = "<group>"; };
 		3F62518A1951463C00D24EE8 /* default_profile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_profile.jpg; sourceTree = "<group>"; };
 		3F62518B1951463C00D24EE8 /* default_profile@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "default_profile@2x.jpg"; sourceTree = "<group>"; };
 		3F62518F1951546B00D24EE8 /* jeremyDorm.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = jeremyDorm.gpx; path = GamePlan/jeremyDorm.gpx; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 		3F62518E1951464B00D24EE8 /* MapViewController */ = {
 			isa = PBXGroup;
 			children = (
+				3F0924811968D2790001F9D8 /* TailgatesPin-BurntOrange.png */,
 				AEA77795195F954400EF19E9 /* filterFunnel@2x.png */,
 				AEA77796195F954400EF19E9 /* hamburgerMenu@2x.png */,
 				AEA77797195F954400EF19E9 /* refreshLoop@2x.png */,
@@ -576,6 +579,7 @@
 				C90E812618B94468004BF989 /* Images.xcassets in Resources */,
 				3F9B6DE1194E42DE00B2C3E0 /* app_icon.png in Resources */,
 				3FE178ED19529BEF007AE6F6 /* question-mark@2x.png in Resources */,
+				3F0924821968D2790001F9D8 /* TailgatesPin-BurntOrange.png in Resources */,
 				AEA7779B195F954400EF19E9 /* refreshLoop@2x.png in Resources */,
 				AEA7779C195F954400EF19E9 /* userLocation@2x.png in Resources */,
 				3F62518C1951463C00D24EE8 /* default_profile.jpg in Resources */,

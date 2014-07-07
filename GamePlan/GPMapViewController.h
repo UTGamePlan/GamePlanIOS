@@ -13,7 +13,7 @@
 #import "GPFacebookLoginViewController.h"
 #import "REFrostedViewController.h"
 
-@interface GPMapViewController : UIViewController <CLLocationManagerDelegate>
+@interface GPMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (strong, nonatomic) UITableView *menuView;
 
