@@ -1,20 +1,20 @@
 //
-//  Restaurant.m
+//  Game.m
 //  GamePlan
 //
 //  Created by Jeremy Hintz on 7/13/14.
 //  Copyright (c) 2014 Courtney Bohrer. All rights reserved.
 //
 
-#import "Restaurant.h"
+#import "Game.h"
 
-@implementation Restaurant
+@implementation Game
 
 @dynamic geoPoint, name, desc;
 
 + (NSString *) parseClassName
 {
-    return @"Restaurant";
+    return @"Games";
 }
 
 - (CLLocationCoordinate2D) coordinate

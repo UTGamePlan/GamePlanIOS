@@ -11,6 +11,8 @@
 #import "Tailgate.h"
 #import "WatchParty.h"
 #import "AfterParty.h"
+#import "Restaurant.h"
+#import "Game.h"
 
 @implementation GPAppDelegate
 
@@ -39,6 +41,8 @@
     [Tailgate registerSubclass];
     [WatchParty registerSubclass];
     [AfterParty registerSubclass];
+    [Restaurant registerSubclass];
+    [Game registerSubclass];
     
     
     return YES;

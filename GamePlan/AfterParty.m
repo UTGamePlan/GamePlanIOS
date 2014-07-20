@@ -14,7 +14,7 @@
 
 + (NSString *) parseClassName
 {
-    return @"After Party";
+    return @"AfterParty";
 }
 
 @end

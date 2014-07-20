@@ -26,9 +26,38 @@
 @property (strong, nonatomic) IBOutlet UIButton *filterButton;
 @property (strong, nonatomic) IBOutlet UIButton *refreshButton;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) NSMutableArray *gameSchedule;
+@property (strong, nonatomic) NSMutableArray *tailgates;
+@property (strong, nonatomic) NSMutableArray *afterParties;
+@property (strong, nonatomic) NSMutableArray *watchParties;
+@property (strong, nonatomic) NSMutableArray *restaurants;
 
+#pragma mark - buttons
 - (IBAction) showMenuPressed:(UIButton *)sender;
 - (IBAction) myLocationPressed:(UIButton *)sender;
 - (IBAction) userProfilePicturePressed:(UIButton *)sender;
+- (IBAction) filterButtonPressed:(UIButton *)sender;
+
+#pragma mark - filter
+@property (strong, nonatomic) IBOutlet UIView *filterView;
+@property (strong, nonatomic) IBOutlet UIButton *toggleTailgatesButton;
+@property (strong, nonatomic) IBOutlet UIButton *toggleAfterPartiesButton;
+@property (strong, nonatomic) IBOutlet UIButton *toggleRestaurantsButton;
+@property (strong, nonatomic) IBOutlet UISlider *startDateSlider;
+@property (strong, nonatomic) IBOutlet UISlider *endDateSlider;
+@property (strong, nonatomic) IBOutlet UILabel *startDateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *endDateLabel;
+@property (strong, nonatomic) NSArray *datesAsStrings;
+- (IBAction) toggleTailgatesPressed:(UIButton *)sender;
+- (IBAction) toggleAfterPartiesPressed:(UIButton *)sender;
+- (IBAction) toggleRestaurantsPressed:(UIButton *)sender;
+@property (strong, nonatomic) NSDate *pastDate;
+@property (strong, nonatomic) NSDate *futureDate;
+@property BOOL showTailgates;
+@property BOOL showAfterParties;
+@property BOOL showWatchParties;
+@property BOOL showRestaurants;
+@property BOOL showEventsInMyPlaybookOnly;
+@property int radius;
 
 @end

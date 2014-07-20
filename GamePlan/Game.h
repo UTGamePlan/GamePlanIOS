@@ -1,5 +1,5 @@
 //
-//  Restaurant.h
+//  Game.h
 //  GamePlan
 //
 //  Created by Jeremy Hintz on 7/13/14.
@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <Parse/PFObject+Subclass.h>
 
-@interface Restaurant : PFObject <PFSubclassing, MKAnnotation>
+@interface Game : PFObject <PFSubclassing>
 
 @property (nonatomic, strong) PFGeoPoint *geoPoint;
 @property (nonatomic, strong) NSString *name;
