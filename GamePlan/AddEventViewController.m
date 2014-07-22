@@ -24,6 +24,7 @@
     BOOL isStartPickerViewable;
     BOOL isEndPickerViewable;
     UIColor *orangeColor;
+    NSMutableArray *invitedFriends;
 }
 @end
 
@@ -238,6 +239,84 @@
     canNotInviteFriends.backgroundColor = orangeColor;
 }
 
+- (IBAction)inviteFriends:(UIButton *)sender {
+    // Initialize the friend picker
+    FBFriendPickerViewController *friendPickerController = [[FBFriendPickerViewController alloc] init];
+    // Set the friend picker title
+    friendPickerController.title = @"INVITE";
+    
+    // Load the friend data
+    [friendPickerController loadData];
+    // Show the picker modally
+    [friendPickerController presentModallyFromViewController:self animated:YES handler:nil];
+    
+    // Set up the delegate
+    friendPickerController.delegate = self;
+    // Load the friend data
+    NSSet *fields = [NSSet setWithObjects:@"installed", nil];
+    friendPickerController.fieldsForRequest = fields;
+    [friendPickerController loadData];
+}
+
+/*
+ * Event: Error during data fetch
+ */
+- (void)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
+                       handleError:(NSError *)error
+{
+    NSLog(@"Error during data fetch.");
+}
+
+/*
+ * Event: Data loaded
+ */
+- (void)friendPickerViewControllerDataDidChange:(FBFriendPickerViewController *)friendPicker
+{
+    // NSLog(@"Friend data loaded.");
+}
+
+// Only load people who have downloaded Game Plan
+-(BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker shouldIncludeUser:(id<FBGraphUser>)user{
+    BOOL installed = [user objectForKey:@"installed"] != nil;
+    return installed;
+}
+
+/*
+ * Event: Selection changed
+ */
+- (void)friendPickerViewControllerSelectionDidChange:
+(FBFriendPickerViewController *)friendPicker
+{
+    //NSLog(@"Current friend selections: %@", friendPicker.selection);
+}
+
+/*
+ * Event: Done button clicked
+ */
+- (void)facebookViewControllerDoneWasPressed:(id)sender {
+    FBFriendPickerViewController *friendPickerController =
+    (FBFriendPickerViewController*)sender;
+    
+    //save invited friends
+    for (id<FBGraphUser> user in friendPickerController.selection) {
+        [invitedFriends addObject:user.id];
+    }
+    
+    //dismiss modal
+    [[sender presentingViewController] dismissModalViewControllerAnimated:YES];
+}
+
+/*
+ * Event: Cancel button clicked
+ */
+- (void)facebookViewControllerCancelWasPressed:(id)sender {
+    NSLog(@"Canceled");
+    
+    // Dismiss the friend picker
+    [[sender presentingViewController] dismissModalViewControllerAnimated:YES];
+}
+
+
 
 - (IBAction)doneButton:(id)sender {
     if (type == tailgateType) {
@@ -249,6 +328,8 @@
         tg.ownerId = [[PFUser currentUser] objectForKey:@"objectId"];
         tg.isPublicEvent = isPublicEvent;
         tg.friendsCanInvite = friendsCanInvite;
+        tg.invitedFriends = invitedFriends;
+        tg.RSVPdFriends = @[[[PFUser currentUser] objectForKey:@"objectId"]];
         tg.geoPoint = nil;
         [tg saveInBackground];
     } else if(type == watchPartyType){
@@ -260,6 +341,8 @@
         wp.ownerId = [[PFUser currentUser] objectForKey:@"objectId"];
         wp.isPublicEvent = isPublicEvent;
         wp.friendsCanInvite = friendsCanInvite;
+        wp.invitedFriends = invitedFriends;
+        wp.RSVPdFriends = @[[[PFUser currentUser] objectForKey:@"objectId"]];
         wp.geoPoint = nil;
         [wp saveInBackground];
     } else if(type == afterPartyType){
@@ -271,6 +354,8 @@
         ap.ownerId = [[PFUser currentUser] objectForKey:@"objectId"];
         ap.isPublicEvent = isPublicEvent;
         ap.friendsCanInvite = friendsCanInvite;
+        ap.invitedFriends = invitedFriends;
+        ap.RSVPdFriends = @[[[PFUser currentUser] objectForKey:@"objectId"]];
         ap.geoPoint = nil;
         [ap saveInBackground];
     }

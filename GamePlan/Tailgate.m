@@ -10,7 +10,7 @@
 
 @implementation Tailgate
 
-@dynamic isPublicEvent, friendsCanInvite, geoPoint, eventName, desc, ownerId, startTime, endTime;
+@dynamic isPublicEvent, friendsCanInvite, geoPoint, eventName, desc, ownerId, startTime, endTime, invitedFriends, RSVPdFriends;
 
 + (NSString *) parseClassName
 {

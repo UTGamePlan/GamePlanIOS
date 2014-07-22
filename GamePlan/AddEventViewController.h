@@ -46,5 +46,8 @@ typedef enum {
 @property (strong, nonatomic) IBOutlet UIButton *canInviteFriendsButton;
 @property (strong, nonatomic) IBOutlet UIButton *canNotInviteFriends;
 
+
+- (IBAction)inviteFriends:(UIButton *)sender;
+
 - (IBAction)doneButton:(id)sender;
 @end
