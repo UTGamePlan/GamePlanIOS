@@ -65,7 +65,8 @@
 		C90E817D18B956BA004BF989 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E817C18B956BA004BF989 /* Security.framework */; };
 		C90E817F18B956C4004BF989 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E817E18B956C4004BF989 /* StoreKit.framework */; };
 		C90E818118B956D2004BF989 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E818018B956D1004BF989 /* SystemConfiguration.framework */; };
-		C962E401194FF79E005A4895 /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E400194FF79E005A4895 /* AddEventViewController.m */; };
+		C920A1401985E95C009EDF82 /* EditEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C920A13E1985E95C009EDF82 /* EditEventVC.m */; };
+		C920A1411985E95C009EDF82 /* EditEventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C920A13F1985E95C009EDF82 /* EditEventVC.xib */; };
 		C962E404194FFC06005A4895 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E403194FFC06005A4895 /* Event.m */; };
 		C962E407194FFD28005A4895 /* Tailgate.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E406194FFD28005A4895 /* Tailgate.m */; };
 		C962E40A194FFE65005A4895 /* WatchParty.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E409194FFE65005A4895 /* WatchParty.m */; };
@@ -162,8 +163,9 @@
 		C90E817C18B956BA004BF989 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C90E817E18B956C4004BF989 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C90E818018B956D1004BF989 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		C962E3FF194FF79E005A4895 /* AddEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventViewController.h; sourceTree = "<group>"; };
-		C962E400194FF79E005A4895 /* AddEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventViewController.m; sourceTree = "<group>"; };
+		C920A13D1985E95C009EDF82 /* EditEventVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditEventVC.h; sourceTree = "<group>"; };
+		C920A13E1985E95C009EDF82 /* EditEventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditEventVC.m; sourceTree = "<group>"; };
+		C920A13F1985E95C009EDF82 /* EditEventVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditEventVC.xib; sourceTree = "<group>"; };
 		C962E402194FFC06005A4895 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		C962E403194FFC06005A4895 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		C962E405194FFD28005A4895 /* Tailgate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tailgate.h; sourceTree = "<group>"; };
@@ -445,8 +447,9 @@
 		C962E3FE194FF2EA005A4895 /* AddEventViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C962E3FF194FF79E005A4895 /* AddEventViewController.h */,
-				C962E400194FF79E005A4895 /* AddEventViewController.m */,
+				C920A13D1985E95C009EDF82 /* EditEventVC.h */,
+				C920A13E1985E95C009EDF82 /* EditEventVC.m */,
+				C920A13F1985E95C009EDF82 /* EditEventVC.xib */,
 			);
 			name = AddEventViewController;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F9B6DDE194E415600B2C3E0 /* GPLettering@2x.png in Resources */,
+				C920A1411985E95C009EDF82 /* EditEventVC.xib in Resources */,
 				3FE178EB19529BEF007AE6F6 /* gear@2x.png in Resources */,
 				3F9B6DE2194E42DE00B2C3E0 /* app_icon@2x.png in Resources */,
 				C90E815F18B944E2004BF989 /* FB_Button_Down@2x.png in Resources */,
@@ -592,7 +596,6 @@
 				C90E811A18B94468004BF989 /* main.m in Sources */,
 				3FE178D819527F3A007AE6F6 /* UzysSMMenuItem.m in Sources */,
 				3FE178FF19529FCA007AE6F6 /* UIView+REFrostedViewController.m in Sources */,
-				C962E401194FF79E005A4895 /* AddEventViewController.m in Sources */,
 				C90E814B18B944D4004BF989 /* GPMapViewController.m in Sources */,
 				3F9B6DCD194E39DC00B2C3E0 /* AnimatedTransitioning.m in Sources */,
 				C962E404194FFC06005A4895 /* Event.m in Sources */,
@@ -602,6 +605,7 @@
 				3FE178D719527F3A007AE6F6 /* UzysSlideMenu.m in Sources */,
 				3FE1790A1952AB5E007AE6F6 /* GPRootViewController.m in Sources */,
 				C90E814A18B944D4004BF989 /* GPFacebookLoginViewController.m in Sources */,
+				C920A1401985E95C009EDF82 /* EditEventVC.m in Sources */,
 				C962E40D194FFE7B005A4895 /* AfterParty.m in Sources */,
 				3FE178FE19529FCA007AE6F6 /* UIImage+REFrostedViewController.m in Sources */,
 				3FE178D919527F3A007AE6F6 /* UzysSMMenuItemView.m in Sources */,
