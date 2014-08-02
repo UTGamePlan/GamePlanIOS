@@ -535,7 +535,7 @@
         <image name="burnt_orange.jpeg" width="100" height="100"/>
         <image name="filterFunnel.png" width="26" height="25"/>
         <image name="hamburgerMenu.png" width="28" height="19"/>
-        <image name="logo.png" width="175" height="386"/>
+        <image name="logo.png" width="91" height="206"/>
         <image name="refreshLoop.png" width="34" height="28"/>
         <image name="userLocation.png" width="28" height="29"/>
     </resources>

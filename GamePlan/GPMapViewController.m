@@ -16,7 +16,6 @@
 #import "WatchParty.h"
 #import "Restaurant.h"
 #import "Game.h"
-#import "PlaybookVC.h"
 
 @interface GPMapViewController ()
 
