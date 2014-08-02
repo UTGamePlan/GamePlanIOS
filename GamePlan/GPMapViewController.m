@@ -10,7 +10,6 @@
 #import "TransitionDelegate.h"
 #import "UzysSlideMenu.h"
 #import "EditEventVC.h"
-#import "AddEventViewController.h"
 #import "GPEventDetailViewController.h"
 #import "Tailgate.h"
 #import "AfterParty.h"

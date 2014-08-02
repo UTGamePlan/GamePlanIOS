@@ -10,7 +10,7 @@
 
 @implementation Event
 
-@dynamic isPublicEvent, friendsCanInvite, geoPoint, eventName, desc, ownerId, startTime, endTime, invitedFriends, RSVPdFriends, tags, privacy;
+@dynamic isPublicEvent, friendsCanInvite, geoPoint, name, desc, ownerId, startTime, endTime, invitedFriends, RSVPdFriends, tags, privacy;
 
 - (CLLocationCoordinate2D) coordinate
 {
