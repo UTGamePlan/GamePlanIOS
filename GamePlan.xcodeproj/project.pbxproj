@@ -25,6 +25,7 @@
 		3F9B6DDE194E415600B2C3E0 /* GPLettering@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B6DDC194E415600B2C3E0 /* GPLettering@2x.png */; };
 		3F9B6DE1194E42DE00B2C3E0 /* app_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B6DDF194E42DE00B2C3E0 /* app_icon.png */; };
 		3F9B6DE2194E42DE00B2C3E0 /* app_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9B6DE0194E42DE00B2C3E0 /* app_icon@2x.png */; };
+		3FD34D5E19846EC4004B6758 /* GPEventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD34D5D19846EC4004B6758 /* GPEventDetailViewController.m */; };
 		3FE178D719527F3A007AE6F6 /* UzysSlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178D119527F3A007AE6F6 /* UzysSlideMenu.m */; };
 		3FE178D819527F3A007AE6F6 /* UzysSMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178D319527F3A007AE6F6 /* UzysSMMenuItem.m */; };
 		3FE178D919527F3A007AE6F6 /* UzysSMMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE178D519527F3A007AE6F6 /* UzysSMMenuItemView.m */; };
@@ -116,6 +117,8 @@
 		3F9B6DDC194E415600B2C3E0 /* GPLettering@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GPLettering@2x.png"; sourceTree = "<group>"; };
 		3F9B6DDF194E42DE00B2C3E0 /* app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon.png; sourceTree = "<group>"; };
 		3F9B6DE0194E42DE00B2C3E0 /* app_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon@2x.png"; sourceTree = "<group>"; };
+		3FD34D5C19846EC4004B6758 /* GPEventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPEventDetailViewController.h; sourceTree = "<group>"; };
+		3FD34D5D19846EC4004B6758 /* GPEventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPEventDetailViewController.m; sourceTree = "<group>"; };
 		3FE178CF19527F3A007AE6F6 /* ARCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCHelper.h; sourceTree = "<group>"; };
 		3FE178D019527F3A007AE6F6 /* UzysSlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysSlideMenu.h; sourceTree = "<group>"; };
 		3FE178D119527F3A007AE6F6 /* UzysSlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysSlideMenu.m; sourceTree = "<group>"; };
@@ -302,6 +305,7 @@
 		3F9B6DE5194E4BD200B2C3E0 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3FD34D5F19846ED8004B6758 /* EventDetailViewController */,
 				3FE1790119529FDE007AE6F6 /* UserMenuViewController */,
 				C962E3FE194FF2EA005A4895 /* AddEventViewController */,
 				3F9B6DE7194E4BF100B2C3E0 /* FBLoginViewController */,
@@ -326,6 +330,15 @@
 				C90E814318B944D4004BF989 /* GPFacebookLoginViewController.m */,
 			);
 			name = FBLoginViewController;
+			sourceTree = "<group>";
+		};
+		3FD34D5F19846ED8004B6758 /* EventDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3FD34D5C19846EC4004B6758 /* GPEventDetailViewController.h */,
+				3FD34D5D19846EC4004B6758 /* GPEventDetailViewController.m */,
+			);
+			name = EventDetailViewController;
 			sourceTree = "<group>";
 		};
 		3FE178CD19527F24007AE6F6 /* Ouside Libraries */ = {
@@ -642,6 +655,7 @@
 				3F9B6DCD194E39DC00B2C3E0 /* AnimatedTransitioning.m in Sources */,
 				C962E404194FFC06005A4895 /* Event.m in Sources */,
 				3FE179071952A380007AE6F6 /* GPNavigationController.m in Sources */,
+				3FD34D5E19846EC4004B6758 /* GPEventDetailViewController.m in Sources */,
 				3FE1790019529FCA007AE6F6 /* UIViewController+REFrostedViewController.m in Sources */,
 				C962E407194FFD28005A4895 /* Tailgate.m in Sources */,
 				3FE178D719527F3A007AE6F6 /* UzysSlideMenu.m in Sources */,

@@ -11,6 +11,7 @@
 #import "UzysSlideMenu.h"
 #import "EditEventVC.h"
 #import "AddEventViewController.h"
+#import "GPEventDetailViewController.h"
 #import "Tailgate.h"
 #import "AfterParty.h"
 #import "WatchParty.h"
@@ -23,7 +24,7 @@
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
 @property (nonatomic,strong) UzysSlideMenu *bottomBarMenu; //UzysSlideMenu is part of an outside library that we modified
-
+@property (nonatomic, strong) NSMutableDictionary *eventDetails;
 
 @end
 
@@ -422,13 +423,13 @@ NSDate *today;
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    //NSLog(@"%@", annotation);
     // If the annotation is the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
     }
     // Handle any custom annotations.
     NSString *eventType = [NSStringFromClass([annotation class]) lowercaseString];
+    
     // Try to dequeue an existing pin view first.
     MKAnnotationView* pinView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:eventType];
     if (!pinView)
@@ -438,11 +439,6 @@ NSDate *today;
                                                reuseIdentifier:eventType];
         pinView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-pin.png", eventType]];
         pinView.canShowCallout = YES;
-        
-        UIButton *disclosure = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        [disclosure addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disclosureTapped)]];
-        pinView.rightCalloutAccessoryView = disclosure;
-        
     } else {
         pinView.annotation = annotation;
     }
@@ -450,10 +446,50 @@ NSDate *today;
     return pinView;
 }
 
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    [self.eventDetails removeAllObjects];
+    self.eventDetails = nil;
+    self.eventDetails = [[NSMutableDictionary alloc]init];
+    if(![view.annotation isKindOfClass:[MKUserLocation class]]) {
+        if ([view.annotation isKindOfClass:[Tailgate class]]) {
+            Tailgate *event = (Tailgate *)view.annotation;
+            [self.eventDetails setObject:@"Tailgate" forKey:@"eventType"];
+            if (event.name) {
+                [self.eventDetails setObject:event.name forKey:@"name"];
+            }
+            if (event.desc) {
+                [self.eventDetails setObject:event.desc forKey:@"desc"];
+            }
+            if (event.ownerId) {
+                [self.eventDetails setObject:event.ownerId forKey:@"ownerId"];
+            }
+            if (event.startTime) {
+                [self.eventDetails setObject:event.startTime forKey:@"startTime"];
+            }
+            if (event.endTime) {
+                [self.eventDetails setObject:event.endTime forKey:@"endTime"];
+            }
+            if (event.geoPoint) {
+                [self.eventDetails setObject:event.geoPoint forKey:@"geoPoint"];
+            }
+        }
+        UIButton *disclosure = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [disclosure addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMoreInfoForEvent)]];
+        view.rightCalloutAccessoryView = disclosure;
+    }
+}
 
-- (void)disclosureTapped
+- (void)showMoreInfoForEvent
 {
-    NSLog(@"DISCLOSURE TAPPED");
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    GPEventDetailViewController *eventDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"event-details"];
+    
+    eventDetailViewController.eventInfo = [NSDictionary dictionaryWithDictionary:self.eventDetails];
+    
+    eventDetailViewController.view.backgroundColor = [UIColor lightGrayColor];
+    [eventDetailViewController setTransitioningDelegate:transitionController];
+    eventDetailViewController.modalPresentationStyle= UIModalPresentationCustom;
+    [self presentViewController:eventDetailViewController animated:YES completion:nil];
 }
 
 
