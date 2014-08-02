@@ -95,11 +95,11 @@
     } else {
         tags = [[NSMutableArray alloc] init];
         titleLabel.text = @"Add an Event";
-        CGRect newFrame = self.myView.frame;
-        CGRect screenRect = [[UIScreen mainScreen] bounds];
-        newFrame.size.width = screenRect.size.width;
-        newFrame.size.height = screenRect.size.height+100;
-        [self.myView setFrame:newFrame];
+//        CGRect newFrame = self.myView.frame;
+//        CGRect screenRect = [[UIScreen mainScreen] bounds];
+//        newFrame.size.width = screenRect.size.width;
+//        newFrame.size.height = screenRect.size.height+100;
+//        [self.myView setFrame:newFrame];
     }
 }
 

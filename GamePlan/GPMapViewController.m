@@ -23,7 +23,7 @@
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
 @property (nonatomic,strong) UzysSlideMenu *bottomBarMenu; //UzysSlideMenu is part of an outside library that we modified
-@property (nonatomic, strong) NSMutableDictionary *eventDetails;
+@property (nonatomic, strong) Event *event;
 
 @end
 
@@ -87,6 +87,9 @@ NSDate *today;
         facebookLoginViewController.modalPresentationStyle= UIModalPresentationCustom;
         [self presentViewController:facebookLoginViewController animated:YES completion:nil];
     } else {
+        if([[PFInstallation currentInstallation] objectId]) {
+            [[PFUser currentUser] setObject:[[PFInstallation currentInstallation] objectId] forKey:@"InstallationID"];
+        }
         [self presentMenuBars];
     }
 }
@@ -446,32 +449,9 @@ NSDate *today;
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
-    [self.eventDetails removeAllObjects];
-    self.eventDetails = nil;
-    self.eventDetails = [[NSMutableDictionary alloc]init];
+    self.event = nil;
     if(![view.annotation isKindOfClass:[MKUserLocation class]]) {
-        if ([view.annotation isKindOfClass:[Tailgate class]]) {
-            Tailgate *event = (Tailgate *)view.annotation;
-            [self.eventDetails setObject:@"Tailgate" forKey:@"eventType"];
-            if (event.name) {
-                [self.eventDetails setObject:event.name forKey:@"name"];
-            }
-            if (event.desc) {
-                [self.eventDetails setObject:event.desc forKey:@"desc"];
-            }
-            if (event.ownerId) {
-                [self.eventDetails setObject:event.ownerId forKey:@"ownerId"];
-            }
-            if (event.startTime) {
-                [self.eventDetails setObject:event.startTime forKey:@"startTime"];
-            }
-            if (event.endTime) {
-                [self.eventDetails setObject:event.endTime forKey:@"endTime"];
-            }
-            if (event.geoPoint) {
-                [self.eventDetails setObject:event.geoPoint forKey:@"geoPoint"];
-            }
-        }
+        self.event = view.annotation;
         UIButton *disclosure = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [disclosure addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMoreInfoForEvent)]];
         view.rightCalloutAccessoryView = disclosure;
@@ -482,9 +462,9 @@ NSDate *today;
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     GPEventDetailViewController *eventDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"event-details"];
-    
-    eventDetailViewController.eventInfo = [NSDictionary dictionaryWithDictionary:self.eventDetails];
-    
+
+    eventDetailViewController.event = self.event;
+    eventDetailViewController.eventType = [NSStringFromClass([self.event class]) lowercaseString];
     eventDetailViewController.view.backgroundColor = [UIColor lightGrayColor];
     [eventDetailViewController setTransitioningDelegate:transitionController];
     eventDetailViewController.modalPresentationStyle= UIModalPresentationCustom;
