@@ -25,6 +25,9 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *miniMapButton;
 @property (weak, nonatomic) IBOutlet MKMapView *expandedMap;
 
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+- (IBAction)didTouchCancelButton:(UIButton *)sender;
+
 #pragma mark - Event Type
 @property (weak, nonatomic) IBOutlet UIButton *tailgateButton;
 @property (weak, nonatomic) IBOutlet UIButton *watchPartyButton;

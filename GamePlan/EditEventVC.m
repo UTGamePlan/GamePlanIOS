@@ -32,7 +32,7 @@
 
 @implementation EditEventVC 
 
-@synthesize startDatePicker, endDatePicker, startLabel, endLabel, tailgateButton, watchPartyButton, afterPartyButton, eventNameLabel, eventDescLabel, BYOBButton, FreeFoodButton, CoverChargeButton, KidFriendlyButton, AlumniButton, StudentsButton, event, eventTypeMissing, eventNameMissing, eventLocMissing, eventTimeMissing, privacyButton, inviteButton, privSetting1Button, privSetting2Button, privSetting3Button, privSetting4Button, privLabel, miniMap, expandedMap, miniMapButton;
+@synthesize startDatePicker, endDatePicker, startLabel, endLabel, tailgateButton, watchPartyButton, afterPartyButton, eventNameLabel, eventDescLabel, BYOBButton, FreeFoodButton, CoverChargeButton, KidFriendlyButton, AlumniButton, StudentsButton, event, eventTypeMissing, eventNameMissing, eventLocMissing, eventTimeMissing, privacyButton, inviteButton, privSetting1Button, privSetting2Button, privSetting3Button, privSetting4Button, privLabel, miniMap, expandedMap, miniMapButton, titleLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -91,9 +91,15 @@
     [expandedMap addGestureRecognizer:tapRecognizer];
     
     if(event){
-        //implement later
+        titleLabel.text = @"Edit Event";
     } else {
         tags = [[NSMutableArray alloc] init];
+        titleLabel.text = @"Add an Event";
+        CGRect newFrame = self.myView.frame;
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        newFrame.size.width = screenRect.size.width;
+        newFrame.size.height = screenRect.size.height+100;
+        [self.myView setFrame:newFrame];
     }
 }
 
@@ -526,7 +532,20 @@
 - (IBAction)doneButton:(id)sender {
     BOOL complete = TRUE;
     if (event) {
-        // implement later
+        event.eventName = eventName;
+        event.desc = desc;
+        event.startTime = startTime;
+        event.endTime = endTime;
+        event.ownerId = [[PFUser currentUser] objectId];
+        event.invitedFriends = invitedFriends;
+        event.RSVPdFriends = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
+        event.geoPoint = loc;
+        event.tags = tags;
+        event.privacy = privacy;
+        [event saveInBackground];
+        UIAlertView *savedEvent = [[UIAlertView alloc]
+                                initWithTitle:@"" message:@"Your changes have been saved." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [savedEvent show];
     }
     if(![tailgateButton.backgroundColor isEqual:highlightedButtonColor] && ![watchPartyButton.backgroundColor isEqual: highlightedButtonColor] && ![afterPartyButton.backgroundColor isEqual:highlightedButtonColor]){
         complete = false;
@@ -608,8 +627,11 @@
         }
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-    
 
+}
+
+- (IBAction)didTouchCancelButton:(UIButton *)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
