@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F0E031D1972D8CD00B4B713 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0E031C1972D8CD00B4B713 /* Restaurant.m */; };
 		3F0E03201973123B00B4B713 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0E031F1973123B00B4B713 /* Game.m */; };
+		3F185C71198C80BB008D23A7 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0E031C1972D8CD00B4B713 /* Restaurant.m */; };
 		3F1B8D531970BA62003CC7EF /* afterparty-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B8D501970BA62003CC7EF /* afterparty-pin@2x.png */; };
 		3F1B8D541970BA62003CC7EF /* tailgate-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B8D511970BA62003CC7EF /* tailgate-pin@2x.png */; };
 		3F1B8D551970BA62003CC7EF /* watchparty-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B8D521970BA62003CC7EF /* watchparty-pin@2x.png */; };
@@ -645,6 +645,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F185C71198C80BB008D23A7 /* Restaurant.m in Sources */,
 				C962E40A194FFE65005A4895 /* WatchParty.m in Sources */,
 				3FE178FC19529FCA007AE6F6 /* REFrostedContainerViewController.m in Sources */,
 				3FE178FB19529FCA007AE6F6 /* RECommonFunctions.m in Sources */,
@@ -662,7 +663,6 @@
 				3FE1790A1952AB5E007AE6F6 /* GPRootViewController.m in Sources */,
 				3F0E03201973123B00B4B713 /* Game.m in Sources */,
 				C90E814A18B944D4004BF989 /* GPFacebookLoginViewController.m in Sources */,
-				C9C6DF69195A692F00EF3E9C /* Restaurant.m in Sources */,
 				C920A1401985E95C009EDF82 /* EditEventVC.m in Sources */,
 				C962E40D194FFE7B005A4895 /* AfterParty.m in Sources */,
 				3FE178FE19529FCA007AE6F6 /* UIImage+REFrostedViewController.m in Sources */,
