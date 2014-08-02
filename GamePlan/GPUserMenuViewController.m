@@ -9,8 +9,17 @@
 #import "GPMapViewController.h"
 #import "UIViewController+REFrostedViewController.h"
 #import "GPNavigationController.h"
+#import "PendingInvitesTableViewCell.h"
+#import "HostingTableViewCell.h"
+#import "PlaybookTableViewCell.h"
 
-@interface GPUserMenuViewController ()
+@interface GPUserMenuViewController (){
+    NSDictionary *events;
+    NSArray *sectionTitles;
+    NSArray *eventsIHost;
+    NSArray *pendingInvites;
+    NSArray *RSVPedEvents;
+}
 
 @end
 
@@ -59,10 +68,26 @@
         [view addSubview:label];
         view;
     });
+    
+    //initalizing arrays for tables
+    
+    //    eventsIHost = [[PFUser currentUser] objectForKey:@"EventsIHost"];
+    eventsIHost = @[@"foo", @"foo"];
+    //    pendingInvites = [[PFUser currentUser] objectForKey:@"PendingInvites"];
+    pendingInvites = @[@"bar", @"bar", @"bar"];
+    //    RSVPedEvents = [[PFUser currentUser] objectForKey:@"RSVPedEvents"];
+    RSVPedEvents = @[@"foobar", @"foobar"];
+    
+    events = @{
+               @"Events I am Hosting:" : eventsIHost,
+               @"Pending Invites:" : pendingInvites,
+               @"My Playbook:" : RSVPedEvents
+               };
+    sectionTitles = @[@"Events I am Hosting:", @"Pending Invites:", @"My Playbook:"];
+
 }
 
-#pragma mark -
-#pragma mark UITableView Delegate
+#pragma mark - UITableView Delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -71,29 +96,34 @@
     cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
+//{
+//    if (sectionIndex == 0)
+//        return nil;
+//    
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
+//    view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
+//    
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
+//    //label.text = @"Friends Online";
+//    label.font = [UIFont systemFontOfSize:15];
+//    label.textColor = [UIColor whiteColor];
+//    label.backgroundColor = [UIColor clearColor];
+//    [label sizeToFit];
+//    [view addSubview:label];
+//    
+//    return view;
+//}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (sectionIndex == 0)
-        return nil;
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
-    view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
-    label.text = @"Friends Online";
-    label.font = [UIFont systemFontOfSize:15];
-    label.textColor = [UIColor whiteColor];
-    label.backgroundColor = [UIColor clearColor];
-    [label sizeToFit];
-    [view addSubview:label];
-    
-    return view;
+    return [sectionTitles objectAtIndex:section];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionIndex
 {
-    if (sectionIndex == 0)
-        return 0;
+//    if (sectionIndex == 0)
+//        return 0;
     
     return 34;
 }
@@ -124,30 +154,81 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return sectionTitles.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    // Return the number of rows in the section.
+    NSString *sectionTitle = [sectionTitles objectAtIndex:section];
+    NSArray *eventsForSection = [events objectForKey:sectionTitle];
+    return [eventsForSection count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    NSString *sectionTitle = [sectionTitles objectAtIndex:indexPath.section];
+    UIImage *testImage = [UIImage imageNamed:@"app_icon.png"];
+    if ([sectionTitle isEqualToString:@"Pending Invites:"]) {
+        static NSString *simpleTableIdentifier = @"PendingInvitesTableCell";
+        
+        PendingInvitesTableViewCell *cell = (PendingInvitesTableViewCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        if (cell == nil)
+        {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PendingInvitesTableViewCell" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        NSArray *eventsInSection = [events objectForKey:sectionTitle];
+        NSString *event = [eventsInSection objectAtIndex:indexPath.row];
+        cell.eventName.text = event;
+        cell.thumbnailImageView.image = testImage;
+        return cell;
+
+    } else if ([sectionTitle isEqualToString:@"Events I am Hosting:"]) {
+        static NSString *simpleTableIdentifier = @"HostingTableViewCell";
+        
+        HostingTableViewCell *cell = (HostingTableViewCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        if (cell == nil)
+        {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"HostingTableViewCell" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        NSArray *eventsInSection = [events objectForKey:sectionTitle];
+        NSString *event = [eventsInSection objectAtIndex:indexPath.row];
+        cell.eventName.text = event;
+        cell.thumbnailImageView.image = testImage;
+        return cell;
+        
+    } else if ([sectionTitle isEqualToString:@"My Playbook:"]) {
+        static NSString *simpleTableIdentifier = @"PlaybookTableViewCell";
+        
+        PlaybookTableViewCell *cell = (PlaybookTableViewCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        if (cell == nil)
+        {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PlaybookTableViewCell" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        NSArray *eventsInSection = [events objectForKey:sectionTitle];
+        NSString *event = [eventsInSection objectAtIndex:indexPath.row];
+        cell.eventName.text = event;
+        cell.thumbnailImageView.image = testImage;
+        return cell;
+        
+    } else {
+        static NSString *cellIdentifier = @"Cell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        NSArray *eventsInSection = [events objectForKey:sectionTitle];
+        NSString *event = [eventsInSection objectAtIndex:indexPath.row];
+        cell.textLabel.text = event;
+        return cell;
     }
     
-    if (indexPath.section == 0) {
-        NSArray *titles = @[@"Home", @"My Playbook", @"Manage My Organizations"];
-        cell.textLabel.text = titles[indexPath.row];
-    }
-    
-    return cell;
 }
- 
+
+
 @end

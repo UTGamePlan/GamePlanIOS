@@ -16,6 +16,7 @@
 #import "WatchParty.h"
 #import "Restaurant.h"
 #import "Game.h"
+#import "PlaybookVC.h"
 
 @interface GPMapViewController ()
 
@@ -371,6 +372,7 @@ NSDate *today;
     UzysSMMenuItem *item0 = [[UzysSMMenuItem alloc] initWithTitle:@"Add Event" image:[UIImage imageNamed:@"plus.png"] action:^(UzysSMMenuItem *item) {
         // implement adding an event here
         EditEventVC *editVC = [[EditEventVC alloc] initWithNibName:@"EditEventVC" bundle:nil];
+        editVC.mainMap = self.mapView;
         [self presentModalViewController:editVC animated:YES];
     }];
     

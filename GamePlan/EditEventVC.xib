@@ -33,7 +33,9 @@
                 <outlet property="privSetting2Button" destination="rXL-tu-NCr" id="2j9-l1-Zht"/>
                 <outlet property="privSetting3Button" destination="Xoi-j9-dE9" id="BrK-lB-cb9"/>
                 <outlet property="privSetting4Button" destination="fQ6-Xc-zXE" id="f6L-ae-THd"/>
+                <outlet property="privacy" destination="gby-5a-4zH" id="fY1-MR-kvj"/>
                 <outlet property="privacyButton" destination="CDp-YX-Mfb" id="Idx-HD-3M4"/>
+                <outlet property="privacyLabel" destination="gby-5a-4zH" id="J6H-tg-sW1"/>
                 <outlet property="startDatePicker" destination="SJp-m5-hpm" id="8dN-BA-7cZ"/>
                 <outlet property="startLabel" destination="j4k-Nm-Fw9" id="8Q5-w4-TIu"/>
                 <outlet property="tailgateButton" destination="PbS-DX-MTY" id="HOq-K4-2zg"/>
