@@ -9,6 +9,7 @@
 #import "GPMapViewController.h"
 #import "TransitionDelegate.h"
 #import "UzysSlideMenu.h"
+#import "EditEventVC.h"
 
 @interface GPMapViewController ()
 
@@ -192,6 +193,8 @@ int timeInSecondsSinceLocationSavedInParse;
 {
     UzysSMMenuItem *item0 = [[UzysSMMenuItem alloc] initWithTitle:@"Add Event" image:[UIImage imageNamed:@"plus.png"] action:^(UzysSMMenuItem *item) {
         // implement adding an event here
+        EditEventVC *editVC = [[EditEventVC alloc] initWithNibName:@"EditEventVC" bundle:nil];
+        [self presentModalViewController:editVC animated:YES];
     }];
     
     UzysSMMenuItem *item1 = [[UzysSMMenuItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"gear.png"] action:^(UzysSMMenuItem *item) {

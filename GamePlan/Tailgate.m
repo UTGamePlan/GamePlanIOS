@@ -10,42 +10,9 @@
 
 @implementation Tailgate
 
-@dynamic isPublicEvent, friendsCanInvite, geoPoint, name, desc, ownerId, startTime, endTime;
-
 + (NSString *) parseClassName
 {
     return @"Tailgate";
 }
-
-- (CLLocationCoordinate2D) coordinate
-{
-    CLLocationCoordinate2D ret;
-    
-    ret.latitude = self.geoPoint.latitude;
-    ret.longitude = self.geoPoint.longitude;
-    
-    return ret;
-}
-- (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
-{
-    if ( !self.geoPoint ) {
-        self.geoPoint = [PFGeoPoint geoPoint];
-    }
-    self.geoPoint.latitude = newCoordinate.latitude;
-    self.geoPoint.longitude = newCoordinate.longitude;
-    [self saveInBackground];
-}
-
-- (NSString *)title
-{
-    return self.name;
-}
-
-- (NSString *)subtitle
-{
-    return self.desc;
-}
-
-
 
 @end

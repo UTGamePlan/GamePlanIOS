@@ -10,15 +10,6 @@
 #import <MapKit/MapKit.h>
 #import <Parse/PFObject+Subclass.h>
 
-@interface Tailgate : PFObject <PFSubclassing, MKAnnotation>
-
-@property (nonatomic, strong) PFGeoPoint *geoPoint;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *desc;
-@property (nonatomic, strong) NSString *ownerId;
-@property (nonatomic) BOOL isPublicEvent;
-@property (nonatomic) BOOL friendsCanInvite;
-@property (nonatomic, strong) NSDate *startTime;
-@property (nonatomic, strong) NSDate *endTime;
+@interface Tailgate : Event <PFSubclassing>
 
 @end

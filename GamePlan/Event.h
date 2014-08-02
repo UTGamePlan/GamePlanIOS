@@ -8,9 +8,8 @@
 
 #import <Parse/Parse.h>
 #import <MapKit/MapKit.h>
-#import <Parse/PFObject+Subclass.h>
 
-@interface Event : PFObject <PFSubclassing, MKAnnotation>
+@interface Event : PFObject <MKAnnotation>
 
 @property (nonatomic, strong) PFGeoPoint *geoPoint;
 @property (nonatomic, strong) NSString *name;
@@ -20,5 +19,10 @@
 @property (nonatomic) BOOL friendsCanInvite;
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSDate *endTime;
+@property (nonatomic, strong) NSMutableArray *invitedFriends;
+@property (nonatomic, strong) NSMutableArray *RSVPdFriends;
+@property (nonatomic, strong) NSMutableArray *tags;
+@property (nonatomic, strong) NSString *privacy;
+
 
 @end
