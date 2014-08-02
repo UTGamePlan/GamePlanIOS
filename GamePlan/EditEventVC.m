@@ -32,7 +32,7 @@
 
 @implementation EditEventVC 
 
-@synthesize startDatePicker, endDatePicker, startLabel, endLabel, tailgateButton, watchPartyButton, afterPartyButton, eventNameLabel, eventDescLabel, BYOBButton, FreeFoodButton, CoverChargeButton, KidFriendlyButton, AlumniButton, StudentsButton, event, eventTypeMissing, eventNameMissing, eventLocMissing, eventTimeMissing, privacyButton, inviteButton, privSetting1Button, privSetting2Button, privSetting3Button, privSetting4Button, privLabel, miniMap, expandedMap, miniMapButton, titleLabel;
+@synthesize startDatePicker, endDatePicker, startLabel, endLabel, tailgateButton, watchPartyButton, afterPartyButton, eventNameLabel, eventDescLabel, BYOBButton, FreeFoodButton, CoverChargeButton, KidFriendlyButton, AlumniButton, StudentsButton, event, eventTypeMissing, eventNameMissing, eventLocMissing, eventTimeMissing, privacyButton, inviteButton, privSetting1Button, privSetting2Button, privSetting3Button, privSetting4Button, privLabel, miniMap, expandedMap, miniMapButton, titleLabel, mainMap, privacyLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -94,12 +94,13 @@
         titleLabel.text = @"Edit Event";
     } else {
         tags = [[NSMutableArray alloc] init];
+        invitedFriends = [[NSMutableArray alloc] init];
         titleLabel.text = @"Add an Event";
-        CGRect newFrame = self.myView.frame;
-        CGRect screenRect = [[UIScreen mainScreen] bounds];
-        newFrame.size.width = screenRect.size.width;
-        newFrame.size.height = screenRect.size.height+100;
-        [self.myView setFrame:newFrame];
+//        CGRect newFrame = self.myView.frame;
+//        CGRect screenRect = [[UIScreen mainScreen] bounds];
+//        newFrame.size.width = screenRect.size.width;
+//        newFrame.size.height = screenRect.size.height+100;
+//        [self.myView setFrame:newFrame];
     }
 }
 
@@ -296,6 +297,7 @@
     annot.coordinate = touchMapCoordinate;
     [expandedMap addAnnotation:annot];
     [miniMap addAnnotation:annot];
+    [mainMap addAnnotation:annot];
     [expandedMap setHidden:YES];
     [miniMap setHidden:NO];
     [miniMapButton setHidden:NO];
@@ -311,6 +313,7 @@
     
     //START PICKER
     [startDatePicker setHidden:YES];
+    [startDatePicker setBackgroundColor:[UIColor whiteColor]];
     isStartPickerViewable = NO;
     startDatePicker.date = [NSDate date];
     [startDatePicker addTarget:self action:@selector(changeStartDateInLabel:) forControlEvents:UIControlEventValueChanged];
@@ -327,6 +330,7 @@
     
     //END PICKER
     [endDatePicker setHidden:YES];
+    [endDatePicker setBackgroundColor:[UIColor whiteColor]];
     isEndPickerViewable = NO;
     endDatePicker.date = [NSDate date];
     [endDatePicker addTarget:self action:@selector(changeEndDateInLabel:) forControlEvents:UIControlEventValueChanged];
@@ -345,12 +349,14 @@
         [endLabel setHidden:YES];
         [startDatePicker setHidden:NO];
         [privacyButton setHidden:YES];
+        [privacyLabel setHidden:YES];
         [inviteButton setHidden:YES];
     } else {
         isStartPickerViewable = NO;
         [endLabel setHidden:NO];
         [startDatePicker setHidden:YES];
         [privacyButton setHidden:NO];
+        [privacyLabel setHidden:NO];
         [inviteButton setHidden:NO];
     }
 }
@@ -362,11 +368,13 @@
         isEndPickerViewable = YES;
         [endDatePicker setHidden:NO];
         [privacyButton setHidden:YES];
+        [privacyLabel setHidden:YES];
         [inviteButton setHidden:YES];
     } else {
         isEndPickerViewable = NO;
         [endDatePicker setHidden:YES];
         [privacyButton setHidden:NO];
+        [privacyLabel setHidden:NO];
         [inviteButton setHidden:NO];
     }
 }
@@ -482,7 +490,8 @@
     
     //save invited friends
     for (id<FBGraphUser> user in friendPickerController.selection) {
-        [invitedFriends addObject:[user objectForKey:@"id"]];
+        NSString *userId = [NSString stringWithFormat:@"%d",[user objectForKey:@"id"]];
+        [invitedFriends addObject: userId];
     }
     
     //dismiss modal
@@ -569,12 +578,30 @@
         [inCompleteFields show];
         
     }else {
+        
+        //set defaults
         eventName = eventNameLabel.text;
         if ([eventDescLabel.text isEqualToString:@"Event Description"]) {
             desc = @"";
         } else {
             desc = eventDescLabel.text;
         }
+        if (privacy == nil) {
+            privacy = @"Public";
+        }
+        
+        //get parse ids for invited friends
+        NSMutableArray *invitedFriendsIDs = [[NSMutableArray alloc] init];
+        for (NSString *str in invitedFriends) {
+            PFQuery *query = [PFQuery queryWithClassName:@"User"];
+            [query whereKey:@"FacebookID" equalTo:str];
+            PFObject *user = [query getFirstObject];
+            NSString *userId = [user objectId];
+            if (userId) {
+                [invitedFriendsIDs addObject:[user objectId]];
+            }
+        }
+        
         if (type == tailgateType) {
             Tailgate *tg = [[Tailgate alloc]init];
             tg.name = eventName;
@@ -582,7 +609,7 @@
             tg.startTime = startTime;
             tg.endTime = endTime;
             tg.ownerId = [[PFUser currentUser] objectId];
-            tg.invitedFriends = invitedFriends;
+            tg.invitedFriends = invitedFriendsIDs;
             tg.RSVPdFriends = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
             tg.geoPoint = loc;
             tg.tags = tags;
@@ -598,7 +625,7 @@
             wp.startTime = startTime;
             wp.endTime = endTime;
             wp.ownerId = [[PFUser currentUser] objectId];
-            wp.invitedFriends = invitedFriends;
+            wp.invitedFriends = invitedFriendsIDs;
             wp.RSVPdFriends = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
             wp.geoPoint = loc;
             wp.tags = tags;
@@ -614,7 +641,7 @@
             ap.startTime = startTime;
             ap.endTime = endTime;
             ap.ownerId = [[PFUser currentUser] objectId];
-            ap.invitedFriends = invitedFriends;
+            ap.invitedFriends = invitedFriendsIDs;
             ap.RSVPdFriends = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
             ap.geoPoint = loc;
             ap.tags = tags;

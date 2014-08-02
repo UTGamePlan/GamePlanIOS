@@ -82,6 +82,12 @@
 		C962E407194FFD28005A4895 /* Tailgate.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E406194FFD28005A4895 /* Tailgate.m */; };
 		C962E40A194FFE65005A4895 /* WatchParty.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E409194FFE65005A4895 /* WatchParty.m */; };
 		C962E40D194FFE7B005A4895 /* AfterParty.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E40C194FFE7B005A4895 /* AfterParty.m */; };
+		C9ADB519198D6D5C001D1CE2 /* PendingInvitesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ADB517198D6D5C001D1CE2 /* PendingInvitesTableViewCell.m */; };
+		C9ADB51A198D6D5C001D1CE2 /* PendingInvitesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9ADB518198D6D5C001D1CE2 /* PendingInvitesTableViewCell.xib */; };
+		C9ADB51E198D735C001D1CE2 /* HostingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ADB51C198D735C001D1CE2 /* HostingTableViewCell.m */; };
+		C9ADB51F198D735C001D1CE2 /* HostingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9ADB51D198D735C001D1CE2 /* HostingTableViewCell.xib */; };
+		C9ADB523198D7550001D1CE2 /* PlaybookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ADB521198D7550001D1CE2 /* PlaybookTableViewCell.m */; };
+		C9ADB524198D7550001D1CE2 /* PlaybookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9ADB522198D7550001D1CE2 /* PlaybookTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +205,15 @@
 		C962E409194FFE65005A4895 /* WatchParty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchParty.m; sourceTree = "<group>"; };
 		C962E40B194FFE7B005A4895 /* AfterParty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AfterParty.h; sourceTree = "<group>"; };
 		C962E40C194FFE7B005A4895 /* AfterParty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AfterParty.m; sourceTree = "<group>"; };
+		C9ADB516198D6D5C001D1CE2 /* PendingInvitesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PendingInvitesTableViewCell.h; sourceTree = "<group>"; };
+		C9ADB517198D6D5C001D1CE2 /* PendingInvitesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PendingInvitesTableViewCell.m; sourceTree = "<group>"; };
+		C9ADB518198D6D5C001D1CE2 /* PendingInvitesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PendingInvitesTableViewCell.xib; sourceTree = "<group>"; };
+		C9ADB51B198D735C001D1CE2 /* HostingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostingTableViewCell.h; sourceTree = "<group>"; };
+		C9ADB51C198D735C001D1CE2 /* HostingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostingTableViewCell.m; sourceTree = "<group>"; };
+		C9ADB51D198D735C001D1CE2 /* HostingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HostingTableViewCell.xib; sourceTree = "<group>"; };
+		C9ADB520198D7550001D1CE2 /* PlaybookTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybookTableViewCell.h; sourceTree = "<group>"; };
+		C9ADB521198D7550001D1CE2 /* PlaybookTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybookTableViewCell.m; sourceTree = "<group>"; };
+		C9ADB522198D7550001D1CE2 /* PlaybookTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaybookTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,7 +322,7 @@
 			children = (
 				3FD34D5F19846ED8004B6758 /* EventDetailViewController */,
 				3FE1790119529FDE007AE6F6 /* UserMenuViewController */,
-				C962E3FE194FF2EA005A4895 /* AddEventViewController */,
+				C962E3FE194FF2EA005A4895 /* EditEventViewController */,
 				3F9B6DE7194E4BF100B2C3E0 /* FBLoginViewController */,
 				3F9B6DE6194E4BE400B2C3E0 /* MapViewController */,
 			);
@@ -391,6 +406,15 @@
 			children = (
 				3FE179021952A0F0007AE6F6 /* GPUserMenuViewController.h */,
 				3FE179031952A0F0007AE6F6 /* GPUserMenuViewController.m */,
+				C9ADB516198D6D5C001D1CE2 /* PendingInvitesTableViewCell.h */,
+				C9ADB517198D6D5C001D1CE2 /* PendingInvitesTableViewCell.m */,
+				C9ADB518198D6D5C001D1CE2 /* PendingInvitesTableViewCell.xib */,
+				C9ADB51B198D735C001D1CE2 /* HostingTableViewCell.h */,
+				C9ADB51C198D735C001D1CE2 /* HostingTableViewCell.m */,
+				C9ADB51D198D735C001D1CE2 /* HostingTableViewCell.xib */,
+				C9ADB520198D7550001D1CE2 /* PlaybookTableViewCell.h */,
+				C9ADB521198D7550001D1CE2 /* PlaybookTableViewCell.m */,
+				C9ADB522198D7550001D1CE2 /* PlaybookTableViewCell.xib */,
 			);
 			name = UserMenuViewController;
 			sourceTree = "<group>";
@@ -491,14 +515,14 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		C962E3FE194FF2EA005A4895 /* AddEventViewController */ = {
+		C962E3FE194FF2EA005A4895 /* EditEventViewController */ = {
 			isa = PBXGroup;
 			children = (
 				C920A13D1985E95C009EDF82 /* EditEventVC.h */,
 				C920A13E1985E95C009EDF82 /* EditEventVC.m */,
 				C920A13F1985E95C009EDF82 /* EditEventVC.xib */,
 			);
-			name = AddEventViewController;
+			name = EditEventViewController;
 			sourceTree = "<group>";
 		};
 		C962E40E194FFF2A005A4895 /* Events */ = {
@@ -602,9 +626,11 @@
 				3FE178EB19529BEF007AE6F6 /* gear@2x.png in Resources */,
 				3F1B8D531970BA62003CC7EF /* afterparty-pin@2x.png in Resources */,
 				3F9B6DE2194E42DE00B2C3E0 /* app_icon@2x.png in Resources */,
+				C9ADB51A198D6D5C001D1CE2 /* PendingInvitesTableViewCell.xib in Resources */,
 				C90E815F18B944E2004BF989 /* FB_Button_Down@2x.png in Resources */,
 				3F9B6DDA194E413B00B2C3E0 /* logo@2x.png in Resources */,
 				C90E812618B94468004BF989 /* Images.xcassets in Resources */,
+				C9ADB51F198D735C001D1CE2 /* HostingTableViewCell.xib in Resources */,
 				3F1B8D541970BA62003CC7EF /* tailgate-pin@2x.png in Resources */,
 				3F9B6DE1194E42DE00B2C3E0 /* app_icon.png in Resources */,
 				3FE178ED19529BEF007AE6F6 /* question-mark@2x.png in Resources */,
@@ -626,6 +652,7 @@
 				3F62518D1951463C00D24EE8 /* default_profile@2x.jpg in Resources */,
 				3F9B6DD2194E3D4500B2C3E0 /* burnt_orange.jpeg in Resources */,
 				3F1B8D571970C59B003CC7EF /* restaurant-pin@2x.png in Resources */,
+				C9ADB524198D7550001D1CE2 /* PlaybookTableViewCell.xib in Resources */,
 				3F9B6DDD194E415600B2C3E0 /* GPLettering.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,6 +677,7 @@
 				3FE178FC19529FCA007AE6F6 /* REFrostedContainerViewController.m in Sources */,
 				3FE178FB19529FCA007AE6F6 /* RECommonFunctions.m in Sources */,
 				C90E811A18B94468004BF989 /* main.m in Sources */,
+				C9ADB51E198D735C001D1CE2 /* HostingTableViewCell.m in Sources */,
 				3FE178D819527F3A007AE6F6 /* UzysSMMenuItem.m in Sources */,
 				3FE178FF19529FCA007AE6F6 /* UIView+REFrostedViewController.m in Sources */,
 				C90E814B18B944D4004BF989 /* GPMapViewController.m in Sources */,
@@ -659,6 +687,7 @@
 				3FD34D5E19846EC4004B6758 /* GPEventDetailViewController.m in Sources */,
 				3FE1790019529FCA007AE6F6 /* UIViewController+REFrostedViewController.m in Sources */,
 				C962E407194FFD28005A4895 /* Tailgate.m in Sources */,
+				C9ADB523198D7550001D1CE2 /* PlaybookTableViewCell.m in Sources */,
 				3FE178D719527F3A007AE6F6 /* UzysSlideMenu.m in Sources */,
 				3FE1790A1952AB5E007AE6F6 /* GPRootViewController.m in Sources */,
 				3F0E03201973123B00B4B713 /* Game.m in Sources */,
@@ -670,6 +699,7 @@
 				3FE178FD19529FCA007AE6F6 /* REFrostedViewController.m in Sources */,
 				C90E816D18B94503004BF989 /* GPAppDelegate.m in Sources */,
 				3F9B6DCE194E39DC00B2C3E0 /* TransitionDelegate.m in Sources */,
+				C9ADB519198D6D5C001D1CE2 /* PendingInvitesTableViewCell.m in Sources */,
 				3FE179041952A0F0007AE6F6 /* GPUserMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,7 +24,7 @@ typedef enum {
 - (IBAction)didClickMiniMap:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *miniMapButton;
 @property (weak, nonatomic) IBOutlet MKMapView *expandedMap;
-
+@property (strong, nonatomic) IBOutlet MKMapView *mainMap;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 - (IBAction)didTouchCancelButton:(UIButton *)sender;
 
@@ -77,6 +77,7 @@ typedef enum {
 - (IBAction)privSetting3:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *privSetting4Button;
 - (IBAction)privSetting4:(UIButton *)sender;
+@property (strong, nonatomic) IBOutlet UILabel *privacyLabel;
 
 #pragma mark - Finalize Buttons
 - (IBAction)doneButton:(id)sender;
