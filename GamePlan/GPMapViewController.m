@@ -10,6 +10,13 @@
 #import "TransitionDelegate.h"
 #import "UzysSlideMenu.h"
 #import "EditEventVC.h"
+#import "AddEventViewController.h"
+#import "GPEventDetailViewController.h"
+#import "Tailgate.h"
+#import "AfterParty.h"
+#import "WatchParty.h"
+#import "Restaurant.h"
+#import "Game.h"
 
 @interface GPMapViewController ()
 
@@ -17,6 +24,7 @@
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
 @property (nonatomic,strong) UzysSlideMenu *bottomBarMenu; //UzysSlideMenu is part of an outside library that we modified
+@property (nonatomic, strong) NSMutableDictionary *eventDetails;
 
 @end
 
@@ -32,7 +40,11 @@
 
 BOOL userAllowedLocationTracking;
 BOOL userLocationUpdatedOnce;
+BOOL tailgatesVisible;
+BOOL afterPartiesVisible;
+BOOL restaurantsVisible;
 int timeInSecondsSinceLocationSavedInParse;
+NSDate *today;
 
 - (void)viewDidLoad
 {
@@ -40,9 +52,13 @@ int timeInSecondsSinceLocationSavedInParse;
     
     self.navigationController.navigationBar.hidden = YES;
     
+    today = [NSDate date];
+    [self setGameSchedule];
+    [self initializeFilterParameters];
+    
     // This is what allows us to pop transluscent modals
     self.transitionController = [[TransitionDelegate alloc] init];
-    
+    self.mapView.delegate = self;
     [self setUpLocationManager];
     [self loadEventPins];
     [self setProfilePhoto];
@@ -87,7 +103,7 @@ int timeInSecondsSinceLocationSavedInParse;
     CGRect myLocationButtonFrame = self.myLocationButton.frame;
     CGRect profileImageButtonFrame = self.userProfileImageButton.frame;
     
-    [UIView beginAnimations:@"raise filterView!" context:nil];
+    [UIView beginAnimations:@"show menu bars" context:nil];
     [UIView setAnimationDuration:.5];
     [UIView setAnimationBeginsFromCurrentState:YES];
     
@@ -103,6 +119,168 @@ int timeInSecondsSinceLocationSavedInParse;
     [self.userProfileImageButton setFrame:CGRectMake(profileImageButtonFrame.origin.x, 20, profileImageButtonFrame.size.width, profileImageButtonFrame.size.height)];
     
     [UIView commitAnimations];
+}
+
+-(void)setGameSchedule
+{
+    self.gameSchedule = [[NSMutableArray alloc] init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-08-30 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-09-06 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-09-13 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-09-27 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-10-04 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-10-11 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-10-18 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-10-25 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-11-01 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-11-08 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-11-15 23:59:59 CST"]];
+    [self.gameSchedule addObject:[dateFormatter dateFromString: @"2014-11-27 23:59:59 CST"]];
+}
+
+-(void)fetchUTGames
+{
+    PFQuery *scheduleQuery = [PFQuery queryWithClassName:@"Games"];
+    [scheduleQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (Game *game in objects) {
+                //do stuff
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
+-(void)initializeFilterParameters
+{
+    self.pastDate = today;
+    for (NSDate *date in self.gameSchedule) {
+        if( [date timeIntervalSinceDate:today] > 0 ) {
+            self.futureDate = date;
+            break;
+        }
+    }
+    self.showTailgates = YES;
+    self.showAfterParties = YES;
+    self.showWatchParties = YES;
+    self.showRestaurants = YES;
+    self.showEventsInMyPlaybookOnly = NO;
+    self.radius = -1;
+    [self setUpDateSliders];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    self.startDateLabel.text = @"Today";
+    self.endDateLabel.text = [dateFormatter stringFromDate:self.futureDate];
+}
+
+- (IBAction) toggleTailgatesPressed:(UIButton *)sender
+{
+    if (tailgatesVisible) {
+        for (Tailgate *tailgate in self.tailgates) {
+            [[self.mapView viewForAnnotation: tailgate] setHidden: YES];
+        }
+        tailgatesVisible = NO;
+    } else {
+        for (Tailgate *tailgate in self.tailgates) {
+            [[self.mapView viewForAnnotation: tailgate] setHidden: NO];
+        }
+        tailgatesVisible = YES;
+    }
+}
+
+- (IBAction) toggleAfterPartiesPressed:(UIButton *)sender
+{
+    if (afterPartiesVisible) {
+        for (AfterParty *afterParty in self.afterParties) {
+            [[self.mapView viewForAnnotation: afterParty] setHidden: YES];
+        }
+        afterPartiesVisible = NO;
+    } else {
+        for (AfterParty *afterParty in self.afterParties) {
+            [[self.mapView viewForAnnotation: afterParty] setHidden: NO];
+        }
+        afterPartiesVisible = YES;
+    }
+}
+
+- (IBAction) toggleRestaurantsPressed:(UIButton *)sender
+{
+    if (restaurantsVisible) {
+        for (Restaurant *restaurant in self.restaurants) {
+            [[self.mapView viewForAnnotation: restaurant] setHidden: YES];
+        }
+        restaurantsVisible = NO;
+    } else {
+        for (Restaurant *restaurant in self.restaurants) {
+            [[_mapView viewForAnnotation: restaurant] setHidden: NO];
+        }
+        restaurantsVisible = YES;
+    }
+}
+
+-(void)setUpDateSliders
+{
+    NSMutableArray *dates = [[NSMutableArray alloc] init];
+    [dates addObject:@"Today"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    for (NSDate *date in self.gameSchedule) {
+        [dates addObject:[dateFormatter stringFromDate:date]];
+    }
+    self.datesAsStrings = [NSArray arrayWithArray:dates];
+    NSInteger numberOfOptions = ((float)[self.datesAsStrings count] - 1);
+    self.startDateSlider.maximumValue = numberOfOptions;
+    self.startDateSlider.minimumValue = 0;
+    self.endDateSlider.maximumValue = numberOfOptions;
+    self.endDateSlider.minimumValue = 0;
+    self.startDateSlider.continuous = NO;
+    [self.startDateSlider addTarget:self
+               action:@selector(valueChanged:)
+     forControlEvents:UIControlEventValueChanged];
+    self.endDateSlider.continuous = NO;
+    [self.endDateSlider addTarget:self
+                             action:@selector(valueChanged:)
+                   forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)valueChanged:(UISlider *)sender {
+   //IMPLEMENT HIDING PINS AFTER SLIDER HERE
+    NSUInteger index = (NSUInteger)(sender.value + 0.5);
+    [sender setValue:index animated:NO];
+    NSString *date = self.datesAsStrings[index];
+    if (sender == self.startDateSlider) {
+        self.startDateLabel.text = date;
+    } else {
+        self.endDateLabel.text = date;
+    }
+    [self applyDateFilterWithStartDate:self.startDateLabel.text WithEndDate:self.endDateLabel.text];
+}
+
+//This could be refactored. Hardly sticks to the single responsibility principle
+-(void)applyDateFilterWithStartDate:(NSString *)startDate WithEndDate:(NSString *)endDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    NSDate *start = [[NSDate alloc] init];
+    NSDate *end = [[NSDate alloc] init];
+    start = [dateFormatter dateFromString:startDate];
+    end = [dateFormatter dateFromString:endDate];
+    for (Tailgate *tailgate in self.tailgates) {
+        if([tailgate.startTime timeIntervalSinceDate:start] > 0) {
+            [[self.mapView viewForAnnotation: tailgate] setHidden: YES];
+        } else {
+            [[self.mapView viewForAnnotation: tailgate] setHidden: NO];
+        }
+        if([tailgate.endTime timeIntervalSinceDate:end] > 0) {
+            [[self.mapView viewForAnnotation: tailgate] setHidden: YES];
+        } else {
+            [[self.mapView viewForAnnotation: tailgate] setHidden: NO];
+        }
+    }
 }
 
 #pragma mark - User Location
@@ -220,6 +398,100 @@ int timeInSecondsSinceLocationSavedInParse;
     [self zoomInOnUserLocation];
 }
 
+-(IBAction)filterButtonPressed:(UIButton *)sender
+{
+    [self toggleFilterView];
+}
+
+-(void)toggleFilterView
+{
+    CGRect filterFrame = self.filterView.frame;
+    CGRect frame = self.view.frame;
+    CGRect menuBarFrame = self.bottomBar.frame;
+    [UIView beginAnimations:@"raise filterView!" context:nil];
+    [UIView setAnimationDuration:.5];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    if (filterFrame.origin.y < self.view.frame.size.height) {
+        [self.filterView setFrame:CGRectMake(filterFrame.origin.x, frame.size.height, filterFrame.size.width, filterFrame.size.height)];
+    } else {
+        [self.filterView setFrame:CGRectMake(filterFrame.origin.x, frame.size.height-(menuBarFrame.size.height+filterFrame.size.height), filterFrame.size.width, filterFrame.size.height)];
+    }
+    [UIView commitAnimations];
+}
+
+#pragma mark - Map Functions
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    // If the annotation is the user location, just return nil.
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        return nil;
+    }
+    // Handle any custom annotations.
+    NSString *eventType = [NSStringFromClass([annotation class]) lowercaseString];
+    
+    // Try to dequeue an existing pin view first.
+    MKAnnotationView* pinView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:eventType];
+    if (!pinView)
+    {
+        // If an existing pin view was not available, create one.
+        pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                               reuseIdentifier:eventType];
+        pinView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-pin.png", eventType]];
+        pinView.canShowCallout = YES;
+    } else {
+        pinView.annotation = annotation;
+    }
+    
+    return pinView;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    [self.eventDetails removeAllObjects];
+    self.eventDetails = nil;
+    self.eventDetails = [[NSMutableDictionary alloc]init];
+    if(![view.annotation isKindOfClass:[MKUserLocation class]]) {
+        if ([view.annotation isKindOfClass:[Tailgate class]]) {
+            Tailgate *event = (Tailgate *)view.annotation;
+            [self.eventDetails setObject:@"Tailgate" forKey:@"eventType"];
+            if (event.name) {
+                [self.eventDetails setObject:event.name forKey:@"name"];
+            }
+            if (event.desc) {
+                [self.eventDetails setObject:event.desc forKey:@"desc"];
+            }
+            if (event.ownerId) {
+                [self.eventDetails setObject:event.ownerId forKey:@"ownerId"];
+            }
+            if (event.startTime) {
+                [self.eventDetails setObject:event.startTime forKey:@"startTime"];
+            }
+            if (event.endTime) {
+                [self.eventDetails setObject:event.endTime forKey:@"endTime"];
+            }
+            if (event.geoPoint) {
+                [self.eventDetails setObject:event.geoPoint forKey:@"geoPoint"];
+            }
+        }
+        UIButton *disclosure = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [disclosure addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMoreInfoForEvent)]];
+        view.rightCalloutAccessoryView = disclosure;
+    }
+}
+
+- (void)showMoreInfoForEvent
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    GPEventDetailViewController *eventDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"event-details"];
+    
+    eventDetailViewController.eventInfo = [NSDictionary dictionaryWithDictionary:self.eventDetails];
+    
+    eventDetailViewController.view.backgroundColor = [UIColor lightGrayColor];
+    [eventDetailViewController setTransitioningDelegate:transitionController];
+    eventDetailViewController.modalPresentationStyle= UIModalPresentationCustom;
+    [self presentViewController:eventDetailViewController animated:YES completion:nil];
+}
+
 
 - (void)loadEventPins
 {
@@ -231,31 +503,73 @@ int timeInSecondsSinceLocationSavedInParse;
 
 - (void)loadTailgatePins
 {
-    
-}
-
-- (void)loadAfterPartyPins
-{
-    
-}
-
-- (void)loadWatchPartyPins
-{
-    
-}
-
-- (void)loadRestaurantPins
-{
-    PFQuery *restaurantQuery = [PFQuery queryWithClassName:@"Restaurants"];
-    [restaurantQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    self.tailgates = [[NSMutableArray alloc] init];
+    PFQuery *tailgateQuery = [PFQuery queryWithClassName:@"Tailgate"];
+    [tailgateQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            // TODO: Implement handling of calls to restaurant data
+            for (Tailgate *tailgate in objects) {
+                [self.mapView addAnnotation:tailgate];
+                [self.tailgates addObject:tailgate];
+            }
+            tailgatesVisible = YES;
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+}
 
+- (void)loadAfterPartyPins
+{
+    self.afterParties = [[NSMutableArray alloc] init];
+    PFQuery *afterPartyQuery = [PFQuery queryWithClassName:@"AfterParty"];
+    [afterPartyQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (AfterParty *afterParty in objects) {
+                [self.mapView addAnnotation:afterParty];
+                [self.afterParties addObject:afterParty];
+            }
+            afterPartiesVisible = YES;
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
+- (void)loadWatchPartyPins
+{
+    self.watchParties = [[NSMutableArray alloc] init];
+    PFQuery *watchPartyQuery = [PFQuery queryWithClassName:@"WatchParty"];
+    [watchPartyQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (WatchParty *watchParty in objects) {
+                [self.mapView addAnnotation:watchParty];
+                [self.watchParties addObject:watchParty];
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
+- (void)loadRestaurantPins
+{
+    self.restaurants = [[NSMutableArray alloc] init];
+    PFQuery *restaurantQuery = [PFQuery queryWithClassName:@"Restaurant"];
+    [restaurantQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (Restaurant *restaurant in objects) {
+                [self.mapView addAnnotation:restaurant];
+                [self.restaurants addObject:restaurant];
+            }
+            restaurantsVisible = YES;
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
 
 #pragma mark - User Profile Photo Button

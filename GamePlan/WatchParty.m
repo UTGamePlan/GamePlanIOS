@@ -12,7 +12,7 @@
 
 + (NSString *) parseClassName
 {
-    return @"Watch Party";
+    return @"WatchParty";
 }
 
 @end
