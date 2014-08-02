@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "Event.h"
 
-@interface GPEventDetailViewController : UIViewController <MKMapViewDelegate>
+@interface GPEventDetailViewController : UIViewController <MKMapViewDelegate,FBFriendPickerDelegate>
 
-@property (nonatomic,strong) NSDictionary *eventInfo;
+@property (nonatomic,strong) Event *event;
+@property (nonatomic,strong) NSString *eventType;
 
 @property (strong, nonatomic) IBOutlet UILabel *eventNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *hostLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (strong, nonatomic) IBOutlet UILabel *descriptionBackground;
 @property (strong, nonatomic) IBOutlet MKMapView *mapPreview;
 
 - (IBAction) backPressed:(UIButton *)sender;

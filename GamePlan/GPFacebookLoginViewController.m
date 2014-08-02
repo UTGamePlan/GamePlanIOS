@@ -66,7 +66,7 @@
                 if (!error) {
                     // result is a dictionary with the user's Facebook data
                     NSDictionary *userData = (NSDictionary *)result;
-                                        
+                    
                     //get facebook id and pic URL
                     NSString *facebookID = userData[@"id"];
                     NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
@@ -74,11 +74,13 @@
                     if (facebookID) {
                         [[PFUser currentUser] setObject:facebookID forKey:@"FacebookID"];
                         [defaults setObject:facebookID forKey:@"facebookID"];
+                        NSLog(@"FACEBOOK ID: %@", facebookID);
                     }
                     
                     if (userData[@"name"]) {
                         [[PFUser currentUser] setObject:userData[@"name"] forKey:@"Name"];
                         [defaults setObject:userData[@"name"] forKey:@"name"];
+                        NSLog(@"Name: %@", userData[@"name"]);
                     }
                     
                     if (userData[@"location"][@"name"]) {
@@ -98,10 +100,19 @@
                     }
                     
                     if ([pictureURL absoluteString]) {
+                        NSLog(@"PICTURE URL");
                         [[PFUser currentUser] setObject:[pictureURL absoluteString] forKey:@"FBPictureURL"];
                         [defaults setObject:(NSURL *)[pictureURL absoluteString] forKey:@"pictureURL"];
                         // Set the profile picture button back on the map view screen
                         [self.userProfilePictureButtonForMapViewController setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[pictureURL absoluteString]]]] forState:UIControlStateNormal];
+                    }
+                    
+                    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                    currentInstallation[@"user"] = [PFUser currentUser];
+                    [currentInstallation saveInBackground];
+                    
+                    if([currentInstallation objectId]) {
+                        [[PFUser currentUser] setObject:[[PFInstallation currentInstallation] objectId] forKey:@"InstallationID"];
                     }
                     
                     [[PFUser currentUser] saveInBackground];
@@ -109,7 +120,7 @@
                 }
             }];
             
-            /* make the API call for "invitable" users' friends */
+            /* make the API call for users' friends */
             [FBRequestConnection startWithGraphPath:@"/me/friends"
                                          parameters:nil
                                          HTTPMethod:@"GET"
@@ -127,6 +138,7 @@
             [defaults setObject:@"YES" forKey:@"userLoggedIn"];
             
             [self dismissViewControllerAnimated:YES completion:nil];
+
         }
     }];
 }
@@ -146,7 +158,7 @@
     [UIView setAnimationDuration:.5];
     [UIView setAnimationBeginsFromCurrentState:YES];
     
-    [self.topBarForMapViewController setFrame:CGRectMake(topBarFrame.origin.x, self.view.frame.origin.y, topBarFrame.size.width, topBarFrame.size.height)];
+    [self.topBarForMapViewController setFrame:CGRectMake(0, 0, topBarFrame.size.width, topBarFrame.size.height)];
     [self.searchBarForMapViewController setFrame:CGRectMake(searchBarFrame.origin.x, 18.0, searchBarFrame.size.width, searchBarFrame.size.height)];
     [self.bottomBarForMapViewController setFrame:CGRectMake(bottomBarFrame.origin.x, self.view.frame.size.height-bottomBarFrame.size.height, bottomBarFrame.size.width, bottomBarFrame.size.height)];
     bottomBarFrame = self.bottomBarForMapViewController.frame;
