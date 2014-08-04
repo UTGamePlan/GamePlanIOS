@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		3F0E03201973123B00B4B713 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0E031F1973123B00B4B713 /* Game.m */; };
 		3F185C71198C80BB008D23A7 /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0E031C1972D8CD00B4B713 /* Restaurant.m */; };
-		3F1B8D531970BA62003CC7EF /* afterparty-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B8D501970BA62003CC7EF /* afterparty-pin@2x.png */; };
-		3F1B8D541970BA62003CC7EF /* tailgate-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B8D511970BA62003CC7EF /* tailgate-pin@2x.png */; };
-		3F1B8D551970BA62003CC7EF /* watchparty-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B8D521970BA62003CC7EF /* watchparty-pin@2x.png */; };
-		3F1B8D571970C59B003CC7EF /* restaurant-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1B8D561970C59B003CC7EF /* restaurant-pin@2x.png */; };
+		3F255612198DEBEF003543CB /* afterparty-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F25560F198DEBEF003543CB /* afterparty-pin@2x.png */; };
+		3F255613198DEBEF003543CB /* tailgate-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F255610198DEBEF003543CB /* tailgate-pin@2x.png */; };
+		3F255614198DEBEF003543CB /* watchparty-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F255611198DEBEF003543CB /* watchparty-pin@2x.png */; };
 		3F62518C1951463C00D24EE8 /* default_profile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F62518A1951463C00D24EE8 /* default_profile.jpg */; };
 		3F62518D1951463C00D24EE8 /* default_profile@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F62518B1951463C00D24EE8 /* default_profile@2x.jpg */; };
 		3F6251901951546B00D24EE8 /* jeremyDorm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3F62518F1951546B00D24EE8 /* jeremyDorm.gpx */; };
@@ -104,10 +103,9 @@
 		3F0E031C1972D8CD00B4B713 /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		3F0E031E1973123B00B4B713 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		3F0E031F1973123B00B4B713 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
-		3F1B8D501970BA62003CC7EF /* afterparty-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "afterparty-pin@2x.png"; sourceTree = "<group>"; };
-		3F1B8D511970BA62003CC7EF /* tailgate-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tailgate-pin@2x.png"; sourceTree = "<group>"; };
-		3F1B8D521970BA62003CC7EF /* watchparty-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "watchparty-pin@2x.png"; sourceTree = "<group>"; };
-		3F1B8D561970C59B003CC7EF /* restaurant-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "restaurant-pin@2x.png"; sourceTree = "<group>"; };
+		3F25560F198DEBEF003543CB /* afterparty-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "afterparty-pin@2x.png"; path = "Assets/afterparty-pin@2x.png"; sourceTree = "<group>"; };
+		3F255610198DEBEF003543CB /* tailgate-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tailgate-pin@2x.png"; path = "Assets/tailgate-pin@2x.png"; sourceTree = "<group>"; };
+		3F255611198DEBEF003543CB /* watchparty-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "watchparty-pin@2x.png"; path = "Assets/watchparty-pin@2x.png"; sourceTree = "<group>"; };
 		3F62518A1951463C00D24EE8 /* default_profile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_profile.jpg; sourceTree = "<group>"; };
 		3F62518B1951463C00D24EE8 /* default_profile@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "default_profile@2x.jpg"; sourceTree = "<group>"; };
 		3F62518F1951546B00D24EE8 /* jeremyDorm.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = jeremyDorm.gpx; path = GamePlan/jeremyDorm.gpx; sourceTree = "<group>"; };
@@ -252,10 +250,9 @@
 		3F62518E1951464B00D24EE8 /* MapViewController */ = {
 			isa = PBXGroup;
 			children = (
-				3F1B8D561970C59B003CC7EF /* restaurant-pin@2x.png */,
-				3F1B8D501970BA62003CC7EF /* afterparty-pin@2x.png */,
-				3F1B8D511970BA62003CC7EF /* tailgate-pin@2x.png */,
-				3F1B8D521970BA62003CC7EF /* watchparty-pin@2x.png */,
+				3F25560F198DEBEF003543CB /* afterparty-pin@2x.png */,
+				3F255610198DEBEF003543CB /* tailgate-pin@2x.png */,
+				3F255611198DEBEF003543CB /* watchparty-pin@2x.png */,
 				AEA77795195F954400EF19E9 /* filterFunnel@2x.png */,
 				AEA77796195F954400EF19E9 /* hamburgerMenu@2x.png */,
 				AEA77797195F954400EF19E9 /* refreshLoop@2x.png */,
@@ -621,14 +618,12 @@
 				3F9B6DDE194E415600B2C3E0 /* GPLettering@2x.png in Resources */,
 				C920A1411985E95C009EDF82 /* EditEventVC.xib in Resources */,
 				3FE178EB19529BEF007AE6F6 /* gear@2x.png in Resources */,
-				3F1B8D531970BA62003CC7EF /* afterparty-pin@2x.png in Resources */,
 				3F9B6DE2194E42DE00B2C3E0 /* app_icon@2x.png in Resources */,
 				C9ADB51A198D6D5C001D1CE2 /* PendingInvitesTableViewCell.xib in Resources */,
 				C90E815F18B944E2004BF989 /* FB_Button_Down@2x.png in Resources */,
 				3F9B6DDA194E413B00B2C3E0 /* logo@2x.png in Resources */,
 				C90E812618B94468004BF989 /* Images.xcassets in Resources */,
 				C9ADB51F198D735C001D1CE2 /* HostingTableViewCell.xib in Resources */,
-				3F1B8D541970BA62003CC7EF /* tailgate-pin@2x.png in Resources */,
 				3F9B6DE1194E42DE00B2C3E0 /* app_icon.png in Resources */,
 				3FE178ED19529BEF007AE6F6 /* question-mark@2x.png in Resources */,
 				AEA7779B195F954400EF19E9 /* refreshLoop@2x.png in Resources */,
@@ -638,16 +633,17 @@
 				C90E811818B94468004BF989 /* InfoPlist.strings in Resources */,
 				C90E812118B94468004BF989 /* Main.storyboard in Resources */,
 				3F6251901951546B00D24EE8 /* jeremyDorm.gpx in Resources */,
-				3F1B8D551970BA62003CC7EF /* watchparty-pin@2x.png in Resources */,
 				C90E815E18B944E2004BF989 /* FB_Button_Down.png in Resources */,
 				AEA77799195F954400EF19E9 /* filterFunnel@2x.png in Resources */,
 				C90E816018B944E2004BF989 /* FB_Button_Up.png in Resources */,
 				C90E816118B944E2004BF989 /* FB_Button_Up@2x.png in Resources */,
 				3FE178EC19529BEF007AE6F6 /* plus@2x.png in Resources */,
+				3F255612198DEBEF003543CB /* afterparty-pin@2x.png in Resources */,
 				AEA7779A195F954400EF19E9 /* hamburgerMenu@2x.png in Resources */,
+				3F255613198DEBEF003543CB /* tailgate-pin@2x.png in Resources */,
+				3F255614198DEBEF003543CB /* watchparty-pin@2x.png in Resources */,
 				3F62518D1951463C00D24EE8 /* default_profile@2x.jpg in Resources */,
 				3F9B6DD2194E3D4500B2C3E0 /* burnt_orange.jpeg in Resources */,
-				3F1B8D571970C59B003CC7EF /* restaurant-pin@2x.png in Resources */,
 				C9ADB524198D7550001D1CE2 /* PlaybookTableViewCell.xib in Resources */,
 				3F9B6DDD194E415600B2C3E0 /* GPLettering.png in Resources */,
 			);

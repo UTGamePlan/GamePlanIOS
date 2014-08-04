@@ -13,6 +13,9 @@
 #import "AfterParty.h"
 #import "Restaurant.h"
 #import "Game.h"
+#import "GPEventDetailViewController.h"
+#import "TransitionDelegate.h"
+
 
 @implementation GPAppDelegate
 
@@ -50,8 +53,53 @@
      UIRemoteNotificationTypeAlert |
      UIRemoteNotificationTypeSound];
     
+    // this is for if the app is opened from a push notification
+    NSDictionary *payload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+    
+    if(payload) {
+        
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Yay!"
+                                                          message:[NSString stringWithFormat:@"%@: %@", [payload objectForKey:@"eventID"], [payload objectForKey:@"eventType"]]
+                                                         delegate:self
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    
+//        NSString *eventID = [payload objectForKey:@"eventID"];
+//        NSString *eventType = [payload objectForKey:@"eventType"];
+//        PFObject *event = [PFObject objectWithoutDataWithClassName:eventType objectId:eventID];
+//        
+//        [event fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+//            if (!error && [PFUser currentUser]) {
+//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//                GPEventDetailViewController *eventDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"event-details"];
+//                if ([eventType isEqualToString:@"Tailgate"]) {
+//                    eventDetailViewController.event = (Tailgate *)object;
+//                } else if ([eventType isEqualToString:@"WatchParty"]) {
+//                    eventDetailViewController.event = (WatchParty *)object;
+//                } else if ([eventType isEqualToString:@"AfterParty"]) {
+//                    eventDetailViewController.event = (AfterParty *)object;
+//                }
+//                eventDetailViewController.eventType = eventType;
+//                [[GPAppDelegate topMostController] presentModalViewController:eventDetailViewController animated:YES];
+//
+//            }
+//        }];
+    
+    }
     
     return YES;
+}
+
++ (UIViewController*) topMostController
+{
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    
+    return topController;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
@@ -62,8 +110,38 @@
     [currentInstallation saveInBackground];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [PFPush handlePush:userInfo];
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)payload fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler
+{
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Yay!"
+                                                      message:[NSString stringWithFormat:@"%@: %@", [payload objectForKey:@"eventID"], [payload objectForKey:@"eventType"]]
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message show];
+//    NSString *eventID = [payload objectForKey:@"eventID"];
+//    NSString *eventType = [payload objectForKey:@"eventType"];
+//    PFObject *event = [PFObject objectWithoutDataWithClassName:eventType objectId:eventID];
+//    
+//    [event fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+//        if (error) {
+//            handler(UIBackgroundFetchResultFailed);
+//        } else if ([PFUser currentUser]) {
+//            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//            GPEventDetailViewController *eventDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"event-details"];
+//            if ([eventType isEqualToString:@"Tailgate"]) {
+//                eventDetailViewController.event = (Tailgate *)object;
+//            } else if ([eventType isEqualToString:@"WatchParty"]) {
+//                eventDetailViewController.event = (WatchParty *)object;
+//            } else if ([eventType isEqualToString:@"AfterParty"]) {
+//                eventDetailViewController.event = (AfterParty *)object;
+//            }
+//            eventDetailViewController.eventType = eventType;
+//            [[GPAppDelegate topMostController] presentModalViewController:eventDetailViewController animated:YES];
+//            handler(UIBackgroundFetchResultNewData);
+//        } else {
+//            // handler(UIBackgroundModeNoData); <-- not sure why this doesn't work
+//        }
+//    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
