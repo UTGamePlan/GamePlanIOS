@@ -12,13 +12,22 @@
 #import "PendingInvitesTableViewCell.h"
 #import "HostingTableViewCell.h"
 #import "PlaybookTableViewCell.h"
+#import "Event.h"
+#import "GPEventDetailViewController.h"
+#import "EditEventVC.h"
 
 @interface GPUserMenuViewController (){
     NSDictionary *events;
     NSArray *sectionTitles;
-    NSArray *eventsIHost;
+    NSArray *eventsIHostNames;
+    NSArray *eventsIHostIDs;
+    NSDictionary *eventsIHostDict;
     NSArray *pendingInvites;
-    NSArray *RSVPedEvents;
+    NSDictionary *pendingInvitesDict;
+    NSArray *pendingInvitesIDs;
+    NSArray *playbook;
+    NSDictionary *playbookDict;
+    NSArray *playbookIDs;
 }
 
 @end
@@ -71,17 +80,41 @@
     
     //initalizing arrays for tables
     
-    //    eventsIHost = [[PFUser currentUser] objectForKey:@"EventsIHost"];
-    eventsIHost = @[@"foo", @"foo"];
-    //    pendingInvites = [[PFUser currentUser] objectForKey:@"PendingInvites"];
-    pendingInvites = @[@"bar", @"bar", @"bar"];
-    //    RSVPedEvents = [[PFUser currentUser] objectForKey:@"RSVPedEvents"];
-    RSVPedEvents = @[@"foobar", @"foobar"];
+    NSMutableArray *arr = [[PFUser currentUser] objectForKey:@"EventsIHost"];
+    eventsIHostDict = [arr firstObject];
+    eventsIHostIDs = [eventsIHostDict allKeys];
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    for (NSString *key in eventsIHostIDs) {
+        Event *event = (Event *)[PFQuery getObjectOfClass:[eventsIHostDict objectForKey:key] objectId:key];
+        [temp addObject:event.name];
+    }
+    eventsIHostNames = temp;
+    
+    
+    arr = [[PFUser currentUser] objectForKey:@"pendingInvites"];
+    pendingInvitesDict = [arr firstObject];
+    pendingInvitesIDs = [pendingInvitesDict allKeys];
+    temp = [[NSMutableArray alloc] init];
+    for (NSString *key in pendingInvitesIDs) {
+        Event *event = (Event *)[PFQuery getObjectOfClass:[pendingInvitesDict objectForKey:key] objectId:key];
+        [temp addObject:event.name];
+    }
+    pendingInvites = temp;
+    
+    arr = [[PFUser currentUser] objectForKey:@"Playbook"];
+    playbookDict = [arr firstObject];
+    playbookIDs = [playbookDict allKeys];
+    temp = [[NSMutableArray alloc] init];
+    for (NSString *key in playbookIDs) {
+        Event *event = (Event *)[PFQuery getObjectOfClass:[playbookDict objectForKey:key] objectId:key];
+        [temp addObject:event.name];
+    }
+    playbook = temp;
     
     events = @{
-               @"Events I am Hosting:" : eventsIHost,
+               @"Events I am Hosting:" : eventsIHostNames,
                @"Pending Invites:" : pendingInvites,
-               @"My Playbook:" : RSVPedEvents
+               @"My Playbook:" : playbook
                };
     sectionTitles = @[@"Events I am Hosting:", @"Pending Invites:", @"My Playbook:"];
 
@@ -131,17 +164,30 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    GPNavigationController *navigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"contentController"];
     
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        // Go to some other view controller once we've made them
+    //get eventID and class
+    NSString *eventID;
+    NSString *class;
+    if (indexPath.section == 0) {
+        eventID = [eventsIHostIDs objectAtIndex:indexPath.row];
+        class = [eventsIHostDict objectForKey:eventID];
+    } else if(indexPath.section == 1){
+        eventID = [pendingInvitesIDs objectAtIndex:indexPath.row];
+        class = [pendingInvitesDict objectForKey:eventID];
     } else {
-        // Go to some other view controller once we've made them
+        eventID = [playbookIDs objectAtIndex:indexPath.row];
+        class = [playbookDict objectForKey:eventID];
     }
-    // ... etc.
     
-    self.frostedViewController.contentViewController = navigationController;
-    [self.frostedViewController hideMenuViewController];
+    //set up event view controller
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    GPEventDetailViewController *eventDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"event-details"];
+    Event *event = (Event *)[PFQuery getObjectOfClass:class objectId:eventID];
+    eventDetailViewController.event = event;
+    eventDetailViewController.eventType = [class lowercaseString];
+    eventDetailViewController.view.backgroundColor = [UIColor lightGrayColor];
+    //present event view
+    [self presentViewController:eventDetailViewController animated:YES completion:nil];
 }
 
 #pragma mark -
@@ -197,6 +243,9 @@
         NSString *event = [eventsInSection objectAtIndex:indexPath.row];
         cell.eventName.text = event;
         cell.thumbnailImageView.image = testImage;
+        
+        cell.editButton.tag = indexPath.row;
+        [cell.editButton addTarget:self action:@selector(editEvent:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
         
     } else if ([sectionTitle isEqualToString:@"My Playbook:"]) {
@@ -228,6 +277,17 @@
         return cell;
     }
     
+}
+
+
+-(void) editEvent:(UIButton*)button{
+    NSInteger row = button.tag;
+    NSString *eventID = [eventsIHostIDs objectAtIndex:row];
+    NSString *class = [eventsIHostDict objectForKey:eventID];
+    Event *event = (Event *)[PFQuery getObjectOfClass:class objectId:eventID];
+    EditEventVC *editVC = [[EditEventVC alloc] init];
+    editVC.event = event;
+    [self presentViewController:editVC animated:YES completion:nil];
 }
 
 
