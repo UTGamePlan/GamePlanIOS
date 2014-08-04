@@ -101,7 +101,9 @@
 //        newFrame.size.width = screenRect.size.width;
 //        newFrame.size.height = screenRect.size.height+100;
 //        [self.myView setFrame:newFrame];
+        privacy = @"";
     }
+    
 }
 
 
@@ -489,9 +491,14 @@
     (FBFriendPickerViewController*)sender;
     
     //save invited friends
+//    for (id<FBGraphUser> user in friendPickerController.selection) {
+//        NSString *userId = [NSString stringWithFormat:@"%d",[user objectForKey:@"id"]];
+//        [invitedFriends addObject: userId];
+//    }
+    
     for (id<FBGraphUser> user in friendPickerController.selection) {
-        NSString *userId = [NSString stringWithFormat:@"%d",[user objectForKey:@"id"]];
-        [invitedFriends addObject: userId];
+        NSString *str = [NSString stringWithFormat:@"%@", user.id];
+        [invitedFriends addObject:str];
     }
     
     //dismiss modal
@@ -537,6 +544,42 @@
     [self pickedPrivSetting];
 }
 
+
+-(void)saveEvent: (Event *)event{
+    NSDictionary *eventsIHost = [[PFUser currentUser] objectForKey:@"EventsIHost"];
+    NSDictionary *playbook = [[PFUser currentUser] objectForKey:@"Playbook"];
+    
+    if(!eventsIHost)
+        eventsIHost = [[NSDictionary alloc] init];
+    if (!playbook) {
+        playbook = [[NSDictionary alloc] init];
+    }
+    
+    NSString *className;
+    if (type == tailgateType) {
+        className = @"Tailgate";
+    } else if(type == watchPartyType) {
+        className = @"WatchParty";
+    } else {
+        className = @"AfterParty";
+    }
+    
+    [eventsIHost setValue:className forKeyPath:event.objectId];
+    [[PFUser currentUser] setObject:eventsIHost forKey:@"EventsIHost"];
+    [playbook setValue:className forKeyPath:event.objectId];
+    [[PFUser currentUser] setObject:playbook forKey:@"Playbook"];
+    
+//    if([[[PFUser currentUser] objectForKey:@"EventsIHost"] isEqual: nil])
+//       [[PFUser currentUser] setObject:[[NSMutableArray alloc] initWithObjects:event.objectId, nil] forKey:@"EventsIHost"];
+//    else
+//        [[PFUser currentUser] addObject:event.objectId forKey:@"EventsIHost"];
+//    if ([[[PFUser currentUser] objectForKey:@"Playbook"] isEqual:nil]) {
+//        [[PFUser currentUser] setObject:[[NSMutableArray alloc] initWithObjects:event.objectId, nil] forKey:@"Playbook"];
+//    }
+//    [[PFUser currentUser] addObject:event.objectId forKey:@"Playbook"];
+    
+    [[PFUser currentUser] saveInBackground];
+}
 
 - (IBAction)doneButton:(id)sender {
     BOOL complete = TRUE;
@@ -586,24 +629,20 @@
         } else {
             desc = eventDescLabel.text;
         }
-        if (privacy == nil) {
+        if ([privacy isEqualToString:@""]) {
             privacy = @"Public";
         }
         
         //get parse ids for invited friends
-        NSMutableArray *invitedFriendsIDs = [[NSMutableArray alloc] init];
-        for (NSString *str in invitedFriends) {
-            PFQuery *query = [PFQuery queryWithClassName:@"User"];
-            [query whereKey:@"FacebookID" equalTo:str];
-            PFObject *user = [query getFirstObject];
-            NSString *userId = [user objectId];
-            if (userId) {
-                [invitedFriendsIDs addObject:[user objectId]];
-            }
-        }
+       NSMutableArray *invitedFriendsIDs = [[NSMutableArray alloc] init];
+        PFQuery *queryUsers = [PFUser query];
+        [queryUsers whereKey:@"FacebookID" containedIn:invitedFriends];
+        
+        NSArray *invitedFriendUsers = [queryUsers findObjects];
         
         if (type == tailgateType) {
             Tailgate *tg = [[Tailgate alloc]init];
+            
             tg.name = eventName;
             tg.desc = desc;
             tg.startTime = startTime;
@@ -615,6 +654,14 @@
             tg.tags = tags;
             tg.privacy = privacy;
             [tg saveInBackground];
+            
+            for (PFUser *user in invitedFriendUsers){
+                [invitedFriendsIDs addObject:user.objectId];
+//                [user addObject:tg forKey:@"PendingInvites"];
+//                [user saveInBackground];
+            }
+            
+            [self performSelector:@selector(saveEvent:) withObject:tg afterDelay:0.5];
             UIAlertView *savedTG = [[UIAlertView alloc]
                                              initWithTitle:@"" message:@"Thank you for hosting your tailgate with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [savedTG show];
@@ -631,6 +678,7 @@
             wp.tags = tags;
             wp.privacy = privacy;
             [wp saveInBackground];
+            [self performSelector:@selector(saveEvent:) withObject:wp afterDelay:0.5];
             UIAlertView *savedWP = [[UIAlertView alloc]
                                              initWithTitle:@"" message:@"Thank you for hosting your watch party with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [savedWP show];
@@ -646,8 +694,9 @@
             ap.geoPoint = loc;
             ap.tags = tags;
             ap.privacy = privacy;
-            
             [ap saveInBackground];
+            
+            [self performSelector:@selector(saveEvent:) withObject:ap afterDelay:0.5];
             UIAlertView *savedAP = [[UIAlertView alloc]
                                     initWithTitle:@"" message:@"Thank you for hosting your after party with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [savedAP show];

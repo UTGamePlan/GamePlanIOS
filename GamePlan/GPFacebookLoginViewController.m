@@ -115,6 +115,9 @@
                         [[PFUser currentUser] setObject:[[PFInstallation currentInstallation] objectId] forKey:@"InstallationID"];
                     }
                     
+                    [[PFUser currentUser] addObject:[[NSDictionary alloc] init] forKey:@"EventsIHost"];
+                    [[PFUser currentUser] addObject:[[NSDictionary alloc] init] forKey:@"Playbook"];
+                    
                     [[PFUser currentUser] saveInBackground];
                     [self presentMenuBarsOnMapViewController];
                 }
