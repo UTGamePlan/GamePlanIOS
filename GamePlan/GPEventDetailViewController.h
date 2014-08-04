@@ -21,6 +21,17 @@
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionBackground;
 @property (strong, nonatomic) IBOutlet MKMapView *mapPreview;
+@property (strong, nonatomic) IBOutlet UILabel *attendeesBackground;
+@property (strong, nonatomic) IBOutlet UILabel *whosGoingLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *attendeeOne;
+@property (strong, nonatomic) IBOutlet UIImageView *attendeeTwo;
+@property (strong, nonatomic) IBOutlet UIImageView *attendeeThree;
+@property (strong, nonatomic) IBOutlet UIImageView *attendeeFour;
+@property (strong, nonatomic) IBOutlet UILabel *andMoreLabel;
+@property (strong, nonatomic) IBOutlet UILabel *buttonBackground;
+@property (strong, nonatomic) IBOutlet UIButton *inviteButton;
+@property (strong, nonatomic) IBOutlet UIButton *playbookButton;
+@property (strong, nonatomic) IBOutlet UIButton *shareButton;
 
 - (IBAction) backPressed:(UIButton *)sender;
 - (IBAction) inviteFriendsPressed:(UIButton *)sender;

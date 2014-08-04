@@ -465,7 +465,7 @@ NSDate *today;
     GPEventDetailViewController *eventDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"event-details"];
 
     eventDetailViewController.event = self.event;
-    eventDetailViewController.eventType = [NSStringFromClass([self.event class]) lowercaseString];
+    eventDetailViewController.eventType = NSStringFromClass([self.event class]);
     eventDetailViewController.view.backgroundColor = [UIColor lightGrayColor];
     [eventDetailViewController setTransitioningDelegate:transitionController];
     eventDetailViewController.modalPresentationStyle= UIModalPresentationCustom;
