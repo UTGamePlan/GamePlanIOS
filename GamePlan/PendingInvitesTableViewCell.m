@@ -10,7 +10,7 @@
 
 @implementation PendingInvitesTableViewCell
 
-@synthesize eventName, yesButton,noButton;
+@synthesize eventName, yesButton,noButton, thumbnailImageView;
 
 - (void)awakeFromNib
 {

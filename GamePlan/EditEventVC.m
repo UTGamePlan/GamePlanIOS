@@ -27,6 +27,7 @@
     NSString *privacy;
     BOOL privExpanded;
     MKPointAnnotation *annot;
+    BOOL *delete;
 }
 @end
 
@@ -78,6 +79,8 @@
     reg.center = bbLoc;
     reg.span = span;
     
+    delete = false;
+    
     [miniMap setCenterCoordinate:bbLoc animated:YES];
     [miniMap setRegion:reg];
     [expandedMap setCenterCoordinate:bbLoc animated:YES];
@@ -92,10 +95,39 @@
     
     if(event){
         titleLabel.text = @"Edit Event";
-    } else {
-        tags = [[NSMutableArray alloc] init];
-        invitedFriends = [[NSMutableArray alloc] init];
-        titleLabel.text = @"Add an Event";
+        eventNameLabel.text = event.name;
+        eventNameLabel.textColor = [UIColor darkGrayColor];
+        eventDescLabel.text = event.desc;
+        eventDescLabel.textColor = [UIColor darkGrayColor];
+        tags = event.tags;
+        for (NSString *tag in event.tags) {
+            if ([tag isEqualToString:@"BYOB"]) {
+                BYOBButton.backgroundColor = highlightedButtonColor;
+            } else if ( [tag isEqualToString:@"FreeFood"] ){
+                FreeFoodButton.backgroundColor = highlightedButtonColor;
+            } else if( [tag isEqualToString:@"CoverCharge"]){
+                CoverChargeButton.backgroundColor = highlightedButtonColor;
+            } else if( [tag isEqualToString:@"KidFriendly"] ){
+                KidFriendlyButton.backgroundColor = highlightedButtonColor;
+            } else if( [tag isEqualToString:@"Alumni"] ){
+                AlumniButton.backgroundColor = highlightedButtonColor;
+            } else if( [tag isEqualToString:@"Students"] ){
+                StudentsButton.backgroundColor = highlightedButtonColor;
+            }
+        }
+        loc = event.geoPoint;
+        annot = [[MKPointAnnotation alloc] init];
+        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(loc.latitude, loc.longitude);
+        annot.coordinate = coord;
+        [expandedMap addAnnotation:annot];
+        [miniMap addAnnotation:annot];
+        privacy = event.privacy;
+        privLabel.text = privacy;
+            
+        } else {
+            tags = [[NSMutableArray alloc] init];
+            invitedFriends = [[NSMutableArray alloc] init];
+            titleLabel.text = @"Add an Event";
 //        CGRect newFrame = self.myView.frame;
 //        CGRect screenRect = [[UIScreen mainScreen] bounds];
 //        newFrame.size.width = screenRect.size.width;
@@ -263,6 +295,8 @@
                                          initWithTitle:@"" message:@"Do you want to change your location?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
         [didClickAgain show];
     } else {
+        [miniMap removeAnnotation:annot];
+        [expandedMap removeAnnotation:annot];
         [miniMapButton setHidden:YES];
         [miniMap setHidden:YES];
         [expandedMap setHidden:NO];
@@ -279,6 +313,7 @@
             [expandedMap removeAnnotation:annot];
             [miniMap removeAnnotation:annot];
         }
+
     }
 }
 
@@ -290,7 +325,6 @@
     CLLocationCoordinate2D touchMapCoordinate =
     [expandedMap convertPoint:touchPoint toCoordinateFromView:expandedMap];
     
-    //MKAnnotationView *annot = [[MKAnnotationView alloc] init];
     PFGeoPoint *pfgp = [[PFGeoPoint alloc] init];
     pfgp.latitude = touchMapCoordinate.latitude;
     pfgp.longitude = touchMapCoordinate.longitude;
@@ -579,6 +613,18 @@
 //    [[PFUser currentUser] addObject:event.objectId forKey:@"Playbook"];
     
     [[PFUser currentUser] saveInBackground];
+}
+
+- (IBAction)deleteButton:(id)sender{
+//    delete = TRUE;
+//    UIAlertView *wantToDelete = [[UIAlertView alloc]
+//                                  initWithTitle:@"" message:@"Are you sure you want to delete this awesome event???" delegate:self cancelButtonTitle:@"Yes." otherButtonTitles:@"No! Party on!", nil];
+//    [wantToDelete show];
+//    delete = FALSE;
+
+    [event deleteInBackground];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (IBAction)doneButton:(id)sender {

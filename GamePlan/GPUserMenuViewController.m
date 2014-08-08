@@ -23,10 +23,10 @@
     NSArray *eventsIHostIDs;
     NSDictionary *eventsIHostDict;
     NSArray *pendingInvites;
-    NSDictionary *pendingInvitesDict;
+    NSMutableDictionary *pendingInvitesDict;
     NSArray *pendingInvitesIDs;
     NSArray *playbook;
-    NSDictionary *playbookDict;
+    NSMutableDictionary *playbookDict;
     NSArray *playbookIDs;
 }
 
@@ -228,6 +228,11 @@
         NSString *event = [eventsInSection objectAtIndex:indexPath.row];
         cell.eventName.text = event;
         cell.thumbnailImageView.image = testImage;
+        cell.yesButton.tag = indexPath.row;
+        [cell.yesButton addTarget:self action:@selector(RSVPYes:) forControlEvents:UIControlEventTouchUpInside];
+        cell.noButton.tag = indexPath.row;
+        [cell.noButton addTarget:self action:@selector(RSVPNo:) forControlEvents:UIControlEventTouchUpInside];
+        
         return cell;
 
     } else if ([sectionTitle isEqualToString:@"Events I am Hosting:"]) {
@@ -288,6 +293,23 @@
     EditEventVC *editVC = [[EditEventVC alloc] init];
     editVC.event = event;
     [self presentViewController:editVC animated:YES completion:nil];
+}
+
+-(void) RSVPYes:(UIButton*)button{
+    NSInteger row = button.tag;
+    NSString *eventID = [pendingInvites objectAtIndex:row];
+    NSString *class = [pendingInvitesDict objectForKey:eventID];
+    [pendingInvitesDict removeObjectForKey:eventID];
+    [playbookDict setObject:class forKey:eventID];
+    [[PFUser currentUser] setObject:pendingInvitesDict forKey:@"PendingInvites"];
+    [[PFUser currentUser] setObject:playbookDict forKey:@"Playbook"];
+    
+}
+-(void) RSVPNo:(UIButton*)button{
+    NSInteger row = button.tag;
+    NSString *eventID = [pendingInvites objectAtIndex:row];
+    [pendingInvitesDict removeObjectForKey:eventID];
+    [[PFUser currentUser] setObject:pendingInvitesDict forKey:@"PendingInvites"];
 }
 
 
