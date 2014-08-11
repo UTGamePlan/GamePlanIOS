@@ -20,7 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *userProfileImageButton;
 @property (strong, nonatomic) IBOutlet UIImageView *topBar;
 @property (strong, nonatomic) IBOutlet UIImageView *bottomBar;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) IBOutlet UITextField *searchBar;
 @property (strong, nonatomic) IBOutlet UIButton *menuButton;
 @property (strong, nonatomic) IBOutlet UIButton *myLocationButton;
 @property (strong, nonatomic) IBOutlet UIButton *filterButton;
