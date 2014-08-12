@@ -27,6 +27,8 @@
     NSString *privacy;
     BOOL privExpanded;
     MKPointAnnotation *annot;
+    BOOL *delete;
+    NSString *eventClass;
 }
 @end
 
@@ -43,10 +45,14 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void) viewDidLoad{
+    invitedFriends = [[NSMutableArray alloc] init];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [super viewWillAppear:animated];
     
     //set up view
     [self makeDatePickers];
@@ -54,7 +60,7 @@
     eventDescLabel.delegate = self;
     highlightedButtonColor = [UIColor darkGrayColor];
     [self.myScrollView addSubview:self.myView];
-    self.myScrollView.contentSize = self.myView.bounds.size;
+    self.myScrollView.contentSize = self.myView.frame.size;
     [eventTypeMissing setHidden:YES];
     [eventNameMissing setHidden:YES];
     [eventLocMissing setHidden:YES];
@@ -78,6 +84,8 @@
     reg.center = bbLoc;
     reg.span = span;
     
+    delete = false;
+    
     [miniMap setCenterCoordinate:bbLoc animated:YES];
     [miniMap setRegion:reg];
     [expandedMap setCenterCoordinate:bbLoc animated:YES];
@@ -86,34 +94,47 @@
     
     //UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dropPin:)];
     UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc]
-                                          initWithTarget:self action:@selector(dropPin:)];
+                                                   initWithTarget:self action:@selector(dropPin:)];
     tapRecognizer.minimumPressDuration = 1.0;
     [expandedMap addGestureRecognizer:tapRecognizer];
     
-    if(event){
-        titleLabel.text = @"Edit Event";
-    } else {
-        tags = [[NSMutableArray alloc] init];
-        invitedFriends = [[NSMutableArray alloc] init];
-        titleLabel.text = @"Add an Event";
-//        CGRect newFrame = self.myView.frame;
-//        CGRect screenRect = [[UIScreen mainScreen] bounds];
-//        newFrame.size.width = screenRect.size.width;
-//        newFrame.size.height = screenRect.size.height+100;
-//        [self.myView setFrame:newFrame];
-        privacy = @"";
-    }
-    
-}
-
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
     if ( self.event == nil ) {
         self.deleteButton.hidden = YES;
+        tags = [[NSMutableArray alloc] init];
+        titleLabel.text = @"Add an Event";
+        privacy = @"";
     } else {
+        titleLabel.text = @"Edit Event";
+        eventNameLabel.text = event.name;
+        eventNameLabel.textColor = [UIColor darkGrayColor];
+        eventDescLabel.text = event.desc;
+        eventDescLabel.textColor = [UIColor darkGrayColor];
+        tags = event.tags;
+        for (NSString *tag in event.tags) {
+            if ([tag isEqualToString:@"BYOB"]) {
+                BYOBButton.backgroundColor = highlightedButtonColor;
+            } else if ( [tag isEqualToString:@"FreeFood"] ){
+                FreeFoodButton.backgroundColor = highlightedButtonColor;
+            } else if( [tag isEqualToString:@"CoverCharge"]){
+                CoverChargeButton.backgroundColor = highlightedButtonColor;
+            } else if( [tag isEqualToString:@"KidFriendly"] ){
+                KidFriendlyButton.backgroundColor = highlightedButtonColor;
+            } else if( [tag isEqualToString:@"Alumni"] ){
+                AlumniButton.backgroundColor = highlightedButtonColor;
+            } else if( [tag isEqualToString:@"Students"] ){
+                StudentsButton.backgroundColor = highlightedButtonColor;
+            }
+        }
+        loc = event.geoPoint;
+        annot = [[MKPointAnnotation alloc] init];
+        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(loc.latitude, loc.longitude);
+        annot.coordinate = coord;
+        [expandedMap addAnnotation:annot];
+        [miniMap addAnnotation:annot];
+        privacy = event.privacy;
+        privLabel.text = privacy;
+        
+        //disable 
         self.tailgateButton.enabled = NO;
         self.watchPartyButton.enabled = NO;
         self.afterPartyButton.enabled = NO;
@@ -121,13 +142,17 @@
         id<PFSubclassing> sc = (id<PFSubclassing>)self.event;
         
         if ( [[sc parseClassName] isEqualToString:@"Tailgate"] ) {
-            self.tailgateButton.selected = YES;
+            self.tailgateButton.backgroundColor = highlightedButtonColor;
+            eventClass = @"Tailgate";
+            
         }
-        if ( [[sc parseClassName] isEqualToString:@"Watch Party"] ) {
-            self.watchPartyButton.selected = YES;
+        if ( [[sc parseClassName] isEqualToString:@"WatchParty"] ) {
+            self.watchPartyButton.backgroundColor = highlightedButtonColor;
+            eventClass = @"WatchParty";
         }
-        if ( [[sc parseClassName] isEqualToString:@"After Party"] ) {
-            self.afterPartyButton.selected = YES;
+        if ( [[sc parseClassName] isEqualToString:@"AfterParty"] ) {
+            self.afterPartyButton.backgroundColor = highlightedButtonColor;
+            eventClass = @"AfterParty";
         }
     }
 }
@@ -263,6 +288,8 @@
                                          initWithTitle:@"" message:@"Do you want to change your location?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
         [didClickAgain show];
     } else {
+        [miniMap removeAnnotation:annot];
+        [expandedMap removeAnnotation:annot];
         [miniMapButton setHidden:YES];
         [miniMap setHidden:YES];
         [expandedMap setHidden:NO];
@@ -279,6 +306,7 @@
             [expandedMap removeAnnotation:annot];
             [miniMap removeAnnotation:annot];
         }
+
     }
 }
 
@@ -290,7 +318,6 @@
     CLLocationCoordinate2D touchMapCoordinate =
     [expandedMap convertPoint:touchPoint toCoordinateFromView:expandedMap];
     
-    //MKAnnotationView *annot = [[MKAnnotationView alloc] init];
     PFGeoPoint *pfgp = [[PFGeoPoint alloc] init];
     pfgp.latitude = touchMapCoordinate.latitude;
     pfgp.longitude = touchMapCoordinate.longitude;
@@ -544,41 +571,22 @@
     [self pickedPrivSetting];
 }
 
+- (IBAction)deleteButton:(id)sender{
+//    delete = TRUE;
+//    UIAlertView *wantToDelete = [[UIAlertView alloc]
+//                                  initWithTitle:@"" message:@"Are you sure you want to delete this awesome event???" delegate:self cancelButtonTitle:@"Yes." otherButtonTitles:@"No! Party on!", nil];
+//    [wantToDelete show];
+//    delete = FALSE;
 
--(void)saveEvent: (Event *)event{
-    NSDictionary *eventsIHost = [[PFUser currentUser] objectForKey:@"EventsIHost"];
-    NSDictionary *playbook = [[PFUser currentUser] objectForKey:@"Playbook"];
-    
-    if(!eventsIHost)
-        eventsIHost = [[NSDictionary alloc] init];
-    if (!playbook) {
-        playbook = [[NSDictionary alloc] init];
-    }
-    
-    NSString *className;
-    if (type == tailgateType) {
-        className = @"Tailgate";
-    } else if(type == watchPartyType) {
-        className = @"WatchParty";
-    } else {
-        className = @"AfterParty";
-    }
-    
-    [eventsIHost setValue:className forKeyPath:event.objectId];
-    [[PFUser currentUser] setObject:eventsIHost forKey:@"EventsIHost"];
-    [playbook setValue:className forKeyPath:event.objectId];
-    [[PFUser currentUser] setObject:playbook forKey:@"Playbook"];
-    
-//    if([[[PFUser currentUser] objectForKey:@"EventsIHost"] isEqual: nil])
-//       [[PFUser currentUser] setObject:[[NSMutableArray alloc] initWithObjects:event.objectId, nil] forKey:@"EventsIHost"];
-//    else
-//        [[PFUser currentUser] addObject:event.objectId forKey:@"EventsIHost"];
-//    if ([[[PFUser currentUser] objectForKey:@"Playbook"] isEqual:nil]) {
-//        [[PFUser currentUser] setObject:[[NSMutableArray alloc] initWithObjects:event.objectId, nil] forKey:@"Playbook"];
-//    }
-//    [[PFUser currentUser] addObject:event.objectId forKey:@"Playbook"];
-    
-    [[PFUser currentUser] saveInBackground];
+    PFQuery *qry = [PFQuery queryWithClassName:eventClass];
+    [qry getObjectInBackgroundWithId:event.objectId block:^(PFObject *object, NSError *error){
+        if ( error ) {
+            NSLog(@"Error getting object in editEvent: %@",error);
+        } else {
+            [object deleteInBackground];
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 - (IBAction)doneButton:(id)sender {
@@ -589,8 +597,6 @@
         event.startTime = startTime;
         event.endTime = endTime;
         event.ownerId = [[PFUser currentUser] objectId];
-        event.invitedFriends = invitedFriends;
-        event.RSVPdFriends = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
         event.geoPoint = loc;
         event.tags = tags;
         event.privacy = privacy;
@@ -633,74 +639,77 @@
             privacy = @"Public";
         }
         
-        //get parse ids for invited friends
-       NSMutableArray *invitedFriendsIDs = [[NSMutableArray alloc] init];
-        PFQuery *queryUsers = [PFUser query];
-        [queryUsers whereKey:@"FacebookID" containedIn:invitedFriends];
-        
-        NSArray *invitedFriendUsers = [queryUsers findObjects];
+        Event *genericEvent = nil;
         
         if (type == tailgateType) {
             Tailgate *tg = [[Tailgate alloc]init];
-            
+            genericEvent = tg;
             tg.name = eventName;
             tg.desc = desc;
             tg.startTime = startTime;
             tg.endTime = endTime;
             tg.ownerId = [[PFUser currentUser] objectId];
-            tg.invitedFriends = invitedFriendsIDs;
-            tg.RSVPdFriends = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
+            tg.confirmedInvites = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
             tg.geoPoint = loc;
             tg.tags = tags;
             tg.privacy = privacy;
             [tg saveInBackground];
-            
-            for (PFUser *user in invitedFriendUsers){
-                [invitedFriendsIDs addObject:user.objectId];
-//                [user addObject:tg forKey:@"PendingInvites"];
-//                [user saveInBackground];
-            }
-            
-            [self performSelector:@selector(saveEvent:) withObject:tg afterDelay:0.5];
             UIAlertView *savedTG = [[UIAlertView alloc]
                                              initWithTitle:@"" message:@"Thank you for hosting your tailgate with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [savedTG show];
         } else if(type == watchPartyType){
             WatchParty *wp = [[WatchParty alloc]init];
+            genericEvent = wp;
             wp.name = eventName;
             wp.desc = desc;
             wp.startTime = startTime;
             wp.endTime = endTime;
             wp.ownerId = [[PFUser currentUser] objectId];
-            wp.invitedFriends = invitedFriendsIDs;
-            wp.RSVPdFriends = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
+            wp.confirmedInvites = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
             wp.geoPoint = loc;
             wp.tags = tags;
             wp.privacy = privacy;
             [wp saveInBackground];
-            [self performSelector:@selector(saveEvent:) withObject:wp afterDelay:0.5];
             UIAlertView *savedWP = [[UIAlertView alloc]
                                              initWithTitle:@"" message:@"Thank you for hosting your watch party with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [savedWP show];
         } else if(type == afterPartyType){
             AfterParty *ap = [[AfterParty alloc]init];
+            genericEvent = ap;
             ap.name = eventName;
             ap.desc = desc;
             ap.startTime = startTime;
             ap.endTime = endTime;
             ap.ownerId = [[PFUser currentUser] objectId];
-            ap.invitedFriends = invitedFriendsIDs;
-            ap.RSVPdFriends = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
+            ap.confirmedInvites = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
             ap.geoPoint = loc;
             ap.tags = tags;
             ap.privacy = privacy;
             [ap saveInBackground];
-            
-            [self performSelector:@selector(saveEvent:) withObject:ap afterDelay:0.5];
             UIAlertView *savedAP = [[UIAlertView alloc]
                                     initWithTitle:@"" message:@"Thank you for hosting your after party with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [savedAP show];
         }
+        
+        //get parse ids for invited friends
+        PFQuery *queryUsers = [PFUser query];
+        [queryUsers whereKey:@"FacebookID" containedIn:invitedFriends];
+        
+        [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *invitedUsers, NSError *error){
+            
+            if ( error ) {
+                NSLog(@"Error finding friends %@", error);
+            } else {
+                NSMutableArray *arr = [[NSMutableArray alloc] init];
+                for (PFUser *user in invitedUsers) {
+                    [arr  addObject:[user objectId]];
+                }
+                genericEvent.pendingInvites = arr;
+                [genericEvent saveInBackground];
+            }
+            
+        }];
+
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 

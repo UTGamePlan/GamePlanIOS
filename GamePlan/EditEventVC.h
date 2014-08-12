@@ -19,7 +19,7 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet UIView *myView;
 @property (weak, nonatomic) IBOutlet UIScrollView *myScrollView;
-@property (weak, nonatomic) Event *event;
+@property (strong, nonatomic) Event *event;
 @property (weak, nonatomic) IBOutlet MKMapView *miniMap;
 - (IBAction)didClickMiniMap:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *miniMapButton;

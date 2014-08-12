@@ -15,28 +15,28 @@
 #import "Event.h"
 #import "GPEventDetailViewController.h"
 #import "EditEventVC.h"
+#import "Tailgate.h"
+#import "WatchParty.h"
+#import "AfterParty.h"
 
 @interface GPUserMenuViewController (){
     NSDictionary *events;
     NSArray *sectionTitles;
     NSArray *eventsIHostNames;
-    NSArray *eventsIHostIDs;
     NSDictionary *eventsIHostDict;
-    NSArray *pendingInvites;
-    NSDictionary *pendingInvitesDict;
-    NSArray *pendingInvitesIDs;
-    NSArray *playbook;
-    NSDictionary *playbookDict;
-    NSArray *playbookIDs;
+    NSArray *pendingInvitesNames;
+    NSMutableDictionary *pendingInvitesDict;
+    NSArray *playbookNames;
+    NSMutableDictionary *playbookDict;
 }
 
 @end
 
 @implementation GPUserMenuViewController
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -78,45 +78,93 @@
         view;
     });
     
-    //initalizing arrays for tables
+    [self queryTableData];
     
-    NSMutableArray *arr = [[PFUser currentUser] objectForKey:@"EventsIHost"];
-    eventsIHostDict = [arr firstObject];
-    eventsIHostIDs = [eventsIHostDict allKeys];
-    NSMutableArray *temp = [[NSMutableArray alloc] init];
-    for (NSString *key in eventsIHostIDs) {
-        Event *event = (Event *)[PFQuery getObjectOfClass:[eventsIHostDict objectForKey:key] objectId:key];
-        [temp addObject:event.name];
-    }
-    eventsIHostNames = temp;
+    sectionTitles = @[@"Events I am Hosting:", @"Pending Invites:", @"My Playbook:"];
+
+}
+
+- (void) queryTableData{
     
+    eventsIHostDict = [[NSMutableDictionary alloc] init];
+    NSMutableArray *eventsIHostNamesTemp = [[NSMutableArray alloc] init];
+    pendingInvitesDict = [[NSMutableDictionary alloc] init];
+    NSMutableArray *pendingInvitesNamesTemp = [[NSMutableArray alloc] init];
+    playbookDict = [[NSMutableDictionary alloc] init];
+    NSMutableArray *playbookNamesTemp = [[NSMutableArray alloc] init];
     
-    arr = [[PFUser currentUser] objectForKey:@"pendingInvites"];
-    pendingInvitesDict = [arr firstObject];
-    pendingInvitesIDs = [pendingInvitesDict allKeys];
-    temp = [[NSMutableArray alloc] init];
-    for (NSString *key in pendingInvitesIDs) {
-        Event *event = (Event *)[PFQuery getObjectOfClass:[pendingInvitesDict objectForKey:key] objectId:key];
-        [temp addObject:event.name];
-    }
-    pendingInvites = temp;
+    PFQuery *qryTG = [PFQuery queryWithClassName:@"Tailgate"];
+    [qryTG findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( error ) {
+            NSLog(@"Error getting event: %@",error);
+        } else {
+            for (Tailgate *tg in objects) {
+                if ([tg.ownerId isEqual:[[PFUser currentUser] objectId]]) {
+                    [eventsIHostDict setValue:@"Tailgate" forKey: tg.objectId];
+                    [eventsIHostNamesTemp addObject:tg.name];
+                } else if ([tg.pendingInvites containsObject:[[PFUser currentUser] objectId]]){
+                    [pendingInvitesDict setValue:@"Tailgate" forKey:tg.objectId];
+                    [pendingInvitesNamesTemp addObject:tg.name];
+                } else if ([tg.confirmedInvites containsObject:[[PFUser currentUser] objectId]]){
+                    [playbookDict setValue:@"Tailgate" forKey:tg.objectId];
+                    [playbookNamesTemp addObject:tg.name];
+                }
+            }
+            [self.tableView reloadData];
+        }
+    }];
     
-    arr = [[PFUser currentUser] objectForKey:@"Playbook"];
-    playbookDict = [arr firstObject];
-    playbookIDs = [playbookDict allKeys];
-    temp = [[NSMutableArray alloc] init];
-    for (NSString *key in playbookIDs) {
-        Event *event = (Event *)[PFQuery getObjectOfClass:[playbookDict objectForKey:key] objectId:key];
-        [temp addObject:event.name];
-    }
-    playbook = temp;
+    PFQuery *qryWP = [PFQuery queryWithClassName:@"WatchParty"];
+    [qryWP findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( error ) {
+            NSLog(@"Error getting event: %@",error);
+        } else {
+            for (WatchParty *wp in objects) {
+                if ([wp.ownerId isEqual:[[PFUser currentUser] objectId]]) {
+                    [eventsIHostDict setValue:@"WatchParty" forKey: wp.objectId];
+                    [eventsIHostNamesTemp addObject:wp.name];
+                } else if ([wp.pendingInvites containsObject:[[PFUser currentUser] objectId]]){
+                    [pendingInvitesDict setValue:@"WatchParty" forKey:wp.objectId];
+                    [pendingInvitesNamesTemp addObject:wp.name];
+                } else if ([wp.confirmedInvites containsObject:[[PFUser currentUser] objectId]]){
+                    [playbookDict setValue:@"WatchParty" forKey:wp.objectId];
+                    [playbookNamesTemp addObject:wp.name];
+                }
+            }
+            [self.tableView reloadData];
+        }
+    }];
+    
+    PFQuery *qryAP = [PFQuery queryWithClassName:@"AfterParty"];
+    [qryAP findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( error ) {
+            NSLog(@"Error getting event: %@",error);
+        } else {
+            for (AfterParty *ap in objects) {
+                if ([ap.ownerId isEqual:[[PFUser currentUser] objectId]]) {
+                    [eventsIHostDict setValue:@"AfterParty" forKey: ap.objectId];
+                    [eventsIHostNamesTemp addObject:ap.name];
+                } else if ([ap.pendingInvites containsObject:[[PFUser currentUser] objectId]]){
+                    [pendingInvitesDict setValue:@"AfterParty" forKey:ap.objectId];
+                    [pendingInvitesNamesTemp addObject:ap.name];
+                } else if ([ap.confirmedInvites containsObject:[[PFUser currentUser] objectId]]){
+                    [playbookDict setValue:@"AfterParty" forKey:ap.objectId];
+                    [pendingInvitesNamesTemp addObject:ap.name];
+                }
+            }
+            [self.tableView reloadData];
+        }
+    }];
+    
+    eventsIHostNames = eventsIHostNamesTemp;
+    pendingInvitesNames = pendingInvitesNamesTemp;
+    playbookNames = playbookNamesTemp;
     
     events = @{
                @"Events I am Hosting:" : eventsIHostNames,
-               @"Pending Invites:" : pendingInvites,
-               @"My Playbook:" : playbook
-               };
-    sectionTitles = @[@"Events I am Hosting:", @"Pending Invites:", @"My Playbook:"];
+               @"Pending Invites:" : pendingInvitesNames,
+               @"My Playbook:" : playbookNames
+           };
 
 }
 
@@ -169,13 +217,13 @@
     NSString *eventID;
     NSString *class;
     if (indexPath.section == 0) {
-        eventID = [eventsIHostIDs objectAtIndex:indexPath.row];
+        eventID = [[eventsIHostDict allKeys] objectAtIndex:indexPath.row];
         class = [eventsIHostDict objectForKey:eventID];
     } else if(indexPath.section == 1){
-        eventID = [pendingInvitesIDs objectAtIndex:indexPath.row];
+        eventID = [[pendingInvitesDict allKeys] objectAtIndex:indexPath.row];
         class = [pendingInvitesDict objectForKey:eventID];
     } else {
-        eventID = [playbookIDs objectAtIndex:indexPath.row];
+        eventID = [[playbookDict allKeys] objectAtIndex:indexPath.row];
         class = [playbookDict objectForKey:eventID];
     }
     
@@ -228,6 +276,11 @@
         NSString *event = [eventsInSection objectAtIndex:indexPath.row];
         cell.eventName.text = event;
         cell.thumbnailImageView.image = testImage;
+        cell.yesButton.tag = indexPath.row;
+        [cell.yesButton addTarget:self action:@selector(RSVPYes:) forControlEvents:UIControlEventTouchUpInside];
+        cell.noButton.tag = indexPath.row;
+        [cell.noButton addTarget:self action:@selector(RSVPNo:) forControlEvents:UIControlEventTouchUpInside];
+        
         return cell;
 
     } else if ([sectionTitle isEqualToString:@"Events I am Hosting:"]) {
@@ -282,12 +335,75 @@
 
 -(void) editEvent:(UIButton*)button{
     NSInteger row = button.tag;
-    NSString *eventID = [eventsIHostIDs objectAtIndex:row];
+    NSString *eventID = [[eventsIHostDict allKeys] objectAtIndex:row];
     NSString *class = [eventsIHostDict objectForKey:eventID];
-    Event *event = (Event *)[PFQuery getObjectOfClass:class objectId:eventID];
-    EditEventVC *editVC = [[EditEventVC alloc] init];
-    editVC.event = event;
-    [self presentViewController:editVC animated:YES completion:nil];
+    PFQuery *qry = [PFQuery queryWithClassName:class];
+    [qry getObjectInBackgroundWithId:eventID block:^(PFObject *object, NSError *error){
+        if ( error ) {
+            NSLog(@"Error getting object in editEvent: %@",error);
+        } else {
+            Event *event = (Event *)object;
+            EditEventVC *editVC = [[EditEventVC alloc] init];
+            editVC.event = event;
+            [self presentViewController:editVC animated:YES completion:nil];
+        }
+    }];
+}
+
+-(void) RSVPYes:(UIButton*)button{
+    NSInteger row = button.tag;
+    NSString *eventID = [[pendingInvitesDict allKeys] objectAtIndex:row];
+    NSString *class = [pendingInvitesDict objectForKey:eventID];
+    
+    PFQuery *qry = [PFQuery queryWithClassName:class];
+    [qry getObjectInBackgroundWithId:eventID block:^(PFObject *object, NSError *error){
+        if (error) {
+            NSLog(@"Error fetching event :%@",error);
+        } else {
+            Event *event = (Event *)object;
+            NSArray *arr = event.pendingInvites;
+            for(NSString *userId in arr){
+                if ([userId isEqualToString:[[PFUser currentUser] objectId]]){
+                    [event.pendingInvites removeObject:userId];
+                    [event saveInBackground];
+                }
+            }
+            
+            [event.confirmedInvites addObject:[[PFUser currentUser] objectId]];
+            [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                [self queryTableData];
+            }];
+            UIAlertView *rsvpYesMessage = [[UIAlertView alloc]
+                                       initWithTitle:@"" message:@"Great! See you there!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [rsvpYesMessage show];
+        }
+    }];
+}
+
+-(void) RSVPNo:(UIButton*)button{
+    NSInteger row = button.tag;
+    NSString *eventID = [[pendingInvitesDict allKeys] objectAtIndex:row];
+    NSString *class = [pendingInvitesDict objectForKey:eventID];
+    PFQuery *qry = [PFQuery queryWithClassName:class];
+    [qry getObjectInBackgroundWithId:eventID block:^(PFObject *object, NSError *error){
+        if (error) {
+            NSLog(@"Error fetching event :%@",error);
+        } else {
+            Event *event = (Event *)object;
+            NSArray *arr = event.pendingInvites;
+            for(NSString *userId in arr){
+                if ([userId isEqualToString:[[PFUser currentUser] objectId]]){
+                    [event.pendingInvites removeObject:userId];
+                    [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        [self queryTableData];
+                    }];
+                    UIAlertView *rsvpNoMessage = [[UIAlertView alloc]
+                                               initWithTitle:@"" message:@"Too bad! Maybe next time!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [rsvpNoMessage show];
+                }
+            }
+        }
+    }];
 }
 
 
