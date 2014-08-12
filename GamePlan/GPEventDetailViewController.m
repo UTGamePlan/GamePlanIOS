@@ -88,7 +88,7 @@ int attendee;
     [self.attendeeFour setFrame:CGRectMake(self.attendeeFour.frame.origin.x, attendeesOriginYValue, 40, 40)];
     [self.andMoreLabel setFrame:CGRectMake(212.0, attendeesBackgroundFrame.origin.y+29.0, 88, 21)];
     
-    for (NSString *userID in self.event.RSVPdFriends) {
+    for (NSString *userID in self.event.confirmedInvites) {
         PFQuery *query = [PFUser query];
         [query whereKey:@"objectId" equalTo:userID];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -134,7 +134,7 @@ int attendee;
             }
         }];
     }
-    int numAttendees = (int)[self.event.RSVPdFriends count];
+    int numAttendees = (int)[self.event.confirmedInvites count];
     if (numAttendees > 4) {
         self.andMoreLabel.text = [NSString stringWithFormat:@"plus %d more", (numAttendees-4)];
     }

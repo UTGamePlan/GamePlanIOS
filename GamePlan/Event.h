@@ -19,10 +19,10 @@
 @property (nonatomic) BOOL friendsCanInvite;
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSDate *endTime;
-@property (nonatomic, strong) NSMutableArray *invitedFriends;
-@property (nonatomic, strong) NSMutableArray *RSVPdFriends;
 @property (nonatomic, strong) NSMutableArray *tags;
 @property (nonatomic, strong) NSString *privacy;
+@property (nonatomic, strong) NSMutableArray *pendingInvites;
+@property (nonatomic, strong) NSMutableArray *confirmedInvites;
 
 
 @end
