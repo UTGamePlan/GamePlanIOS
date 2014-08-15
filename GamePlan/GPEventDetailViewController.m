@@ -63,22 +63,23 @@ int attendee;
         }
     }
     // DESCRIPTION LABEL
-    CGRect descriptionBackgroundFrame = self.descriptionBackground.frame;
-    float descriptionBackgroundTopYVal = descriptionBackgroundFrame.origin.y;
     self.descriptionLabel.numberOfLines = 0;
     self.descriptionLabel.text = self.event.desc;
     [self.descriptionLabel sizeToFit];
     CGRect descriptionFrame = self.descriptionLabel.frame;
-    [self.descriptionBackground setFrame:CGRectMake(0, descriptionBackgroundTopYVal, descriptionBackgroundFrame.size.width, (descriptionFrame.origin.y+descriptionFrame.size.height-descriptionBackgroundTopYVal+15.0))];
-    // MAP PREVIEW
-    descriptionBackgroundFrame = self.descriptionBackground.frame;
-    CGRect mapFrame = self.mapPreview.frame;
-    [self.mapPreview setFrame:CGRectMake(0, descriptionBackgroundFrame.origin.y+descriptionBackgroundFrame.size.height+1.0, mapFrame.size.width, mapFrame.size.height)];
-    mapFrame = self.mapPreview.frame;
+    // HASHTAGS
+    [self.tagsLabel setFrame:CGRectMake(13.0, descriptionFrame.origin.y+descriptionFrame.size.height+15.0, 287.0, 32.0)];
+    NSString *hashtags = @"";
+    for (NSString *tag in self.event.tags) {
+        hashtags = [hashtags stringByAppendingString:[NSString stringWithFormat:@"#%@    ", tag]];
+    }
+    self.tagsLabel.text = hashtags;
+    self.tagsLabel.numberOfLines = 0;
+    [self.tagsLabel sizeToFit];
     // WHO'S GOING
     attendee = 1;
     CGRect attendeesBackgroundFrame = self.attendeesBackground.frame;
-    [self.attendeesBackground setFrame:CGRectMake(0, mapFrame.origin.y+mapFrame.size.height+1.0, attendeesBackgroundFrame.size.width, attendeesBackgroundFrame.size.height)];
+    [self.attendeesBackground setFrame:CGRectMake(0, self.tagsLabel.frame.origin.y+self.tagsLabel.frame.size.height+15.0, attendeesBackgroundFrame.size.width, attendeesBackgroundFrame.size.height)];
     attendeesBackgroundFrame = self.attendeesBackground.frame;
     [self.whosGoingLabel setFrame:CGRectMake(0, attendeesBackgroundFrame.origin.y+2.0, self.whosGoingLabel.frame.size.width, self.whosGoingLabel.frame.size.height)];
     float attendeesOriginYValue = attendeesBackgroundFrame.origin.y + 20.0;
@@ -137,12 +138,11 @@ int attendee;
     int numAttendees = (int)[self.event.confirmedInvites count];
     if (numAttendees > 4) {
         self.andMoreLabel.text = [NSString stringWithFormat:@"plus %d more", (numAttendees-4)];
+    } else {
+        self.andMoreLabel.text = @"";
     }
-    float buttonYVal = attendeesBackgroundFrame.origin.y+attendeesBackgroundFrame.size.height+1.0;
-    [self.buttonBackground setFrame:CGRectMake(0, buttonYVal, self.view.frame.size.width, 60)];
-    [self.inviteButton setFrame:CGRectMake(20, buttonYVal, 60, 60)];
-    [self.playbookButton setFrame:CGRectMake(128, buttonYVal, 60, 60)];
-    [self.shareButton setFrame:CGRectMake(240, buttonYVal, 60, 60)];
+    self.scrollView.delegate = self;
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, attendeesBackgroundFrame.origin.y+attendeesBackgroundFrame.size.height+15.0);
 }
 
 - (UIImage *)squareImageFromImage:(UIImage *)image scaledToSize:(CGFloat)newSize {
@@ -290,6 +290,19 @@ int attendee;
     PFQuery *users = [PFUser query];
     [users whereKey:@"FacebookID" containedIn:peopleToPushTo];
     
+    NSMutableArray *pendingInvites = [NSMutableArray arrayWithArray:([self.event objectForKey:@"pendingInvites"])];
+    [users findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFUser *user in objects) {
+                [pendingInvites addObject:[NSString stringWithFormat:@"%@", [user objectId]]];
+            }
+            [self.event saveInBackground];
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    
     PFQuery *pushQuery = [PFInstallation query];
     [pushQuery whereKey:@"user" matchesQuery:users];
     
@@ -383,6 +396,10 @@ int attendee;
     return params;
 }
 
+- (IBAction) addToPlaybookPressed:(UIButton *)sender
+{
+    // [self.event.confirmedInvites append [PFUser currentUser]];
+}
 
 - (void)didReceiveMemoryWarning
 {

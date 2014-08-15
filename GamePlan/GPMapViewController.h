@@ -22,6 +22,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *bottomBar;
 @property (strong, nonatomic) IBOutlet UITextField *searchBar;
 @property (retain, nonatomic) UITableView *searchTableView;
+@property (strong, nonatomic) IBOutlet UIImageView *badge;
 @property (strong, nonatomic) IBOutlet UIButton *menuButton;
 @property (strong, nonatomic) IBOutlet UIButton *myLocationButton;
 @property (strong, nonatomic) IBOutlet UIButton *filterButton;

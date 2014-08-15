@@ -16,6 +16,7 @@
 #import "WatchParty.h"
 #import "Restaurant.h"
 #import "Game.h"
+#import "GPWebViewController.h"
 
 @interface GPMapViewController ()
 
@@ -71,6 +72,7 @@ NSMutableArray *suggestionTypes;
     today = [NSDate date];
     [self setGameSchedule];
     [self initializeFilterParameters];
+    [self putUpBadge];
     
     // This is what allows us to pop transluscent modals
     self.transitionController = [[TransitionDelegate alloc] init];
@@ -159,6 +161,35 @@ NSMutableArray *suggestionTypes;
         }
         [self presentMenuBars];
     }
+}
+
+-(void)putUpBadge
+{
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation.badge == 0) {
+        [self.badge setFrame:CGRectMake(0, 0, 0, 0)];
+    } else if (currentInstallation.badge == 1) {
+        [self.badge setFrame:CGRectMake(300, 20, 16, 16)];
+        self.badge.image = [UIImage imageNamed:@"badge-1.png"];
+        [self.view addSubview:self.badge];
+    } else if (currentInstallation.badge == 2) {
+        [self.badge setFrame:CGRectMake(300, 20, 16, 16)];
+        self.badge.image = [UIImage imageNamed:@"badge-2.png"];
+        [self.view addSubview:self.badge];
+    } else if (currentInstallation.badge == 3) {
+        [self.badge setFrame:CGRectMake(300, 20, 16, 16)];
+        self.badge.image = [UIImage imageNamed:@"badge-3.png"];
+        [self.view addSubview:self.badge];
+    } else if (currentInstallation.badge == 4) {
+        [self.badge setFrame:CGRectMake(300, 20, 16, 16)];
+        self.badge.image = [UIImage imageNamed:@"badge-4.png"];
+        [self.view addSubview:self.badge];
+    } else {
+        [self.badge setFrame:CGRectMake(300, 20, 16, 16)];
+        self.badge.image = [UIImage imageNamed:@"badge-5-plus.png"];
+        [self.view addSubview:self.badge];
+    }
+
 }
 
 -(void)presentMenuBars
@@ -445,11 +476,17 @@ NSMutableArray *suggestionTypes;
         [self presentModalViewController:editVC animated:YES];
     }];
     
-    UzysSMMenuItem *item1 = [[UzysSMMenuItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"gear.png"] action:^(UzysSMMenuItem *item) {
-        // present settings view controller here
+    UzysSMMenuItem *item1 = [[UzysSMMenuItem alloc] initWithTitle:@"UT Game Schedule" image:[UIImage imageNamed:@"gear.png"] action:^(UzysSMMenuItem *item) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        GPWebViewController *webViewController = [storyboard instantiateViewControllerWithIdentifier:@"webVC"];
+        webViewController.url = @"http://www.utgameplan.com/game-schedule.html";
+        [self presentViewController:webViewController animated:YES completion:nil];
     }];
     UzysSMMenuItem *item2 = [[UzysSMMenuItem alloc] initWithTitle:@"FAQ" image:[UIImage imageNamed:@"question-mark.png"] action:^(UzysSMMenuItem *item) {
-        // present FAQ view controller here (probably best to do a UIWebView and put this online for ease of updating)
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        GPWebViewController *webViewController = [storyboard instantiateViewControllerWithIdentifier:@"webVC"];
+        webViewController.url = @"http://www.utgameplan.com/faq.html";
+        [self presentViewController:webViewController animated:YES completion:nil];
     }];
     item0.tag = 0;
     item1.tag = 1;
@@ -530,12 +567,8 @@ NSMutableArray *suggestionTypes;
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     GPEventDetailViewController *eventDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"event-details"];
-
     eventDetailViewController.event = self.event;
     eventDetailViewController.eventType = NSStringFromClass([self.event class]);
-    eventDetailViewController.view.backgroundColor = [UIColor lightGrayColor];
-    [eventDetailViewController setTransitioningDelegate:transitionController];
-    eventDetailViewController.modalPresentationStyle= UIModalPresentationCustom;
     [self presentViewController:eventDetailViewController animated:YES completion:nil];
 }
 
@@ -628,6 +661,14 @@ NSMutableArray *suggestionTypes;
     self.frostedViewController.direction = REFrostedViewControllerDirectionRight;
 
     [self.frostedViewController presentMenuViewController];
+    
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (currentInstallation.badge != 0) {
+        currentInstallation.badge = 0;
+        [currentInstallation saveInBackground];
+    }
+    
+    [self.badge setFrame:CGRectMake(0, 0, 0, 0)];
 }
 
 -(void) setProfilePhoto
