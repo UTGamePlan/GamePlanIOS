@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "Event.h"
 
-@interface GPEventDetailViewController : UIViewController <MKMapViewDelegate,FBFriendPickerDelegate>
+@interface GPEventDetailViewController : UIViewController <MKMapViewDelegate,FBFriendPickerDelegate, UIScrollViewDelegate>
 
 @property (nonatomic,strong) Event *event;
 @property (nonatomic,strong) NSString *eventType;
@@ -19,7 +19,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *hostLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (strong, nonatomic) IBOutlet UILabel *descriptionBackground;
+@property (strong, nonatomic) IBOutlet UILabel *tagsLabel;
 @property (strong, nonatomic) IBOutlet MKMapView *mapPreview;
 @property (strong, nonatomic) IBOutlet UILabel *attendeesBackground;
 @property (strong, nonatomic) IBOutlet UILabel *whosGoingLabel;
@@ -32,6 +32,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *inviteButton;
 @property (strong, nonatomic) IBOutlet UIButton *playbookButton;
 @property (strong, nonatomic) IBOutlet UIButton *shareButton;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 - (IBAction) backPressed:(UIButton *)sender;
 - (IBAction) inviteFriendsPressed:(UIButton *)sender;

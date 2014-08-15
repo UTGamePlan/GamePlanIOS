@@ -521,11 +521,15 @@
     }
 }
 
-- (IBAction)inviteFriends:(UIButton *)sender {
+- (IBAction) inviteFriends:(UIButton *)sender
+{
     // Initialize the friend picker
-    FBFriendPickerViewController *friendPickerController = [[FBFriendPickerViewController alloc] init];
+    FBFriendPickerViewController *friendPickerController =
+    [[FBFriendPickerViewController alloc] init];
     // Set the friend picker title
     friendPickerController.title = @"INVITE";
+    
+    // TODO: Set up the delegate to handle picker callbacks, ex: Done/Cancel button
     
     // Load the friend data
     [friendPickerController loadData];
@@ -572,25 +576,55 @@
     //NSLog(@"Current friend selections: %@", friendPicker.selection);
 }
 
-/*
- * Event: Done button clicked
- */
 - (void)facebookViewControllerDoneWasPressed:(id)sender {
+    NSMutableArray *peopleToPushTo = [[NSMutableArray alloc] init];
     FBFriendPickerViewController *friendPickerController =
     (FBFriendPickerViewController*)sender;
     
-    //save invited friends
-//    for (id<FBGraphUser> user in friendPickerController.selection) {
-//        NSString *userId = [NSString stringWithFormat:@"%d",[user objectForKey:@"id"]];
-//        [invitedFriends addObject: userId];
-//    }
-    
     for (id<FBGraphUser> user in friendPickerController.selection) {
-        NSString *str = [NSString stringWithFormat:@"%@", user.id];
-        [invitedFriends addObject:str];
+        [peopleToPushTo addObject:user.id];
     }
     
-    //dismiss modal
+    PFQuery *users = [PFUser query];
+    [users whereKey:@"FacebookID" containedIn:peopleToPushTo];
+    
+    NSMutableArray *pendingInvites = [NSMutableArray arrayWithArray:([self.event objectForKey:@"pendingInvites"])];
+    [users findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFUser *user in objects) {
+                [pendingInvites addObject:[NSString stringWithFormat:@"%@", [user objectId]]];
+            }
+            [self.event saveInBackground];
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    
+    PFQuery *pushQuery = [PFInstallation query];
+    [pushQuery whereKey:@"user" matchesQuery:users];
+    
+    // Send push notification to query
+    PFPush *push = [[PFPush alloc] init];
+    [push setQuery:pushQuery]; // Set our Installation query
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    // get the current user's first name
+    NSString *name = [[[defaults objectForKey:@"name"] componentsSeparatedByString: @" "] firstObject];
+    NSString *message = [NSString stringWithFormat:@"%@ invited you to %@", name, self.event.name];
+    // [push setMessage:message];
+    
+    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                          message, @"alert",
+                          @"Increment", @"badge",
+                          @"eventID", self.event.objectId, // This event's object id
+                          @"eventType", NSStringFromClass([event class]), // This event's object type
+                          nil];
+    
+    [push setData:data];
+    [push sendPushInBackground];
+    
     [[sender presentingViewController] dismissModalViewControllerAnimated:YES];
 }
 
@@ -599,10 +633,10 @@
  */
 - (void)facebookViewControllerCancelWasPressed:(id)sender {
     NSLog(@"Canceled");
-    
     // Dismiss the friend picker
     [[sender presentingViewController] dismissModalViewControllerAnimated:YES];
 }
+
 
 -(void) pickedPrivSetting{
     privLabel.text = privacy;
