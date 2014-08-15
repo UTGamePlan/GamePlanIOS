@@ -81,6 +81,18 @@ NSMutableArray *suggestionTypes;
     [self loadEventPins];
     [self setProfilePhoto];
     [self initializeMenus];
+    
+    UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc]
+                                                   initWithTarget:self action:@selector(didTouchMap:)];
+    tapRecognizer.minimumPressDuration = 0.02;
+    [self.mapView addGestureRecognizer:tapRecognizer];
+}
+
+-(IBAction)didTouchMap:(UITapGestureRecognizer *)recognizer{
+    if (searchTableView.hidden == NO) {
+        searchTableView.hidden =YES;
+    }
+    [searchBar resignFirstResponder];
 }
 
 - (void) queryEventNames {
@@ -108,6 +120,8 @@ NSMutableArray *suggestionTypes;
         } else {
             for (WatchParty *wp in objects) {
                 [eventNames addObject:wp.name];
+                [eventIDs addObject:wp.objectId];
+                [eventTypes addObject:@"WatchParty"];
             }
             [searchTableView reloadData];
         }
@@ -120,6 +134,8 @@ NSMutableArray *suggestionTypes;
         } else {
             for (AfterParty *ap in objects) {
                 [eventNames addObject:ap.name];
+                [eventIDs addObject:ap.objectId];
+                [eventTypes addObject:@"AfterParty"];
             }
             [searchTableView reloadData];
         }
@@ -747,10 +763,12 @@ NSMutableArray *suggestionTypes;
     
 }
 
-- (void) textFieldDidBeginEditing:(UITextField *)textField {
-    searchTableView.hidden = NO;
-    [self.view bringSubviewToFront:searchTableView];
-}
+
+//uncomment to add full list of events upon touching search bar
+//- (void) textFieldDidBeginEditing:(UITextField *)textField {
+//    searchTableView.hidden = NO;
+//    [self.view bringSubviewToFront:searchTableView];
+//}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     searchTableView.hidden = NO;

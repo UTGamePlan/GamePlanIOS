@@ -11,4 +11,6 @@
 
 @interface GPUserMenuViewController : UITableViewController
 
+@property (strong, nonatomic) NSArray *allEvents;
+
 @end
