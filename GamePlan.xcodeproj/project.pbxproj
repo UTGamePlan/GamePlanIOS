@@ -76,6 +76,7 @@
 		C90E818118B956D2004BF989 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E818018B956D1004BF989 /* SystemConfiguration.framework */; };
 		C920A1401985E95C009EDF82 /* EditEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C920A13E1985E95C009EDF82 /* EditEventVC.m */; };
 		C920A1411985E95C009EDF82 /* EditEventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C920A13F1985E95C009EDF82 /* EditEventVC.xib */; };
+		C925EEEB199C78E200196915 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C925EEEA199C78E200196915 /* close@2x.png */; };
 		C962E404194FFC06005A4895 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E403194FFC06005A4895 /* Event.m */; };
 		C962E407194FFD28005A4895 /* Tailgate.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E406194FFD28005A4895 /* Tailgate.m */; };
 		C962E40A194FFE65005A4895 /* WatchParty.m in Sources */ = {isa = PBXBuildFile; fileRef = C962E409194FFE65005A4895 /* WatchParty.m */; };
@@ -193,6 +194,7 @@
 		C920A13D1985E95C009EDF82 /* EditEventVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditEventVC.h; sourceTree = "<group>"; };
 		C920A13E1985E95C009EDF82 /* EditEventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditEventVC.m; sourceTree = "<group>"; };
 		C920A13F1985E95C009EDF82 /* EditEventVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditEventVC.xib; sourceTree = "<group>"; };
+		C925EEEA199C78E200196915 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close@2x.png"; path = "Assets/close@2x.png"; sourceTree = "<group>"; };
 		C962E402194FFC06005A4895 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		C962E403194FFC06005A4895 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		C962E405194FFD28005A4895 /* Tailgate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tailgate.h; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 		C90E814E18B944E2004BF989 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C925EEEA199C78E200196915 /* close@2x.png */,
 				3F62518E1951464B00D24EE8 /* MapViewController */,
 				3F9B6DDF194E42DE00B2C3E0 /* app_icon.png */,
 				3F9B6DE0194E42DE00B2C3E0 /* app_icon@2x.png */,
@@ -646,6 +649,7 @@
 				3F9B6DD2194E3D4500B2C3E0 /* burnt_orange.jpeg in Resources */,
 				C9ADB524198D7550001D1CE2 /* PlaybookTableViewCell.xib in Resources */,
 				3F9B6DDD194E415600B2C3E0 /* GPLettering.png in Resources */,
+				C925EEEB199C78E200196915 /* close@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

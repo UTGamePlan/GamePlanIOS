@@ -81,6 +81,7 @@ typedef enum {
 
 #pragma mark - Finalize Buttons
 - (IBAction)doneButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 - (IBAction)deleteButton:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
