@@ -71,37 +71,40 @@
     [privSetting4Button setHidden:YES];
     privExpanded = NO;
     
-    // setting up maps
-    CLLocationCoordinate2D bbLoc;
-    bbLoc.latitude = 30.2804859;
-    bbLoc.longitude = -97.7386164;
     
-    MKCoordinateSpan span;
-    span.latitudeDelta = 0.1f;
-    span.longitudeDelta = 0.1f;
-    
-    MKCoordinateRegion reg;
-    reg.center = bbLoc;
-    reg.span = span;
-    
-    delete = false;
-    
-    [miniMap setCenterCoordinate:bbLoc animated:YES];
-    [miniMap setRegion:reg];
-    [expandedMap setCenterCoordinate:bbLoc animated:YES];
-    [expandedMap setRegion:reg];
-    [expandedMap setHidden:YES];
-    
-    UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc]
-                                                   initWithTarget:self action:@selector(dropPin:)];
-    tapRecognizer.minimumPressDuration = 1.0;
-    [expandedMap addGestureRecognizer:tapRecognizer];
     
     if ( self.event == nil ) {
         self.deleteButton.hidden = YES;
         tags = [[NSMutableArray alloc] init];
         titleLabel.text = @"Add an Event";
         privacy = @"";
+        
+        // setting up maps
+        CLLocationCoordinate2D bbLoc;
+        bbLoc.latitude = 30.2804859;
+        bbLoc.longitude = -97.7386164;
+        
+        MKCoordinateSpan span;
+        span.latitudeDelta = 0.01f;
+        span.longitudeDelta = 0.01f;
+        
+        MKCoordinateRegion reg;
+        reg.center = bbLoc;
+        reg.span = span;
+        
+        delete = false;
+        
+        [miniMap setCenterCoordinate:bbLoc animated:YES];
+        [miniMap setRegion:reg];
+        [expandedMap setCenterCoordinate:bbLoc animated:YES];
+        [expandedMap setRegion:reg];
+        [expandedMap setHidden:YES];
+        
+        UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc]
+                                                       initWithTarget:self action:@selector(dropPin:)];
+        tapRecognizer.minimumPressDuration = 1.0;
+        [expandedMap addGestureRecognizer:tapRecognizer];
+        
     } else {
         titleLabel.text = @"Edit Event";
         [doneButton setTitle:@"SAVE" forState:UIControlStateHighlighted];
@@ -128,6 +131,34 @@
             }
         }
         loc = event.geoPoint;
+        
+        //set up map
+        
+        MKCoordinateSpan span;
+        span.latitudeDelta = 0.01f;
+        span.longitudeDelta = 0.01f;
+        
+        CLLocationCoordinate2D center;
+        event.geoPoint.latitude = 30.2804859;
+        event.geoPoint.longitude = -97.7386164;
+        
+        MKCoordinateRegion reg;
+        reg.center = center;
+        reg.span = span;
+        
+        delete = false;
+        
+        [miniMap setCenterCoordinate:center animated:YES];
+        [miniMap setRegion:reg];
+        [expandedMap setCenterCoordinate:center animated:YES];
+        [expandedMap setRegion:reg];
+        [expandedMap setHidden:YES];
+        
+        UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc]
+                                                       initWithTarget:self action:@selector(dropPin:)];
+        tapRecognizer.minimumPressDuration = 1.0;
+        [expandedMap addGestureRecognizer:tapRecognizer];
+        
         annot = [[MKPointAnnotation alloc] init];
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(loc.latitude, loc.longitude);
         annot.coordinate = coord;
