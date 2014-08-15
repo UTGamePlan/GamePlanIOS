@@ -81,6 +81,18 @@ NSMutableArray *suggestionTypes;
     [self loadEventPins];
     [self setProfilePhoto];
     [self initializeMenus];
+    
+    UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc]
+                                                   initWithTarget:self action:@selector(didTouchMap:)];
+    tapRecognizer.minimumPressDuration = 0.02;
+    [self.mapView addGestureRecognizer:tapRecognizer];
+}
+
+-(IBAction)didTouchMap:(UITapGestureRecognizer *)recognizer{
+    if (searchTableView.hidden == NO) {
+        searchTableView.hidden =YES;
+    }
+    [searchBar resignFirstResponder];
 }
 
 - (void) queryEventNames {
@@ -751,10 +763,12 @@ NSMutableArray *suggestionTypes;
     
 }
 
-- (void) textFieldDidBeginEditing:(UITextField *)textField {
-    searchTableView.hidden = NO;
-    [self.view bringSubviewToFront:searchTableView];
-}
+
+//uncomment to add full list of events upon touching search bar
+//- (void) textFieldDidBeginEditing:(UITextField *)textField {
+//    searchTableView.hidden = NO;
+//    [self.view bringSubviewToFront:searchTableView];
+//}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     searchTableView.hidden = NO;
