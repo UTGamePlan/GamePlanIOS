@@ -139,8 +139,8 @@
         span.longitudeDelta = 0.01f;
         
         CLLocationCoordinate2D center;
-        event.geoPoint.latitude = 30.2804859;
-        event.geoPoint.longitude = -97.7386164;
+        center.latitude = event.geoPoint.latitude;
+        center.longitude = event.geoPoint.longitude;
         
         MKCoordinateRegion reg;
         reg.center = center;
@@ -419,8 +419,10 @@
     annot.coordinate = touchMapCoordinate;
     [expandedMap addAnnotation:annot];
     [miniMap addAnnotation:annot];
+    [miniMap setCenterCoordinate:touchMapCoordinate animated:YES];
     [mainMap addAnnotation:annot];
     [expandedMap setHidden:YES];
+    [expandedMap setCenterCoordinate:touchMapCoordinate animated:YES];
     [miniMap setHidden:NO];
     [miniMapButton setHidden:NO];
     [miniMap setCenterCoordinate:touchMapCoordinate animated:YES];
