@@ -34,7 +34,7 @@
 
 @implementation EditEventVC 
 
-@synthesize startDatePicker, endDatePicker, startLabel, endLabel, tailgateButton, watchPartyButton, afterPartyButton, eventNameLabel, eventDescLabel, BYOBButton, FreeFoodButton, CoverChargeButton, KidFriendlyButton, AlumniButton, StudentsButton, event, eventTypeMissing, eventNameMissing, eventLocMissing, eventTimeMissing, privacyButton, inviteButton, privSetting1Button, privSetting2Button, privSetting3Button, privSetting4Button, privLabel, miniMap, expandedMap, miniMapButton, titleLabel, mainMap, privacyLabel;
+@synthesize startDatePicker, endDatePicker, startLabel, endLabel, tailgateButton, watchPartyButton, afterPartyButton, eventNameLabel, eventDescLabel, BYOBButton, FreeFoodButton, CoverChargeButton, KidFriendlyButton, AlumniButton, StudentsButton, event, eventTypeMissing, eventNameMissing, eventLocMissing, eventTimeMissing, privacyButton, inviteButton, privSetting1Button, privSetting2Button, privSetting3Button, privSetting4Button, privLabel, miniMap, expandedMap, miniMapButton, titleLabel, mainMap, privacyLabel, doneButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -92,7 +92,6 @@
     [expandedMap setRegion:reg];
     [expandedMap setHidden:YES];
     
-    //UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dropPin:)];
     UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc]
                                                    initWithTarget:self action:@selector(dropPin:)];
     tapRecognizer.minimumPressDuration = 1.0;
@@ -105,6 +104,9 @@
         privacy = @"";
     } else {
         titleLabel.text = @"Edit Event";
+        [doneButton setTitle:@"SAVE" forState:UIControlStateHighlighted];
+        [doneButton setTitle:@"SAVE" forState:UIControlStateNormal];
+        [doneButton setTitle:@"SAVE" forState:UIControlStateSelected];
         eventNameLabel.text = event.name;
         eventNameLabel.textColor = [UIColor darkGrayColor];
         eventDescLabel.text = event.desc;
@@ -134,11 +136,10 @@
         privacy = event.privacy;
         privLabel.text = privacy;
         
-        //disable 
+        //disable buttons and highlight type
         self.tailgateButton.enabled = NO;
         self.watchPartyButton.enabled = NO;
         self.afterPartyButton.enabled = NO;
-        
         id<PFSubclassing> sc = (id<PFSubclassing>)self.event;
         
         if ( [[sc parseClassName] isEqualToString:@"Tailgate"] ) {
@@ -154,6 +155,30 @@
             self.afterPartyButton.backgroundColor = highlightedButtonColor;
             eventClass = @"AfterParty";
         }
+        
+        //adjust start time
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        df.dateStyle = NSDateFormatterShortStyle;
+        NSString *displayDate = [df stringFromDate:event.startTime];
+        NSDateFormatter *tf = [[NSDateFormatter alloc] init];
+        [tf setDateFormat:@"hh:mm a"];
+        NSString *displayTime = [tf stringFromDate:event.startTime];
+        startLabel.textColor = [UIColor blackColor];
+        startLabel.text = [NSString stringWithFormat:@"%@     %@", displayDate, displayTime];
+        startTime = event.startTime;
+        
+        //adjust start time
+        df = [[NSDateFormatter alloc] init];
+        df.dateStyle = NSDateFormatterShortStyle;
+        displayDate = [df stringFromDate:event.endTime];
+        tf = [[NSDateFormatter alloc] init];
+        [tf setDateFormat:@"hh:mm a"];
+        displayTime = [tf stringFromDate:event.endTime];
+        endLabel.textColor = [UIColor blackColor];
+        endLabel.text = [NSString stringWithFormat:@"%@     %@", displayDate, displayTime];
+        endTime = event.endTime;
+        
+       
     }
 }
 
@@ -206,11 +231,17 @@
         if ([str isEqualToString:@"BYOB"]) {
             [tags removeObject:str];
             BYOBButton.backgroundColor = [UIColor whiteColor];
+            [BYOBButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+            [BYOBButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [BYOBButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
             return;
         }
     }
     [tags addObject:@"BYOB"];
     BYOBButton.backgroundColor = highlightedButtonColor;
+    [BYOBButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [BYOBButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [BYOBButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [self dismissKeyboards];
 }
 
@@ -219,11 +250,17 @@
         if ([str isEqualToString:@"FreeFood"]) {
             [tags removeObject:str];
             FreeFoodButton.backgroundColor = [UIColor whiteColor];
+            [FreeFoodButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+            [FreeFoodButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [FreeFoodButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
             return;
         }
     }
     [tags addObject:@"FreeFood"];
     FreeFoodButton.backgroundColor = highlightedButtonColor;
+    [FreeFoodButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [FreeFoodButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [FreeFoodButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [self dismissKeyboards];
 }
 
@@ -233,11 +270,17 @@
         if ([str isEqualToString:@"CoverCharge"]) {
             [tags removeObject:str];
             CoverChargeButton.backgroundColor = [UIColor whiteColor];
+            [CoverChargeButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+            [CoverChargeButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [CoverChargeButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
             return;
         }
     }
     [tags addObject:@"CoverCharge"];
     CoverChargeButton.backgroundColor = highlightedButtonColor;
+    [CoverChargeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [CoverChargeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [CoverChargeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [self dismissKeyboards];
 }
 
@@ -246,11 +289,17 @@
         if ([str isEqualToString:@"KidFriendly"]) {
             [tags removeObject:str];
             KidFriendlyButton.backgroundColor = [UIColor whiteColor];
+            [KidFriendlyButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+            [KidFriendlyButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [KidFriendlyButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
             return;
         }
     }
     [tags addObject:@"KidFriendly"];
     KidFriendlyButton.backgroundColor = highlightedButtonColor;
+    [KidFriendlyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [KidFriendlyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [KidFriendlyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [self dismissKeyboards];
 }
 
@@ -259,11 +308,18 @@
         if ([str isEqualToString:@"Alumni"]) {
             [tags removeObject:str];
             AlumniButton.backgroundColor = [UIColor whiteColor];
+            [AlumniButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+            [AlumniButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [AlumniButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
+
             return;
         }
     }
     [tags addObject:@"Alumni"];
     AlumniButton.backgroundColor = highlightedButtonColor;
+    [AlumniButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [AlumniButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [AlumniButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [self dismissKeyboards];
 }
 
@@ -272,11 +328,17 @@
         if ([str isEqualToString:@"Students"]) {
             [tags removeObject:str];
             StudentsButton.backgroundColor = [UIColor whiteColor];
+            [StudentsButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+            [StudentsButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [StudentsButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
             return;
         }
     }
     [tags addObject:@"Students"];
     StudentsButton.backgroundColor = highlightedButtonColor;
+    [StudentsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [StudentsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [StudentsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [self dismissKeyboards];
 }
 

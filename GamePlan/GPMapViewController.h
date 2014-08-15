@@ -13,7 +13,7 @@
 #import "GPFacebookLoginViewController.h"
 #import "REFrostedViewController.h"
 
-@interface GPMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface GPMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *menuView;
 
@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *topBar;
 @property (strong, nonatomic) IBOutlet UIImageView *bottomBar;
 @property (strong, nonatomic) IBOutlet UITextField *searchBar;
+@property (retain, nonatomic) UITableView *searchTableView;
 @property (strong, nonatomic) IBOutlet UIButton *menuButton;
 @property (strong, nonatomic) IBOutlet UIButton *myLocationButton;
 @property (strong, nonatomic) IBOutlet UIButton *filterButton;

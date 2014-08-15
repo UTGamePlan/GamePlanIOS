@@ -35,7 +35,7 @@
 #define ZOOM 0.02f;
 
 @implementation GPMapViewController
-@synthesize transitionController;
+@synthesize transitionController, searchTableView, searchBar;
 
 BOOL userAllowedLocationTracking;
 BOOL userLocationUpdatedOnce;
@@ -44,12 +44,29 @@ BOOL afterPartiesVisible;
 BOOL restaurantsVisible;
 int timeInSecondsSinceLocationSavedInParse;
 NSDate *today;
+NSMutableArray *eventNames;
+NSMutableArray *eventIDs;
+NSMutableArray *eventTypes;
+NSMutableArray *suggestionNames;
+NSMutableArray *suggestionIDs;
+NSMutableArray *suggestionTypes;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.navigationController.navigationBar.hidden = YES;
+    
+    searchTableView = [[UITableView alloc] initWithFrame:
+                       CGRectMake(0, 63, 320, 220) style:UITableViewStylePlain];
+    searchTableView.delegate = self;
+    searchTableView.dataSource = self;
+    searchTableView.scrollEnabled = YES;
+    searchTableView.hidden = YES;
+    
+    [self.view addSubview:searchTableView];
+    
+    searchBar.delegate = self;
     
     today = [NSDate date];
     [self setGameSchedule];
@@ -64,11 +81,61 @@ NSDate *today;
     [self initializeMenus];
 }
 
+- (void) queryEventNames {
+    eventNames = [[NSMutableArray alloc] init];
+    eventIDs = [[NSMutableArray alloc] init];
+    eventTypes = [[NSMutableArray alloc] init];
+    PFQuery *qryTG = [PFQuery queryWithClassName:@"Tailgate"];
+    [qryTG findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( error ) {
+            NSLog(@"Error getting event: %@",error);
+        } else {
+            for (Tailgate *tg in objects) {
+                [eventNames addObject:tg.name];
+                [eventIDs addObject:tg.objectId];
+                [eventTypes addObject:@"Tailgate"];
+            }
+            [searchTableView reloadData];
+        }
+    }];
+    
+    PFQuery *qryWP = [PFQuery queryWithClassName:@"WatchParty"];
+    [qryWP findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( error ) {
+            NSLog(@"Error getting event: %@",error);
+        } else {
+            for (WatchParty *wp in objects) {
+                [eventNames addObject:wp.name];
+            }
+            [searchTableView reloadData];
+        }
+    }];
+    
+    PFQuery *qryAP = [PFQuery queryWithClassName:@"AfterParty"];
+    [qryAP findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( error ) {
+            NSLog(@"Error getting event: %@",error);
+        } else {
+            for (AfterParty *ap in objects) {
+                [eventNames addObject:ap.name];
+            }
+            [searchTableView reloadData];
+        }
+    }];
+
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     // Check to see if the user is logged in, and if not pop up a FBLoginViewController
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *currentUserLoggedIn = [defaults objectForKey:@"userLoggedIn"];
+    
+    [self queryEventNames];
+    suggestionNames = [[NSMutableArray alloc] init];
+    suggestionIDs = [[NSMutableArray alloc] init];
+    suggestionTypes = [[NSMutableArray alloc] init];
+    
     if (!([currentUserLoggedIn isEqualToString:@"YES"]))
     {
         // Reference to facebook log in view controller drawn in Main.storyboard
@@ -575,6 +642,112 @@ NSDate *today;
         userProfileImage = [UIImage imageNamed:@"default_profile.jpg"];
     }
     [self.userProfileImageButton setBackgroundImage:userProfileImage forState:UIControlStateNormal];
+}
+
+#pragma mark - Table View delegate methods 
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return [suggestionNames count];
+}
+
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *MyIdentifier = @"MyIdentifier";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    
+    if (cell == nil)
+    {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:MyIdentifier] autorelease];
+    }
+    
+    cell.textLabel.text = [suggestionNames objectAtIndex:indexPath.row];
+    return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *eventID = [eventIDs objectAtIndex:indexPath.row];
+    NSString *type = [eventTypes objectAtIndex:indexPath.row];
+    
+    PFQuery *qry = [PFQuery queryWithClassName:type];
+    [qry findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( error ) {
+            NSLog(@"Error getting event: %@",error);
+        } else {
+            for (Event *e in objects) {
+                if ([e.objectId isEqualToString:eventID]) {
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    GPEventDetailViewController *eventDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"event-details"];
+                    
+                    eventDetailViewController.event = e;
+                    eventDetailViewController.eventType = type;
+                    eventDetailViewController.view.backgroundColor = [UIColor lightGrayColor];
+                    [eventDetailViewController setTransitioningDelegate:transitionController];
+                    eventDetailViewController.modalPresentationStyle= UIModalPresentationCustom;
+                    [self presentViewController:eventDetailViewController animated:YES completion:nil];
+                    searchTableView.hidden = YES;
+                }
+            }
+            [searchTableView reloadData];
+        }
+    }];
+    
+    
+}
+
+- (void) textFieldDidBeginEditing:(UITextField *)textField {
+    searchTableView.hidden = NO;
+    [self.view bringSubviewToFront:searchTableView];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    searchTableView.hidden = NO;
+    //[self.view bringSubviewToFront:searchTableView];
+    NSString *substring = [NSString stringWithString:textField.text];
+    substring = [substring stringByReplacingCharactersInRange:range withString:string];
+    if ([substring isEqualToString:@""]) {
+        searchTableView.hidden = YES;
+        [self performSelector:@selector(hideKeyboard) withObject:nil afterDelay:0.25];
+        
+        
+    }
+    [self searchForSubstring:substring];
+    return YES;
+}
+
+-(void) hideKeyboard {
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchForSubstring:(NSString *)substring {
+    
+    // Put anything that starts with this substring into the autocompleteUrls array
+    // The items in this array is what will show up in the table view
+    [suggestionNames removeAllObjects];
+    substring = [substring lowercaseString];
+    int index = 0;
+    for(NSString *str in eventNames) {
+        NSRange substringRange = [[str lowercaseString] rangeOfString:substring];
+        if (substringRange.location != NSNotFound) {
+            [suggestionNames addObject:str];
+            NSString *eventID = [eventIDs objectAtIndex:index];
+            [suggestionIDs addObject:eventID];
+            NSString *eventType = [eventTypes objectAtIndex:index];
+        }
+        index++;
+    }
+    [searchTableView reloadData];
 }
 
 @end
