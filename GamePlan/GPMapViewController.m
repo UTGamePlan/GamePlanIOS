@@ -108,6 +108,8 @@ NSMutableArray *suggestionTypes;
         } else {
             for (WatchParty *wp in objects) {
                 [eventNames addObject:wp.name];
+                [eventIDs addObject:wp.objectId];
+                [eventTypes addObject:@"WatchParty"];
             }
             [searchTableView reloadData];
         }
@@ -120,6 +122,8 @@ NSMutableArray *suggestionTypes;
         } else {
             for (AfterParty *ap in objects) {
                 [eventNames addObject:ap.name];
+                [eventIDs addObject:ap.objectId];
+                [eventTypes addObject:@"AfterParty"];
             }
             [searchTableView reloadData];
         }
