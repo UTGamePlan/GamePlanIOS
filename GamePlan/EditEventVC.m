@@ -29,6 +29,7 @@
     MKPointAnnotation *annot;
     BOOL *delete;
     NSString *eventClass;
+    BOOL endTimeHasBeenSet;
 }
 @end
 
@@ -51,6 +52,7 @@
     type = -1;
     miniMap.delegate = self;
     expandedMap.delegate = self;
+    endTimeHasBeenSet = FALSE;
 }
 
 
@@ -595,11 +597,25 @@
     startLabel.text = [NSString stringWithFormat:@"%@     %@", displayDate, displayTime];
     
     startTime = startDatePicker.date;
+    if(!endTimeHasBeenSet){
+        endDatePicker.date = startTime;
+        df = [[NSDateFormatter alloc] init];
+        df.dateStyle = NSDateFormatterShortStyle;
+        NSString *displayDate = [df stringFromDate:endDatePicker.date];
+        
+        NSDateFormatter *tf = [[NSDateFormatter alloc] init];
+        [tf setDateFormat:@"hh:mm a"];
+        NSString *displayTime = [tf stringFromDate:endDatePicker.date];
+        
+        endLabel.text = [NSString stringWithFormat:@"%@     %@", displayDate, displayTime];
+
+        endTime = startTime;
+    }
     
 }
 
 - (void)changeEndDateInLabel:(id)sender{
-    
+    endTimeHasBeenSet = YES;
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     df.dateStyle = NSDateFormatterShortStyle;
     NSString *displayDate = [df stringFromDate:endDatePicker.date];
