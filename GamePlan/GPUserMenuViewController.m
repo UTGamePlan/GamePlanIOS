@@ -356,11 +356,17 @@
 
 
 -(void) editEvent:(UIButton*)button{
+    //code to pull up editVC when changed back in next update
+//    NSInteger row = button.tag;
+//    Event *thisEvent = [eventsIHost objectAtIndex:row];
+//    EditEventVC *editVC = [[EditEventVC alloc] init];
+//    editVC.event = thisEvent;
+//    [self presentViewController:editVC animated:YES completion:nil];
+    
     NSInteger row = button.tag;
     Event *thisEvent = [eventsIHost objectAtIndex:row];
-    EditEventVC *editVC = [[EditEventVC alloc] init];
-    editVC.event = thisEvent;
-    [self presentViewController:editVC animated:YES completion:nil];
+    [thisEvent deleteInBackground];
+
 }
 
 -(void) RSVPYes:(UIButton*)button{
