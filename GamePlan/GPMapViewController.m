@@ -42,7 +42,7 @@ BOOL userAllowedLocationTracking;
 BOOL userLocationUpdatedOnce;
 BOOL tailgatesVisible;
 BOOL afterPartiesVisible;
-BOOL restaurantsVisible;
+BOOL watchPartiesVisible;
 int timeInSecondsSinceLocationSavedInParse;
 NSDate *today;
 NSMutableArray *eventNames;
@@ -83,12 +83,26 @@ NSMutableArray *suggestionTypes;
     [self initializeMenus];
 }
 
--(IBAction)dismissSearchView:(UIButton *)sender{
+-(IBAction)dismissSearchView:(UIButton *)sender
+{
     searchTableView.hidden =YES;
     [searchBar resignFirstResponder];
     dismissSearchViewButton.hidden = YES;
     searchBar.text = @"";
 }
+    
+//    UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc]
+//                                                   initWithTarget:self action:@selector(didTouchMap:)];
+//    tapRecognizer.minimumPressDuration = 0.02;
+//    [self.mapView addGestureRecognizer:tapRecognizer];
+//}
+
+//-(IBAction)didTouchMap:(UITapGestureRecognizer *)recognizer{
+//    if (searchTableView.hidden == NO) {
+//        searchTableView.hidden =YES;
+//    }
+//    [searchBar resignFirstResponder];
+//}
 
 - (void) queryEventNames {
     eventNames = [[NSMutableArray alloc] init];
@@ -286,16 +300,22 @@ NSMutableArray *suggestionTypes;
     dateFormatter.dateStyle = NSDateFormatterShortStyle;
     self.startDateLabel.text = @"Today";
     self.endDateLabel.text = [dateFormatter stringFromDate:self.futureDate];
+    
+    [self.toggleTailgatesButton setBackgroundImage:[UIImage imageNamed:@"tailgate.png"] forState:UIControlStateNormal];
+    [self.toggleAfterPartiesButton setBackgroundImage:[UIImage imageNamed:@"afterParty.png"] forState:UIControlStateNormal];
+    [self.toggleWatchPartiesButton setBackgroundImage:[UIImage imageNamed:@"watchParty.png"] forState:UIControlStateNormal];
 }
 
 - (IBAction) toggleTailgatesPressed:(UIButton *)sender
 {
     if (tailgatesVisible) {
+        [self.toggleTailgatesButton setBackgroundImage:[UIImage imageNamed:@"tailgate-grey.png"] forState:UIControlStateNormal];
         for (Tailgate *tailgate in self.tailgates) {
             [[self.mapView viewForAnnotation: tailgate] setHidden: YES];
         }
         tailgatesVisible = NO;
     } else {
+        [self.toggleTailgatesButton setBackgroundImage:[UIImage imageNamed:@"tailgate.png"] forState:UIControlStateNormal];
         for (Tailgate *tailgate in self.tailgates) {
             [[self.mapView viewForAnnotation: tailgate] setHidden: NO];
         }
@@ -306,11 +326,13 @@ NSMutableArray *suggestionTypes;
 - (IBAction) toggleAfterPartiesPressed:(UIButton *)sender
 {
     if (afterPartiesVisible) {
+        [self.toggleAfterPartiesButton setBackgroundImage:[UIImage imageNamed:@"after-party-grey.png"] forState:UIControlStateNormal];
         for (AfterParty *afterParty in self.afterParties) {
             [[self.mapView viewForAnnotation: afterParty] setHidden: YES];
         }
         afterPartiesVisible = NO;
     } else {
+        [self.toggleAfterPartiesButton setBackgroundImage:[UIImage imageNamed:@"afterParty.png"] forState:UIControlStateNormal];
         for (AfterParty *afterParty in self.afterParties) {
             [[self.mapView viewForAnnotation: afterParty] setHidden: NO];
         }
@@ -318,18 +340,21 @@ NSMutableArray *suggestionTypes;
     }
 }
 
-- (IBAction) toggleRestaurantsPressed:(UIButton *)sender
+
+- (IBAction) toggleWatchPartiesPressed:(UIButton *)sender
 {
-    if (restaurantsVisible) {
-        for (Restaurant *restaurant in self.restaurants) {
-            [[self.mapView viewForAnnotation: restaurant] setHidden: YES];
+    if (watchPartiesVisible) {
+        [self.toggleWatchPartiesButton setBackgroundImage:[UIImage imageNamed:@"watch-party-grey.png"] forState:UIControlStateNormal];
+        for (WatchParty *watchParty in self.watchParties) {
+            [[self.mapView viewForAnnotation: watchParty] setHidden: YES];
         }
-        restaurantsVisible = NO;
+        watchPartiesVisible = NO;
     } else {
-        for (Restaurant *restaurant in self.restaurants) {
-            [[_mapView viewForAnnotation: restaurant] setHidden: NO];
+        [self.toggleWatchPartiesButton setBackgroundImage:[UIImage imageNamed:@"watchParty.png"] forState:UIControlStateNormal];
+        for (WatchParty *watchParty in self.watchParties) {
+            [[self.mapView viewForAnnotation: watchParty] setHidden: NO];
         }
-        restaurantsVisible = YES;
+        watchPartiesVisible = YES;
     }
 }
 
@@ -384,19 +409,10 @@ NSMutableArray *suggestionTypes;
     NSLog(@"END: %@", [dateFormatter stringFromDate:end]);
     for (Tailgate *tailgate in self.tailgates) {
         NSLog(@"%@", [dateFormatter stringFromDate:tailgate.startTime]);
-        if([tailgate.startTime timeIntervalSinceDate:start] < 0) {
-            NSLog(@"%d", 1);
+        if([tailgate.startTime timeIntervalSinceDate:start] < 0 && [tailgate.endTime timeIntervalSinceDate:end] > 0) {
             [[self.mapView viewForAnnotation: tailgate] setHidden: YES];
         } else {
-            NSLog(@"%d", 2);
             [[self.mapView viewForAnnotation: tailgate] setHidden: NO];
-        }
-        if([tailgate.endTime timeIntervalSinceDate:end] > 0) {
-            NSLog(@"%d", 3);
-            [[self.mapView viewForAnnotation: tailgate] setHidden: YES];
-        } else {
-            NSLog(@"%d", 4);
-            //[[self.mapView viewForAnnotation: tailgate] setHidden: NO];
         }
     }
 }
@@ -662,7 +678,7 @@ NSMutableArray *suggestionTypes;
                 [self.mapView addAnnotation:restaurant];
                 [self.restaurants addObject:restaurant];
             }
-            restaurantsVisible = YES;
+            watchPartiesVisible = YES;
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);

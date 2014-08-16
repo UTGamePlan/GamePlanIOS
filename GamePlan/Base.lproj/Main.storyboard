@@ -365,25 +365,25 @@
                                 </state>
                             </button>
                             <view appearanceType="aqua" alpha="0.84999999999999987" contentMode="scaleToFill" id="0Ev-l1-PuU">
-                                <rect key="frame" x="0.0" y="572" width="320" height="229"/>
+                                <rect key="frame" x="0.0" y="570" width="320" height="229"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tailgates" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jdw-h8-8JT">
-                                        <rect key="frame" x="6" y="101" width="77" height="21"/>
+                                        <rect key="frame" x="13" y="94" width="77" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="After Parties" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cYi-PZ-Sn2">
-                                        <rect key="frame" x="111" y="101" width="98" height="21"/>
+                                        <rect key="frame" x="111" y="94" width="98" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurants" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7LN-rL-Zdf">
-                                        <rect key="frame" x="235" y="101" width="78" height="21"/>
+                                    <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watch Parties" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7LN-rL-Zdf">
+                                        <rect key="frame" x="222" y="94" width="90" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -412,9 +412,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bFc-H2-PN6">
-                                        <rect key="frame" x="132" y="16" width="56" height="56"/>
+                                        <rect key="frame" x="128" y="16" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button">
+                                        <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -422,19 +422,19 @@
                                         </connections>
                                     </button>
                                     <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aAd-AL-mrh">
-                                        <rect key="frame" x="244" y="16" width="56" height="56"/>
+                                        <rect key="frame" x="235" y="16" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button">
+                                        <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="toggleRestaurantsPressed:" destination="rft-fV-lzv" eventType="touchUpInside" id="Jgj-Lg-hpX"/>
+                                            <action selector="toggleWatchPartiesPressed:" destination="rft-fV-lzv" eventType="touchUpInside" id="Vlm-ca-RTA"/>
                                         </connections>
                                     </button>
                                     <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vdx-hi-HC3">
-                                        <rect key="frame" x="20" y="16" width="56" height="56"/>
+                                        <rect key="frame" x="20" y="16" width="63" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button">
+                                        <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -502,8 +502,8 @@
                         <outlet property="startDateLabel" destination="0xq-b6-oeM" id="0c5-Qj-vLM"/>
                         <outlet property="startDateSlider" destination="Rvf-M9-YWU" id="hRU-io-bAX"/>
                         <outlet property="toggleAfterPartiesButton" destination="bFc-H2-PN6" id="Sst-AC-i8A"/>
-                        <outlet property="toggleRestaurantsButton" destination="aAd-AL-mrh" id="DDP-wf-ypu"/>
                         <outlet property="toggleTailgatesButton" destination="Vdx-hi-HC3" id="QZ6-CN-Auf"/>
+                        <outlet property="toggleWatchPartiesButton" destination="aAd-AL-mrh" id="4Pe-85-maX"/>
                         <outlet property="topBar" destination="ndz-dN-4Wg" id="ydX-EQ-hOO"/>
                         <outlet property="userProfileImageButton" destination="UTX-1G-zm2" id="EIB-fp-93a"/>
                     </connections>

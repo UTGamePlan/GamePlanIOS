@@ -751,8 +751,6 @@
     NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                           message, @"alert",
                           @"Increment", @"badge",
-                          @"eventID", self.event.objectId, // This event's object id
-                          @"eventType", NSStringFromClass([event class]), // This event's object type
                           nil];
     
     [push setData:data];
