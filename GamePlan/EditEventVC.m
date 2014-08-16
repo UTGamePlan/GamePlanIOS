@@ -76,7 +76,12 @@
     if ( self.event == nil ) {
         self.deleteButton.hidden = YES;
         tags = [[NSMutableArray alloc] init];
-        titleLabel.text = @"Add an Event";
+        
+        // style the screen title
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.text = @"ADD EVENT";
+        titleLabel.font = [UIFont fontWithName:@"Langdon" size:21];
+       
         privacy = @"";
         
         // setting up maps
@@ -106,7 +111,11 @@
         [expandedMap addGestureRecognizer:tapRecognizer];
         
     } else {
-        titleLabel.text = @"Edit Event";
+        // style the screen title
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.text = @"ADD EVENT";
+        titleLabel.font = [UIFont fontWithName:@"Langdon" size:21];
+        
         [doneButton setTitle:@"SAVE" forState:UIControlStateHighlighted];
         [doneButton setTitle:@"SAVE" forState:UIControlStateNormal];
         [doneButton setTitle:@"SAVE" forState:UIControlStateSelected];

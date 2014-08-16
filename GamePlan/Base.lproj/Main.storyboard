@@ -207,30 +207,30 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OEh-Jm-x2O">
-                                        <rect key="frame" x="20" y="163" width="60" height="60"/>
+                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OEh-Jm-x2O">
+                                        <rect key="frame" x="35" y="177" width="31" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Invite">
+                                        <state key="normal" image="shareWithFriends.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="inviteFriendsPressed:" destination="MDd-uk-qjG" eventType="touchUpInside" id="bm9-ht-Ybl"/>
                                         </connections>
                                     </button>
-                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DLc-Gj-6dK">
-                                        <rect key="frame" x="128" y="163" width="64" height="60"/>
+                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DLc-Gj-6dK">
+                                        <rect key="frame" x="107" y="177" width="107" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Playbook">
+                                        <state key="normal" image="inviteFriends.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="addToPlaybookPressed:" destination="MDd-uk-qjG" eventType="touchUpInside" id="obW-pQ-9O9"/>
                                         </connections>
                                     </button>
-                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Wcv-tE-8jg">
-                                        <rect key="frame" x="240" y="163" width="60" height="60"/>
+                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Wcv-tE-8jg">
+                                        <rect key="frame" x="254" y="179" width="32" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Share">
+                                        <state key="normal" image="addToPlaybook.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -562,11 +562,14 @@
         <image name="FB_Button_Down.png" width="251" height="55"/>
         <image name="FB_Button_Up.png" width="251" height="55"/>
         <image name="GPLettering.png" width="200" height="43"/>
+        <image name="addToPlaybook.png" width="32" height="27"/>
         <image name="burnt_orange.jpeg" width="100" height="100"/>
         <image name="filterFunnel.png" width="26" height="25"/>
         <image name="hamburgerMenu.png" width="28" height="19"/>
+        <image name="inviteFriends.png" width="31" height="31"/>
         <image name="logo.png" width="91" height="206"/>
         <image name="refreshLoop.png" width="34" height="28"/>
+        <image name="shareWithFriends.png" width="25" height="25"/>
         <image name="userLocation.png" width="28" height="29"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
