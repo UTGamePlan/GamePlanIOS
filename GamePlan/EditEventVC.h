@@ -11,7 +11,7 @@
 #import <Parse/Parse.h>
 #import "Event.h"
 
-@interface EditEventVC : UIViewController <UITextViewDelegate, FBViewControllerDelegate>
+@interface EditEventVC : UIViewController <UITextViewDelegate, FBViewControllerDelegate, MKMapViewDelegate>
 
 typedef enum {
     tailgateType, watchPartyType, afterPartyType

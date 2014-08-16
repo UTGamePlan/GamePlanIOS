@@ -81,11 +81,6 @@ NSMutableArray *suggestionTypes;
     [self loadEventPins];
     [self setProfilePhoto];
     [self initializeMenus];
-    
-    UILongPressGestureRecognizer *tapRecognizer = [[UILongPressGestureRecognizer alloc]
-                                                   initWithTarget:self action:@selector(didTouchMap:)];
-    tapRecognizer.minimumPressDuration = 0.02;
-    [self.mapView addGestureRecognizer:tapRecognizer];
 }
 
 -(IBAction)dismissSearchView:(UIButton *)sender{

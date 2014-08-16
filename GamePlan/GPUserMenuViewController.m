@@ -374,7 +374,13 @@
         }
     }
     
-    [thisEvent.confirmedInvites addObject:[[PFUser currentUser] objectId]];
+    if(thisEvent.confirmedInvites){
+        [thisEvent.confirmedInvites addObject:[[PFUser currentUser] objectId]];
+    } else {
+        NSMutableArray *confirmedInvites = [[NSMutableArray alloc] initWithObjects:[[PFUser currentUser] objectId], nil];
+        thisEvent.confirmedInvites = confirmedInvites;
+    }
+    
     [thisEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [self queryTableData];
     }];

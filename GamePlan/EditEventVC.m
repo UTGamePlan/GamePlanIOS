@@ -49,6 +49,8 @@
     invitedFriends = [[NSMutableArray alloc] init];
     [self makeDatePickers];
     type = -1;
+    miniMap.delegate = self;
+    expandedMap.delegate = self;
 }
 
 
@@ -150,7 +152,7 @@
         reg.span = span;
         
         delete = false;
-        
+
         [miniMap setCenterCoordinate:center animated:YES];
         [miniMap setRegion:reg];
         [expandedMap setCenterCoordinate:center animated:YES];
@@ -475,6 +477,33 @@
     [miniMapButton setHidden:NO];
     [miniMap setCenterCoordinate:touchMapCoordinate animated:YES];
     //[annot release];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    // Try to dequeue an existing pin view first.
+    MKAnnotationView* pinView = (MKAnnotationView*)[mapView
+                                                    dequeueReusableAnnotationViewWithIdentifier:@"dropPinPin"];
+    if (!pinView)
+    {
+        // If an existing pin view was not available, create one.
+        pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                               reuseIdentifier:@"dropPinPin"];
+        if (type == watchPartyType) {
+            pinView.image = [UIImage imageNamed:@"watchparty-pin.png"];
+        } else if(type == afterPartyType){
+            pinView.image = [UIImage imageNamed:@"afterparty-pin.png"];
+        } else {
+            pinView.image = [UIImage imageNamed:@"tailgate-pin.png"];
+        }
+        pinView.canShowCallout = NO;
+        
+    }
+    else
+        pinView.annotation = annotation;
+
+    
+    return pinView;
 }
 
 #pragma mark - Event Time Methods
