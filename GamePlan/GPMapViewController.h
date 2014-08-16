@@ -39,6 +39,8 @@
 - (IBAction) myLocationPressed:(UIButton *)sender;
 - (IBAction) userProfilePicturePressed:(UIButton *)sender;
 - (IBAction) filterButtonPressed:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIButton *dismissSearchViewButton;
+- (IBAction)dismissSearchView:(UIButton *)sender;
 
 #pragma mark - filter
 @property (strong, nonatomic) IBOutlet UIView *filterView;

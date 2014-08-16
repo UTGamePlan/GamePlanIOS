@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="14A261i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -13,6 +13,7 @@
                 <outlet property="KidFriendlyButton" destination="ii4-hA-3Xa" id="Fyt-rR-X8v"/>
                 <outlet property="StudentsButton" destination="TdF-YK-dXj" id="FEj-gc-Y31"/>
                 <outlet property="afterPartyButton" destination="ple-Ta-5FP" id="tbL-3R-Lnb"/>
+                <outlet property="chooseEvent" destination="lyG-Ko-hfS" id="YYz-7f-UO7"/>
                 <outlet property="deleteButton" destination="fZh-Bu-eP1" id="eYK-7y-nTj"/>
                 <outlet property="doneButton" destination="nA1-y2-f4A" id="pRE-ck-WgY"/>
                 <outlet property="endDatePicker" destination="h85-dY-unq" id="zk7-j6-Z79"/>
@@ -58,7 +59,7 @@
                 <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PbS-DX-MTY">
                     <rect key="frame" x="22" y="52" width="74" height="74"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="tailgate.png">
+                    <state key="normal" image="tailgate-grey.png">
                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
@@ -69,7 +70,7 @@
                 <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dC4-5k-yVG">
                     <rect key="frame" x="123" y="52" width="74" height="74"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="watchParty.png">
+                    <state key="normal" image="watch-party-grey.png">
                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -79,7 +80,7 @@
                 <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ple-Ta-5FP">
                     <rect key="frame" x="223" y="52" width="74" height="74"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="afterParty.png">
+                    <state key="normal" image="after-party-grey.png">
                         <color key="titleShadowColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </state>
                     <connections>
@@ -530,14 +531,14 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         </view>
     </objects>
     <resources>
-        <image name="afterParty.png" width="74" height="74"/>
+        <image name="after-party-grey.png" width="148" height="148"/>
         <image name="arrow.png" width="8" height="14"/>
         <image name="close.png" width="28" height="28"/>
         <image name="guestsAndFriends.png" width="21" height="14"/>
         <image name="openInvite.png" width="23" height="14"/>
         <image name="private.png" width="18" height="12"/>
         <image name="public.png" width="19" height="19"/>
-        <image name="tailgate.png" width="74" height="74"/>
-        <image name="watchParty.png" width="74" height="74"/>
+        <image name="tailgate-grey.png" width="148" height="148"/>
+        <image name="watch-party-grey.png" width="148" height="148"/>
     </resources>
 </document>

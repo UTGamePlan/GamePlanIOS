@@ -34,7 +34,7 @@
 
 @implementation EditEventVC 
 
-@synthesize startDatePicker, endDatePicker, startLabel, endLabel, tailgateButton, watchPartyButton, afterPartyButton, eventNameLabel, eventDescLabel, BYOBButton, FreeFoodButton, CoverChargeButton, KidFriendlyButton, AlumniButton, StudentsButton, event, eventTypeMissing, eventNameMissing, eventLocMissing, eventTimeMissing, privacyButton, inviteButton, privSetting1Button, privSetting2Button, privSetting3Button, privSetting4Button, privLabel, miniMap, expandedMap, miniMapButton, titleLabel, mainMap, privacyLabel, doneButton;
+@synthesize startDatePicker, endDatePicker, startLabel, endLabel, tailgateButton, watchPartyButton, afterPartyButton, eventNameLabel, eventDescLabel, BYOBButton, FreeFoodButton, CoverChargeButton, KidFriendlyButton, AlumniButton, StudentsButton, event, eventTypeMissing, eventNameMissing, eventLocMissing, eventTimeMissing, privacyButton, inviteButton, privSetting1Button, privSetting2Button, privSetting3Button, privSetting4Button, privLabel, miniMap, expandedMap, miniMapButton, titleLabel, mainMap, privacyLabel, doneButton, chooseEvent;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,6 +47,8 @@
 
 - (void) viewDidLoad{
     invitedFriends = [[NSMutableArray alloc] init];
+    [self makeDatePickers];
+    type = -1;
 }
 
 
@@ -55,7 +57,7 @@
     [super viewWillAppear:animated];
     
     //set up view
-    [self makeDatePickers];
+    
     eventNameLabel.delegate = self;
     eventDescLabel.delegate = self;
     highlightedButtonColor = [UIColor darkGrayColor];
@@ -70,7 +72,6 @@
     [privSetting3Button setHidden:YES];
     [privSetting4Button setHidden:YES];
     privExpanded = NO;
-    
     
     
     if ( self.event == nil ) {
@@ -106,7 +107,9 @@
         [expandedMap addGestureRecognizer:tapRecognizer];
         
     } else {
+        //there is an existing event to be edited
         titleLabel.text = @"Edit Event";
+        chooseEvent.hidden = YES;
         [doneButton setTitle:@"SAVE" forState:UIControlStateHighlighted];
         [doneButton setTitle:@"SAVE" forState:UIControlStateNormal];
         [doneButton setTitle:@"SAVE" forState:UIControlStateSelected];
@@ -168,22 +171,37 @@
         privLabel.text = privacy;
         
         //disable buttons and highlight type
-        self.tailgateButton.enabled = NO;
-        self.watchPartyButton.enabled = NO;
-        self.afterPartyButton.enabled = NO;
         id<PFSubclassing> sc = (id<PFSubclassing>)self.event;
         
         if ( [[sc parseClassName] isEqualToString:@"Tailgate"] ) {
-            self.tailgateButton.backgroundColor = highlightedButtonColor;
+            UIImage *tgIcon = [UIImage imageNamed:@"tailgate.png"];
+            [tailgateButton setImage:tgIcon forState:UIControlStateHighlighted];
+            [tailgateButton setImage:tgIcon forState:UIControlStateNormal];
+            [tailgateButton setImage:tgIcon forState:UIControlStateSelected];
+            self.watchPartyButton.enabled = NO;
+            self.afterPartyButton.enabled = NO;
+
             eventClass = @"Tailgate";
             
         }
         if ( [[sc parseClassName] isEqualToString:@"WatchParty"] ) {
-            self.watchPartyButton.backgroundColor = highlightedButtonColor;
+            UIImage *wpIcon = [UIImage imageNamed:@"watchParty.png"];
+            [watchPartyButton setImage:wpIcon forState:UIControlStateHighlighted];
+            [watchPartyButton setImage:wpIcon forState:UIControlStateNormal];
+            [watchPartyButton setImage:wpIcon forState:UIControlStateSelected];
+            self.tailgateButton.enabled = NO;
+            self.afterPartyButton.enabled = NO;
+
             eventClass = @"WatchParty";
         }
         if ( [[sc parseClassName] isEqualToString:@"AfterParty"] ) {
-            self.afterPartyButton.backgroundColor = highlightedButtonColor;
+            UIImage *apIcon = [UIImage imageNamed:@"afterParty.png"];
+            [afterPartyButton setImage:apIcon forState:UIControlStateHighlighted];
+            [afterPartyButton setImage:apIcon forState:UIControlStateNormal];
+            [afterPartyButton setImage:apIcon forState:UIControlStateSelected];
+            self.tailgateButton.enabled = NO;
+            self.watchPartyButton.enabled = NO;
+
             eventClass = @"AfterParty";
         }
         
@@ -223,28 +241,58 @@
 
 - (IBAction)tailgateButtonTouchHandler:(id)sender {
     type = tailgateType;
-    tailgateButton.backgroundColor = highlightedButtonColor;
-    watchPartyButton.backgroundColor = [UIColor whiteColor];
-    afterPartyButton.backgroundColor = [UIColor whiteColor];
+    UIImage *tgIcon = [UIImage imageNamed:@"tailgate.png"];
+    [tailgateButton setImage:tgIcon forState:UIControlStateHighlighted];
+    [tailgateButton setImage:tgIcon forState:UIControlStateNormal];
+    [tailgateButton setImage:tgIcon forState:UIControlStateSelected];
+    UIImage *wpGrey = [UIImage imageNamed:@"watch-party-grey.png"];
+    [watchPartyButton setImage:wpGrey forState:UIControlStateHighlighted];
+    [watchPartyButton setImage:wpGrey forState:UIControlStateNormal];
+    [watchPartyButton setImage:wpGrey forState:UIControlStateSelected];
+    UIImage *apGrey = [UIImage imageNamed:@"after-party-grey.png"];
+    [afterPartyButton setImage:apGrey forState:UIControlStateHighlighted];
+    [afterPartyButton setImage:apGrey forState:UIControlStateNormal];
+    [afterPartyButton setImage:apGrey forState:UIControlStateSelected];
+
 }
 
 - (IBAction)watchPartyButtonTouchHandler:(id)sender {
     type = watchPartyType;
-    tailgateButton.backgroundColor = [UIColor whiteColor];
-    watchPartyButton.backgroundColor = highlightedButtonColor;
-    afterPartyButton.backgroundColor = [UIColor whiteColor];
+    UIImage *wpIcon = [UIImage imageNamed:@"watchParty.png"];
+    [watchPartyButton setImage:wpIcon forState:UIControlStateHighlighted];
+    [watchPartyButton setImage:wpIcon forState:UIControlStateNormal];
+    [watchPartyButton setImage:wpIcon forState:UIControlStateSelected];
+    UIImage *apGrey = [UIImage imageNamed:@"after-party-grey.png"];
+    [afterPartyButton setImage:apGrey forState:UIControlStateHighlighted];
+    [afterPartyButton setImage:apGrey forState:UIControlStateNormal];
+    [afterPartyButton setImage:apGrey forState:UIControlStateSelected];
+    UIImage *tgGrey = [UIImage imageNamed:@"tailgate-grey.png"];
+    [tailgateButton setImage:tgGrey forState:UIControlStateHighlighted];
+    [tailgateButton setImage:tgGrey forState:UIControlStateNormal];
+    [tailgateButton setImage:tgGrey forState:UIControlStateSelected];
+
 }
 
 - (IBAction)afterPartyButtonTouchHandler:(id)sender {
     type = afterPartyType;
-    tailgateButton.backgroundColor = [UIColor whiteColor];
-    watchPartyButton.backgroundColor = [UIColor whiteColor];
-    afterPartyButton.backgroundColor = highlightedButtonColor;
+    UIImage *apIcon = [UIImage imageNamed:@"afterParty.png"];
+    [afterPartyButton setImage:apIcon forState:UIControlStateHighlighted];
+    [afterPartyButton setImage:apIcon forState:UIControlStateNormal];
+    [afterPartyButton setImage:apIcon forState:UIControlStateSelected];
+    UIImage *wpGrey = [UIImage imageNamed:@"watch-party-grey.png"];
+    [watchPartyButton setImage:wpGrey forState:UIControlStateHighlighted];
+    [watchPartyButton setImage:wpGrey forState:UIControlStateNormal];
+    [watchPartyButton setImage:wpGrey forState:UIControlStateSelected];
+    UIImage *tgGrey = [UIImage imageNamed:@"tailgate-grey.png"];
+    [tailgateButton setImage:tgGrey forState:UIControlStateHighlighted];
+    [tailgateButton setImage:tgGrey forState:UIControlStateNormal];
+    [tailgateButton setImage:tgGrey forState:UIControlStateSelected];
+
 }
 
 
 -(void) textViewDidBeginEditing:(UITextView *) textView {
-    if ([textView.text isEqualToString:@"Event Name"] || [textView.text isEqualToString:@"Event Description"] ) {
+    if ([textView.text isEqualToString:@"Event name"] || [textView.text isEqualToString:@"Description"] ) {
         [textView setText:@""];
         textView.textColor = [UIColor darkGrayColor];
     }
@@ -444,6 +492,7 @@
     
     //START LABEL
     startTime = [NSDate date];
+
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     df.dateStyle = NSDateFormatterShortStyle;
     NSString *dateString = [df stringFromDate:startTime];
@@ -734,11 +783,11 @@
                                 initWithTitle:@"" message:@"Your changes have been saved." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [savedEvent show];
     }
-    if(![tailgateButton.backgroundColor isEqual:highlightedButtonColor] && ![watchPartyButton.backgroundColor isEqual: highlightedButtonColor] && ![afterPartyButton.backgroundColor isEqual:highlightedButtonColor]){
+    if(type == -1){
         complete = false;
         [eventTypeMissing setHidden:FALSE];
     }
-    if([eventNameLabel.text isEqualToString:@"Event Name"] || [eventNameLabel.text isEqualToString:@""] ){
+    if([eventNameLabel.text isEqualToString:@"Event name"] || [eventNameLabel.text isEqualToString:@""] ){
         complete = false;
         [eventNameMissing setHidden:FALSE];
     }
@@ -759,7 +808,7 @@
         
         //set defaults
         eventName = eventNameLabel.text;
-        if ([eventDescLabel.text isEqualToString:@"Event Description"]) {
+        if ([eventDescLabel.text isEqualToString:@"Description"]) {
             desc = @"";
         } else {
             desc = eventDescLabel.text;

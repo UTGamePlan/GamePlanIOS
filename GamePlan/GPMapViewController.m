@@ -36,7 +36,7 @@
 #define ZOOM 0.02f;
 
 @implementation GPMapViewController
-@synthesize transitionController, searchTableView, searchBar;
+@synthesize transitionController, searchTableView, searchBar, dismissSearchViewButton;
 
 BOOL userAllowedLocationTracking;
 BOOL userLocationUpdatedOnce;
@@ -57,7 +57,7 @@ NSMutableArray *suggestionTypes;
     [super viewDidLoad];
     
     self.navigationController.navigationBar.hidden = YES;
-    
+    dismissSearchViewButton.hidden = YES;
     searchTableView = [[UITableView alloc] initWithFrame:
                        CGRectMake(0, 63, 320, 220) style:UITableViewStylePlain];
     searchTableView.delegate = self;
@@ -88,11 +88,11 @@ NSMutableArray *suggestionTypes;
     [self.mapView addGestureRecognizer:tapRecognizer];
 }
 
--(IBAction)didTouchMap:(UITapGestureRecognizer *)recognizer{
-    if (searchTableView.hidden == NO) {
-        searchTableView.hidden =YES;
-    }
+-(IBAction)dismissSearchView:(UIButton *)sender{
+    searchTableView.hidden =YES;
     [searchBar resignFirstResponder];
+    dismissSearchViewButton.hidden = YES;
+    searchBar.text = @"";
 }
 
 - (void) queryEventNames {
@@ -769,11 +769,9 @@ NSMutableArray *suggestionTypes;
 }
 
 
-//uncomment to add full list of events upon touching search bar
-//- (void) textFieldDidBeginEditing:(UITextField *)textField {
-//    searchTableView.hidden = NO;
-//    [self.view bringSubviewToFront:searchTableView];
-//}
+- (void) textFieldDidBeginEditing:(UITextField *)textField {
+    dismissSearchViewButton.hidden = NO;
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     searchTableView.hidden = NO;
@@ -782,6 +780,7 @@ NSMutableArray *suggestionTypes;
     substring = [substring stringByReplacingCharactersInRange:range withString:string];
     if ([substring isEqualToString:@""]) {
         searchTableView.hidden = YES;
+        dismissSearchViewButton.hidden = YES;
         [self performSelector:@selector(hideKeyboard) withObject:nil afterDelay:0.25];
         
         
