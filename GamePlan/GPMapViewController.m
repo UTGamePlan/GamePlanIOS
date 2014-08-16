@@ -224,7 +224,7 @@ NSMutableArray *suggestionTypes;
     [UIView setAnimationBeginsFromCurrentState:YES];
     
     [self.topBar setFrame:CGRectMake(topBarFrame.origin.x, self.view.frame.origin.y, topBarFrame.size.width, topBarFrame.size.height)];
-    [self.searchBar setFrame:CGRectMake(searchBarFrame.origin.x, 18.0, searchBarFrame.size.width, searchBarFrame.size.height)];
+    [self.searchBar setFrame:CGRectMake(searchBarFrame.origin.x, 24.0, searchBarFrame.size.width, searchBarFrame.size.height)];
     [self.bottomBar setFrame:CGRectMake(bottomBarFrame.origin.x, self.view.frame.size.height-bottomBarFrame.size.height, bottomBarFrame.size.width, bottomBarFrame.size.height)];
     bottomBarFrame = self.bottomBar.frame;
     float newButtonYVal = bottomBarFrame.origin.y + 0.5*(bottomBarFrame.size.height - menuButtonFrame.size.height);
@@ -385,16 +385,23 @@ NSMutableArray *suggestionTypes;
     NSDate *end = [[NSDate alloc] init];
     start = [dateFormatter dateFromString:startDate];
     end = [dateFormatter dateFromString:endDate];
+    NSLog(@"START: %@", [dateFormatter stringFromDate:start]);
+    NSLog(@"END: %@", [dateFormatter stringFromDate:end]);
     for (Tailgate *tailgate in self.tailgates) {
-        if([tailgate.startTime timeIntervalSinceDate:start] > 0) {
+        NSLog(@"%@", [dateFormatter stringFromDate:tailgate.startTime]);
+        if([tailgate.startTime timeIntervalSinceDate:start] < 0) {
+            NSLog(@"%d", 1);
             [[self.mapView viewForAnnotation: tailgate] setHidden: YES];
         } else {
+            NSLog(@"%d", 2);
             [[self.mapView viewForAnnotation: tailgate] setHidden: NO];
         }
         if([tailgate.endTime timeIntervalSinceDate:end] > 0) {
+            NSLog(@"%d", 3);
             [[self.mapView viewForAnnotation: tailgate] setHidden: YES];
         } else {
-            [[self.mapView viewForAnnotation: tailgate] setHidden: NO];
+            NSLog(@"%d", 4);
+            //[[self.mapView viewForAnnotation: tailgate] setHidden: NO];
         }
     }
 }
@@ -532,7 +539,7 @@ NSMutableArray *suggestionTypes;
     CGRect frame = self.view.frame;
     CGRect menuBarFrame = self.bottomBar.frame;
     [UIView beginAnimations:@"raise filterView!" context:nil];
-    [UIView setAnimationDuration:.5];
+    [UIView setAnimationDuration:.2];
     [UIView setAnimationBeginsFromCurrentState:YES];
     if (filterFrame.origin.y < self.view.frame.size.height) {
         [self.filterView setFrame:CGRectMake(filterFrame.origin.x, frame.size.height, filterFrame.size.width, filterFrame.size.height)];
@@ -759,8 +766,6 @@ NSMutableArray *suggestionTypes;
             [searchTableView reloadData];
         }
     }];
-    
-    
 }
 
 
