@@ -162,7 +162,7 @@
     [UIView setAnimationBeginsFromCurrentState:YES];
     
     [self.topBarForMapViewController setFrame:CGRectMake(0, 0, topBarFrame.size.width, topBarFrame.size.height)];
-    [self.searchBarForMapViewController setFrame:CGRectMake(searchBarFrame.origin.x, 18.0, searchBarFrame.size.width, searchBarFrame.size.height)];
+    [self.searchBarForMapViewController setFrame:CGRectMake(searchBarFrame.origin.x, 24.0, searchBarFrame.size.width, searchBarFrame.size.height)];
     [self.bottomBarForMapViewController setFrame:CGRectMake(bottomBarFrame.origin.x, self.view.frame.size.height-bottomBarFrame.size.height, bottomBarFrame.size.width, bottomBarFrame.size.height)];
     bottomBarFrame = self.bottomBarForMapViewController.frame;
     float newButtonYVal = self.view.frame.size.height - 0.5*(bottomBarFrame.size.height - menuButtonFrame.size.height);
