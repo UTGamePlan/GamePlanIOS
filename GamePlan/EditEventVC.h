@@ -11,7 +11,7 @@
 #import <Parse/Parse.h>
 #import "Event.h"
 
-@interface EditEventVC : UIViewController <UITextViewDelegate, FBViewControllerDelegate>
+@interface EditEventVC : UIViewController <UITextViewDelegate, FBViewControllerDelegate, MKMapViewDelegate>
 
 typedef enum {
     tailgateType, watchPartyType, afterPartyType
@@ -35,6 +35,7 @@ typedef enum {
 - (IBAction)tailgateButtonTouchHandler:(id)sender;
 - (IBAction)watchPartyButtonTouchHandler:(id)sender;
 - (IBAction)afterPartyButtonTouchHandler:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *chooseEvent;
 
 #pragma mark - Event Name and Description
 @property (strong, nonatomic) IBOutlet UITextView *eventNameLabel;
@@ -78,6 +79,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *privSetting4Button;
 - (IBAction)privSetting4:(UIButton *)sender;
 @property (strong, nonatomic) IBOutlet UILabel *privacyLabel;
+
 
 #pragma mark - Finalize Buttons
 - (IBAction)doneButton:(id)sender;

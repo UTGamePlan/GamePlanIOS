@@ -252,7 +252,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *sectionTitle = [sectionTitles objectAtIndex:indexPath.section];
-    UIImage *testImage = [UIImage imageNamed:@"app_icon.png"];
+    
+    
+
+    
     if ([sectionTitle isEqualToString:@"Pending Invites:"]) {
         static NSString *simpleTableIdentifier = @"PendingInvitesTableCell";
         
@@ -265,7 +268,18 @@
         NSArray *eventsInSection = [events objectForKey:sectionTitle];
         Event *event = [eventsInSection objectAtIndex:indexPath.row];
         cell.eventName.text = event.name;
-        cell.thumbnailImageView.image = testImage;
+        
+        id<PFSubclassing> sc = (id<PFSubclassing>)event;
+        if ( [[sc parseClassName] isEqualToString:@"Tailgate"] ) {
+            cell.thumbnailImageView.image = [UIImage imageNamed:@"tailgate.png"];
+        }
+        if ( [[sc parseClassName] isEqualToString:@"WatchParty"] ) {
+            cell.thumbnailImageView.image = [UIImage imageNamed:@"watchParty.png"];
+        }
+        if ( [[sc parseClassName] isEqualToString:@"AfterParty"] ) {
+            cell.thumbnailImageView.image = [UIImage imageNamed:@"afterparty.png"];
+        }
+        
         cell.yesButton.tag = indexPath.row;
         [cell.yesButton addTarget:self action:@selector(RSVPYes:) forControlEvents:UIControlEventTouchUpInside];
         cell.noButton.tag = indexPath.row;
@@ -285,7 +299,16 @@
         NSArray *eventsInSection = [events objectForKey:sectionTitle];
         Event *event = [eventsInSection objectAtIndex:indexPath.row];
         cell.eventName.text = event.name;
-        cell.thumbnailImageView.image = testImage;
+        id<PFSubclassing> sc = (id<PFSubclassing>)event;
+        if ( [[sc parseClassName] isEqualToString:@"Tailgate"] ) {
+            cell.thumbnailImageView.image = [UIImage imageNamed:@"tailgate.png"];
+        }
+        if ( [[sc parseClassName] isEqualToString:@"WatchParty"] ) {
+            cell.thumbnailImageView.image = [UIImage imageNamed:@"watchParty.png"];
+        }
+        if ( [[sc parseClassName] isEqualToString:@"AfterParty"] ) {
+            cell.thumbnailImageView.image = [UIImage imageNamed:@"afterparty.png"];
+        }
         
         cell.editButton.tag = indexPath.row;
         [cell.editButton addTarget:self action:@selector(editEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -303,7 +326,16 @@
         NSArray *eventsInSection = [events objectForKey:sectionTitle];
         Event *event = [eventsInSection objectAtIndex:indexPath.row];
         cell.eventName.text = event.name;
-        cell.thumbnailImageView.image = testImage;
+        id<PFSubclassing> sc = (id<PFSubclassing>)event;
+        if ( [[sc parseClassName] isEqualToString:@"Tailgate"] ) {
+            cell.thumbnailImageView.image = [UIImage imageNamed:@"tailgate.png"];
+        }
+        if ( [[sc parseClassName] isEqualToString:@"WatchParty"] ) {
+            cell.thumbnailImageView.image = [UIImage imageNamed:@"watchParty.png"];
+        }
+        if ( [[sc parseClassName] isEqualToString:@"AfterParty"] ) {
+            cell.thumbnailImageView.image = [UIImage imageNamed:@"afterparty.png"];
+        }
         return cell;
         
     } else {
@@ -324,11 +356,17 @@
 
 
 -(void) editEvent:(UIButton*)button{
+    //code to pull up editVC when changed back in next update
+//    NSInteger row = button.tag;
+//    Event *thisEvent = [eventsIHost objectAtIndex:row];
+//    EditEventVC *editVC = [[EditEventVC alloc] init];
+//    editVC.event = thisEvent;
+//    [self presentViewController:editVC animated:YES completion:nil];
+    
     NSInteger row = button.tag;
     Event *thisEvent = [eventsIHost objectAtIndex:row];
-    EditEventVC *editVC = [[EditEventVC alloc] init];
-    editVC.event = thisEvent;
-    [self presentViewController:editVC animated:YES completion:nil];
+    [thisEvent deleteInBackground];
+
 }
 
 -(void) RSVPYes:(UIButton*)button{
@@ -342,7 +380,13 @@
         }
     }
     
-    [thisEvent.confirmedInvites addObject:[[PFUser currentUser] objectId]];
+    if(thisEvent.confirmedInvites){
+        [thisEvent.confirmedInvites addObject:[[PFUser currentUser] objectId]];
+    } else {
+        NSMutableArray *confirmedInvites = [[NSMutableArray alloc] initWithObjects:[[PFUser currentUser] objectId], nil];
+        thisEvent.confirmedInvites = confirmedInvites;
+    }
+    
     [thisEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [self queryTableData];
     }];
