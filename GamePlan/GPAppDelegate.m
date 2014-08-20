@@ -58,12 +58,7 @@
     
     if(payload) {
         
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Yay!"
-                                                          message:[NSString stringWithFormat:@"%@: %@", [payload objectForKey:@"eventID"], [payload objectForKey:@"eventType"]]
-                                                         delegate:self
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        [message show];
+        // TODO: Take the user directly to the 
     
 //        NSString *eventID = [payload objectForKey:@"eventID"];
 //        NSString *eventType = [payload objectForKey:@"eventType"];
@@ -112,13 +107,10 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)payload fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))handler
 {
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Yay!"
-                                                      message:[NSString stringWithFormat:@"%@: %@", [payload objectForKey:@"eventID"], [payload objectForKey:@"eventType"]]
-                                                     delegate:self
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-    [message show];
-//    NSString *eventID = [payload objectForKey:@"eventID"];
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    currentInstallation.badge += 1;
+    
+    //    NSString *eventID = [payload objectForKey:@"eventID"];
 //    NSString *eventType = [payload objectForKey:@"eventType"];
 //    PFObject *event = [PFObject objectWithoutDataWithClassName:eventType objectId:eventID];
 //    

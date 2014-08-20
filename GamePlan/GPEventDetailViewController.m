@@ -23,6 +23,7 @@ int attendee;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
     self.mapPreview.delegate = self;
     [self populateLabels];
     [self zoomInToMap];
@@ -30,9 +31,21 @@ int attendee;
 
 - (void)populateLabels
 {
+    // EVENT TYPE ICON
+    self.eventTypeLabel.font = [UIFont fontWithName:@"Langdon" size:21];
+    if ([[self.eventType lowercaseString] isEqualToString:@"tailgate"]) {
+        self.eventTypeIcon.image = [UIImage imageNamed:@"tailgate.png"];
+        self.eventTypeLabel.text = @"TAILGATE";
+    } else if ([[self.eventType lowercaseString] isEqualToString:@"watchparty"]) {
+        self.eventTypeIcon.image = [UIImage imageNamed:@"watchParty.png"];
+        self.eventTypeLabel.text = @"WATCH PARTY";
+    } else {
+        self.eventTypeIcon.image = [UIImage imageNamed:@"afterParty.png"];
+        self.eventTypeLabel.text = @"AFTER PARTY";
+    }
     // EVENT NAME LABEL
     self.eventNameLabel.numberOfLines = 0;
-    self.eventNameLabel.text = self.event.name;
+    self.eventNameLabel.text = [self.event.name uppercaseString];
     // HOST LABEL
     if (self.event.ownerId > 0) {
         PFQuery *query = [PFUser query];
@@ -68,7 +81,7 @@ int attendee;
     [self.descriptionLabel sizeToFit];
     CGRect descriptionFrame = self.descriptionLabel.frame;
     // HASHTAGS
-    [self.tagsLabel setFrame:CGRectMake(13.0, descriptionFrame.origin.y+descriptionFrame.size.height+15.0, 287.0, 32.0)];
+    [self.tagsLabel setFrame:CGRectMake(20.0, descriptionFrame.origin.y+descriptionFrame.size.height+15.0, 287.0, 32.0)];
     NSString *hashtags = @"";
     for (NSString *tag in self.event.tags) {
         hashtags = [hashtags stringByAppendingString:[NSString stringWithFormat:@"#%@    ", tag]];
@@ -81,7 +94,7 @@ int attendee;
     CGRect attendeesBackgroundFrame = self.attendeesBackground.frame;
     [self.attendeesBackground setFrame:CGRectMake(0, self.tagsLabel.frame.origin.y+self.tagsLabel.frame.size.height+15.0, attendeesBackgroundFrame.size.width, attendeesBackgroundFrame.size.height)];
     attendeesBackgroundFrame = self.attendeesBackground.frame;
-    [self.whosGoingLabel setFrame:CGRectMake(0, attendeesBackgroundFrame.origin.y+2.0, self.whosGoingLabel.frame.size.width, self.whosGoingLabel.frame.size.height)];
+    [self.whosGoingLabel setFrame:CGRectMake(18.0, attendeesBackgroundFrame.origin.y+2.0, self.whosGoingLabel.frame.size.width, self.whosGoingLabel.frame.size.height)];
     float attendeesOriginYValue = attendeesBackgroundFrame.origin.y + 20.0;
     [self.attendeeOne setFrame:CGRectMake(self.attendeeOne.frame.origin.x, attendeesOriginYValue, 40, 40)];
     [self.attendeeTwo setFrame:CGRectMake(self.attendeeTwo.frame.origin.x, attendeesOriginYValue, 40, 40)];
@@ -142,7 +155,12 @@ int attendee;
         self.andMoreLabel.text = @"";
     }
     self.scrollView.delegate = self;
-    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, attendeesBackgroundFrame.origin.y+attendeesBackgroundFrame.size.height+15.0);
+    if (self.scrollView.frame.origin.y) {
+        CGRect scrollViewFrame = self.scrollView.frame;
+        [self.scrollView setFrame: CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, scrollViewFrame.size.width, scrollViewFrame.size.height)];
+    }
+    NSLog(@"%f", attendeesBackgroundFrame.origin.y+attendeesBackgroundFrame.size.height+75.0);
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, attendeesBackgroundFrame.origin.y+attendeesBackgroundFrame.size.height+100.0);
 }
 
 - (UIImage *)squareImageFromImage:(UIImage *)image scaledToSize:(CGFloat)newSize {
@@ -220,30 +238,55 @@ int attendee;
 
 - (IBAction) getDirectionsPressed:(UIButton *)sender
 {
-    
+    // TODO: Add Apple Maps directions integration
 }
 
 - (IBAction) inviteFriendsPressed:(UIButton *)sender
 {
-    // Initialize the friend picker
-    FBFriendPickerViewController *friendPickerController =
-    [[FBFriendPickerViewController alloc] init];
-    // Set the friend picker title
-    friendPickerController.title = @"INVITE";
+    BOOL canInvite = NO;
+    NSString *currentUsersID = [[PFUser currentUser] objectId];
+    if ([self.event.ownerId isEqualToString:currentUsersID]) {
+        canInvite = YES;
+    } else if ([self.event.confirmedInvites indexOfObject:currentUsersID]) {
+        if (!([self.event.privacy isEqualToString:@"Invite Only"])) {
+            canInvite = YES;
+        }
+    } else if ([self.event.confirmedInvites indexOfObject:currentUsersID]) {
+        if (!([self.event.privacy isEqualToString:@"Open Invite"])) {
+            canInvite = YES;
+        }
+    } else if([self.event.privacy isEqualToString:@"Public"]) {
+        canInvite = YES;
+    }
     
-    // TODO: Set up the delegate to handle picker callbacks, ex: Done/Cancel button
-    
-    // Load the friend data
-    [friendPickerController loadData];
-    // Show the picker modally
-    [friendPickerController presentModallyFromViewController:self animated:YES handler:nil];
-    
-    // Set up the delegate
-    friendPickerController.delegate = self;
-    // Load the friend data
-    NSSet *fields = [NSSet setWithObjects:@"installed", nil];
-    friendPickerController.fieldsForRequest = fields;
-    [friendPickerController loadData];
+    if (canInvite) {
+        // Initialize the friend picker
+        FBFriendPickerViewController *friendPickerController =
+        [[FBFriendPickerViewController alloc] init];
+        // Set the friend picker title
+        friendPickerController.title = @"INVITE";
+        
+        // TODO: Set up the delegate to handle picker callbacks, ex: Done/Cancel button
+        
+        // Load the friend data
+        [friendPickerController loadData];
+        // Show the picker modally
+        [friendPickerController presentModallyFromViewController:self animated:YES handler:nil];
+        
+        // Set up the delegate
+        friendPickerController.delegate = self;
+        // Load the friend data
+        NSSet *fields = [NSSet setWithObjects:@"installed", nil];
+        friendPickerController.fieldsForRequest = fields;
+        [friendPickerController loadData];
+    } else {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                          message:[NSString stringWithFormat:@"This event is %@, and it doesn't look like you have the proper permissions to invite friends", self.event.privacy]
+                                                         delegate:self
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        [message show];
+    }
 }
 
 /*
@@ -290,12 +333,14 @@ int attendee;
     PFQuery *users = [PFUser query];
     [users whereKey:@"FacebookID" containedIn:peopleToPushTo];
     
-    NSMutableArray *pendingInvites = [NSMutableArray arrayWithArray:([self.event objectForKey:@"pendingInvites"])];
+    NSMutableArray *pendingInvites = [[NSMutableArray alloc] init];
+    pendingInvites = [NSMutableArray arrayWithArray:(self.event.pendingInvites)];
     [users findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (PFUser *user in objects) {
-                [pendingInvites addObject:[NSString stringWithFormat:@"%@", [user objectId]]];
+                [pendingInvites addObject:[user objectId]];
             }
+            self.event.pendingInvites = pendingInvites;
             [self.event saveInBackground];
         } else {
             // Log details of the failure
@@ -398,7 +443,18 @@ int attendee;
 
 - (IBAction) addToPlaybookPressed:(UIButton *)sender
 {
-    // [self.event.confirmedInvites append [PFUser currentUser]];
+    NSMutableArray *confirmedInvites = [[NSMutableArray alloc] init];
+    confirmedInvites = [NSMutableArray arrayWithArray:self.event.confirmedInvites];
+    [confirmedInvites addObject:[[PFUser currentUser] objectId]];
+    self.event.confirmedInvites = [[[[NSOrderedSet alloc] initWithArray:confirmedInvites] array] mutableCopy];
+    [self.event saveInBackground];
+    
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Hooray!"
+                                                      message:[NSString stringWithFormat:@"%@ has been added to your playbook", self.event.name]
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message show];
 }
 
 - (void)didReceiveMemoryWarning

@@ -47,6 +47,7 @@
 }
 
 - (void) viewDidLoad{
+    self.peopleToPushTo = [[NSMutableArray alloc] init];
     invitedFriends = [[NSMutableArray alloc] init];
     [self makeDatePickers];
     type = -1;
@@ -710,16 +711,15 @@
 }
 
 - (void)facebookViewControllerDoneWasPressed:(id)sender {
-    NSMutableArray *peopleToPushTo = [[NSMutableArray alloc] init];
     FBFriendPickerViewController *friendPickerController =
     (FBFriendPickerViewController*)sender;
     
     for (id<FBGraphUser> user in friendPickerController.selection) {
-        [peopleToPushTo addObject:user.id];
+        [self.peopleToPushTo addObject:user.id];
     }
     
     PFQuery *users = [PFUser query];
-    [users whereKey:@"FacebookID" containedIn:peopleToPushTo];
+    [users whereKey:@"FacebookID" containedIn:self.peopleToPushTo];
     
     NSMutableArray *pendingInvites = [NSMutableArray arrayWithArray:([self.event objectForKey:@"pendingInvites"])];
     [users findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -745,14 +745,12 @@
     
     // get the current user's first name
     NSString *name = [[[defaults objectForKey:@"name"] componentsSeparatedByString: @" "] firstObject];
-    NSString *message = [NSString stringWithFormat:@"%@ invited you to %@", name, self.event.name];
+    NSString *message = [NSString stringWithFormat:@"%@ invited you to an event on Game Plan!", name];
     // [push setMessage:message];
     
     NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                           message, @"alert",
                           @"Increment", @"badge",
-                          @"eventID", self.event.objectId, // This event's object id
-                          @"eventType", NSStringFromClass([event class]), // This event's object type
                           nil];
     
     [push setData:data];
@@ -922,7 +920,7 @@
         
         //get parse ids for invited friends
         PFQuery *queryUsers = [PFUser query];
-        [queryUsers whereKey:@"FacebookID" containedIn:invitedFriends];
+        [queryUsers whereKey:@"FacebookID" containedIn:self.peopleToPushTo];
         
         [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *invitedUsers, NSError *error){
             

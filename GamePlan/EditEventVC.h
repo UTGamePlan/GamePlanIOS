@@ -80,6 +80,8 @@ typedef enum {
 - (IBAction)privSetting4:(UIButton *)sender;
 @property (strong, nonatomic) IBOutlet UILabel *privacyLabel;
 
+@property (strong, nonatomic) NSMutableArray *peopleToPushTo;
+
 
 #pragma mark - Finalize Buttons
 - (IBAction)doneButton:(id)sender;

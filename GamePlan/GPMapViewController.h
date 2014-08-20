@@ -39,6 +39,7 @@
 - (IBAction) myLocationPressed:(UIButton *)sender;
 - (IBAction) userProfilePicturePressed:(UIButton *)sender;
 - (IBAction) filterButtonPressed:(UIButton *)sender;
+- (IBAction) refreshButtonPressed:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *dismissSearchViewButton;
 - (IBAction)dismissSearchView:(UIButton *)sender;
 
@@ -46,7 +47,7 @@
 @property (strong, nonatomic) IBOutlet UIView *filterView;
 @property (strong, nonatomic) IBOutlet UIButton *toggleTailgatesButton;
 @property (strong, nonatomic) IBOutlet UIButton *toggleAfterPartiesButton;
-@property (strong, nonatomic) IBOutlet UIButton *toggleRestaurantsButton;
+@property (strong, nonatomic) IBOutlet UIButton *toggleWatchPartiesButton;
 @property (strong, nonatomic) IBOutlet UISlider *startDateSlider;
 @property (strong, nonatomic) IBOutlet UISlider *endDateSlider;
 @property (strong, nonatomic) IBOutlet UILabel *startDateLabel;
@@ -54,7 +55,7 @@
 @property (strong, nonatomic) NSArray *datesAsStrings;
 - (IBAction) toggleTailgatesPressed:(UIButton *)sender;
 - (IBAction) toggleAfterPartiesPressed:(UIButton *)sender;
-- (IBAction) toggleRestaurantsPressed:(UIButton *)sender;
+- (IBAction) toggleWatchPartiesPressed:(UIButton *)sender;
 @property (strong, nonatomic) NSDate *pastDate;
 @property (strong, nonatomic) NSDate *futureDate;
 @property BOOL showTailgates;
