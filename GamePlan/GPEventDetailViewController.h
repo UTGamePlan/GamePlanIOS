@@ -15,6 +15,8 @@
 @property (nonatomic,strong) Event *event;
 @property (nonatomic,strong) NSString *eventType;
 
+@property (strong, nonatomic) IBOutlet UILabel *eventTypeLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *eventTypeIcon;
 @property (strong, nonatomic) IBOutlet UILabel *eventNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *hostLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;

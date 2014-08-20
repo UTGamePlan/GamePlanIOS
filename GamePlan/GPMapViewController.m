@@ -43,6 +43,8 @@ BOOL userLocationUpdatedOnce;
 BOOL tailgatesVisible;
 BOOL afterPartiesVisible;
 BOOL watchPartiesVisible;
+BOOL mainMenuVisible;
+BOOL filterVisible;
 int timeInSecondsSinceLocationSavedInParse;
 NSDate *today;
 NSMutableArray *eventNames;
@@ -55,6 +57,8 @@ NSMutableArray *suggestionTypes;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    mainMenuVisible = NO;
+    filterVisible = NO;
     
     self.navigationController.navigationBar.hidden = YES;
     dismissSearchViewButton.hidden = YES;
@@ -405,14 +409,25 @@ NSMutableArray *suggestionTypes;
     NSDate *end = [[NSDate alloc] init];
     start = [dateFormatter dateFromString:startDate];
     end = [dateFormatter dateFromString:endDate];
-    NSLog(@"START: %@", [dateFormatter stringFromDate:start]);
-    NSLog(@"END: %@", [dateFormatter stringFromDate:end]);
     for (Tailgate *tailgate in self.tailgates) {
-        NSLog(@"%@", [dateFormatter stringFromDate:tailgate.startTime]);
-        if([tailgate.startTime timeIntervalSinceDate:start] < 0 && [tailgate.endTime timeIntervalSinceDate:end] > 0) {
+        if([tailgate.startTime timeIntervalSinceDate:start] < 0 || [tailgate.startTime timeIntervalSinceDate:end] > 0) {
             [[self.mapView viewForAnnotation: tailgate] setHidden: YES];
         } else {
             [[self.mapView viewForAnnotation: tailgate] setHidden: NO];
+        }
+    }
+    for (WatchParty *watchParty in self.watchParties) {
+        if([watchParty.startTime timeIntervalSinceDate:start] < 0 || [watchParty.startTime timeIntervalSinceDate:end] > 0) {
+            [[self.mapView viewForAnnotation: watchParty] setHidden: YES];
+        } else {
+            [[self.mapView viewForAnnotation: watchParty] setHidden: NO];
+        }
+    }
+    for (AfterParty *afterParty in self.afterParties) {
+        if([afterParty.startTime timeIntervalSinceDate:start] < 0 || [afterParty.startTime timeIntervalSinceDate:end] > 0) {
+            [[self.mapView viewForAnnotation: afterParty] setHidden: YES];
+        } else {
+            [[self.mapView viewForAnnotation: afterParty] setHidden: NO];
         }
     }
 }
@@ -498,7 +513,20 @@ NSMutableArray *suggestionTypes;
 
 - (IBAction) showMenuPressed:(UIButton *)sender
 {
+    [self toggleMainMenu];
+}
+
+-(void)toggleMainMenu
+{
     [self.bottomBarMenu toggleMenu];
+    if (mainMenuVisible) {
+        mainMenuVisible = NO;
+    } else {
+        mainMenuVisible = YES;
+    }
+    if (filterVisible) {
+        [self lowerFilterView];
+    }
 }
 
 -(void) initializeMenus
@@ -510,7 +538,7 @@ NSMutableArray *suggestionTypes;
         [self presentModalViewController:editVC animated:YES];
     }];
     
-    UzysSMMenuItem *item1 = [[UzysSMMenuItem alloc] initWithTitle:@"UT Game Schedule" image:[UIImage imageNamed:@"gear.png"] action:^(UzysSMMenuItem *item) {
+    UzysSMMenuItem *item1 = [[UzysSMMenuItem alloc] initWithTitle:@"UT Game Schedule" image:[UIImage imageNamed:@"calendar.png"] action:^(UzysSMMenuItem *item) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         GPWebViewController *webViewController = [storyboard instantiateViewControllerWithIdentifier:@"webVC"];
         webViewController.url = @"http://www.utgameplan.com/game-schedule.html";
@@ -546,17 +574,40 @@ NSMutableArray *suggestionTypes;
 
 -(void)toggleFilterView
 {
+    if (filterVisible) {
+        filterVisible = NO;
+        [self lowerFilterView];
+    } else {
+        filterVisible = YES;
+        [self raiseFilterView];
+    }
+
+}
+
+-(void)raiseFilterView
+{
+    if (mainMenuVisible) {
+        [self.bottomBarMenu toggleMenu];
+        mainMenuVisible = NO;
+    }
     CGRect filterFrame = self.filterView.frame;
     CGRect frame = self.view.frame;
     CGRect menuBarFrame = self.bottomBar.frame;
     [UIView beginAnimations:@"raise filterView!" context:nil];
+    [self.filterView setFrame:CGRectMake(filterFrame.origin.x, frame.size.height-(menuBarFrame.size.height+filterFrame.size.height), filterFrame.size.width, filterFrame.size.height)];
     [UIView setAnimationDuration:.2];
     [UIView setAnimationBeginsFromCurrentState:YES];
-    if (filterFrame.origin.y < self.view.frame.size.height) {
-        [self.filterView setFrame:CGRectMake(filterFrame.origin.x, frame.size.height, filterFrame.size.width, filterFrame.size.height)];
-    } else {
-        [self.filterView setFrame:CGRectMake(filterFrame.origin.x, frame.size.height-(menuBarFrame.size.height+filterFrame.size.height), filterFrame.size.width, filterFrame.size.height)];
-    }
+    [UIView commitAnimations];
+}
+
+-(void)lowerFilterView
+{
+    CGRect filterFrame = self.filterView.frame;
+    CGRect frame = self.view.frame;
+    [UIView beginAnimations:@"lower filterView!" context:nil];
+    [self.filterView setFrame:CGRectMake(filterFrame.origin.x, frame.size.height, filterFrame.size.width, filterFrame.size.height)];
+    [UIView setAnimationDuration:.2];
+    [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView commitAnimations];
 }
 
@@ -589,12 +640,23 @@ NSMutableArray *suggestionTypes;
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     self.event = nil;
+    NSString *eventType = [NSStringFromClass([view.annotation class]) lowercaseString];
     if(![view.annotation isKindOfClass:[MKUserLocation class]]) {
         self.event = view.annotation;
         UIButton *disclosure = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [disclosure addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMoreInfoForEvent)]];
         view.rightCalloutAccessoryView = disclosure;
     }
+    
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@-accessory-view.png", eventType]]];
+    
+    UIButton *orange = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44+30)];
+    
+    icon.frame = CGRectMake(0, 0, 44, 44);
+    [orange addSubview:icon];
+    [orange bringSubviewToFront:view];
+    
+    view.leftCalloutAccessoryView = orange;
 }
 
 - (void)showMoreInfoForEvent
@@ -617,50 +679,117 @@ NSMutableArray *suggestionTypes;
 
 - (void)loadTailgatePins
 {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
     self.tailgates = [[NSMutableArray alloc] init];
+    NSMutableArray *tempTailgates = [[NSMutableArray alloc] init];
     PFQuery *tailgateQuery = [PFQuery queryWithClassName:@"Tailgate"];
     [tailgateQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (Tailgate *tailgate in objects) {
-                [self.mapView addAnnotation:tailgate];
-                [self.tailgates addObject:tailgate];
+                [tempTailgates addObject:tailgate];
             }
             tailgatesVisible = YES;
+            [self addViewableTailgates:tempTailgates];
+            [self applyDateFilterWithStartDate:[dateFormatter stringFromDate:today] WithEndDate:[dateFormatter stringFromDate:self.futureDate]];
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+}
+
+-(void) addViewableTailgates:(NSArray *)temp
+{
+    NSString *currentUsersID = [[PFUser currentUser] objectId];
+    for (Tailgate *tailgate in temp) {
+        BOOL shouldAdd = NO;
+        if ([tailgate.privacy isEqualToString:@"Public"]) {
+            shouldAdd = YES;
+        } else {
+            for (NSString *objectID in tailgate.confirmedInvites) {
+                if ([objectID isEqualToString:currentUsersID]) {
+                    shouldAdd = YES;
+                }
+            }
+            for (NSString *objectID in tailgate.pendingInvites) {
+                if ([objectID isEqualToString:currentUsersID]) {
+                    shouldAdd = YES;
+                }
+            }
+        }
+        
+        if (shouldAdd) {
+            [self.mapView addAnnotation:tailgate];
+            [self.tailgates addObject:tailgate];
+        }
+    }
 }
 
 - (void)loadAfterPartyPins
 {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
     self.afterParties = [[NSMutableArray alloc] init];
+    NSMutableArray *tempAfterParties = [[NSMutableArray alloc] init];
     PFQuery *afterPartyQuery = [PFQuery queryWithClassName:@"AfterParty"];
     [afterPartyQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (AfterParty *afterParty in objects) {
-                [self.mapView addAnnotation:afterParty];
-                [self.afterParties addObject:afterParty];
+                [tempAfterParties addObject:afterParty];
             }
-            afterPartiesVisible = YES;
+            tailgatesVisible = YES;
+            [self addViewableAfterParties:tempAfterParties];
+            [self applyDateFilterWithStartDate:[dateFormatter stringFromDate:today] WithEndDate:[dateFormatter stringFromDate:self.futureDate]];
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+}
+
+-(void) addViewableAfterParties:(NSArray *)temp
+{
+    NSString *currentUsersID = [[PFUser currentUser] objectId];
+    for (AfterParty *afterParty in temp) {
+        BOOL shouldAdd = NO;
+        if ([afterParty.privacy isEqualToString:@"Public"]) {
+            shouldAdd = YES;
+        } else {
+            for (NSString *objectID in afterParty.confirmedInvites) {
+                if ([objectID isEqualToString:currentUsersID]) {
+                    shouldAdd = YES;
+                }
+            }
+            for (NSString *objectID in afterParty.pendingInvites) {
+                if ([objectID isEqualToString:currentUsersID]) {
+                    shouldAdd = YES;
+                }
+            }
+        }
+        
+        if (shouldAdd) {
+            [self.mapView addAnnotation:afterParty];
+            [self.afterParties addObject:afterParty];
+        }
+    }
 }
 
 - (void)loadWatchPartyPins
 {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
     self.watchParties = [[NSMutableArray alloc] init];
+    NSMutableArray *tempWatchParties = [[NSMutableArray alloc] init];
     PFQuery *watchPartyQuery = [PFQuery queryWithClassName:@"WatchParty"];
     [watchPartyQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (WatchParty *watchParty in objects) {
-                [self.mapView addAnnotation:watchParty];
-                [self.watchParties addObject:watchParty];
+                [tempWatchParties addObject:watchParty];
             }
+            tailgatesVisible = YES;
+            [self addViewableWatchParties:tempWatchParties];
+            [self applyDateFilterWithStartDate:[dateFormatter stringFromDate:today] WithEndDate:[dateFormatter stringFromDate:self.futureDate]];
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
@@ -668,8 +797,37 @@ NSMutableArray *suggestionTypes;
     }];
 }
 
+-(void) addViewableWatchParties:(NSArray *)temp
+{
+    NSString *currentUsersID = [[PFUser currentUser] objectId];
+    for (WatchParty *watchParty in temp) {
+        BOOL shouldAdd = NO;
+        if ([watchParty.privacy isEqualToString:@"Public"]) {
+            shouldAdd = YES;
+        } else {
+            for (NSString *objectID in watchParty.confirmedInvites) {
+                if ([objectID isEqualToString:currentUsersID]) {
+                    shouldAdd = YES;
+                }
+            }
+            for (NSString *objectID in watchParty.pendingInvites) {
+                if ([objectID isEqualToString:currentUsersID]) {
+                    shouldAdd = YES;
+                }
+            }
+        }
+        
+        if (shouldAdd) {
+            [self.mapView addAnnotation:watchParty];
+            [self.watchParties addObject:watchParty];
+        }
+    }
+}
+
 - (void)loadRestaurantPins
 {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
     self.restaurants = [[NSMutableArray alloc] init];
     PFQuery *restaurantQuery = [PFQuery queryWithClassName:@"Restaurant"];
     [restaurantQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -684,6 +842,11 @@ NSMutableArray *suggestionTypes;
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+}
+
+- (IBAction) refreshButtonPressed:(UIButton *)sender;
+{
+    [self loadEventPins];
 }
 
 #pragma mark - User Profile Photo Button
@@ -712,7 +875,8 @@ NSMutableArray *suggestionTypes;
     self.userProfileImageButton.layer.masksToBounds = YES;
     UIImage *userProfileImage;
     if([defaults objectForKey:@"pictureURL"]!=nil) {
-        userProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[defaults objectForKey:@"pictureURL"]]]];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[defaults objectForKey:@"pictureURL"]]]];
+        userProfileImage = [self squareImageFromImage:image scaledToSize:40.0];
     } else {
         userProfileImage = [UIImage imageNamed:@"default_profile.jpg"];
     }
@@ -822,6 +986,41 @@ NSMutableArray *suggestionTypes;
         index++;
     }
     [searchTableView reloadData];
+}
+
+- (UIImage *)squareImageFromImage:(UIImage *)image scaledToSize:(CGFloat)newSize {
+    CGAffineTransform scaleTransform;
+    CGPoint origin;
+    
+    if (image.size.width > image.size.height) {
+        CGFloat scaleRatio = newSize / image.size.height;
+        scaleTransform = CGAffineTransformMakeScale(scaleRatio, scaleRatio);
+        
+        origin = CGPointMake(-(image.size.width - image.size.height) / 2.0f, 0);
+    } else {
+        CGFloat scaleRatio = newSize / image.size.width;
+        scaleTransform = CGAffineTransformMakeScale(scaleRatio, scaleRatio);
+        
+        origin = CGPointMake(0, -(image.size.height - image.size.width) / 2.0f);
+    }
+    
+    CGSize size = CGSizeMake(newSize, newSize);
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        UIGraphicsBeginImageContextWithOptions(size, YES, 0);
+    } else {
+        UIGraphicsBeginImageContext(size);
+    }
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextConcatCTM(context, scaleTransform);
+    
+    [image drawAtPoint:origin];
+    
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 @end

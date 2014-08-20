@@ -49,6 +49,11 @@
 		3FE179041952A0F0007AE6F6 /* GPUserMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE179031952A0F0007AE6F6 /* GPUserMenuViewController.m */; };
 		3FE179071952A380007AE6F6 /* GPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE179061952A380007AE6F6 /* GPNavigationController.m */; };
 		3FE1790A1952AB5E007AE6F6 /* GPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FE179091952AB5E007AE6F6 /* GPRootViewController.m */; };
+		3FE25A8B19A42DC800A90F1E /* closeOrNo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE25A8A19A42DC800A90F1E /* closeOrNo@2x.png */; };
+		3FE6311C19A1CA2C0072C255 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE6311B19A1CA2C0072C255 /* calendar.png */; };
+		3FE6312619A3CD7E0072C255 /* afterparty-accessory-view@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE6312319A3CD7E0072C255 /* afterparty-accessory-view@2x.png */; };
+		3FE6312719A3CD7E0072C255 /* tailgate-accessory-view@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE6312419A3CD7E0072C255 /* tailgate-accessory-view@2x.png */; };
+		3FE6312819A3CD7E0072C255 /* watchparty-accessory-view@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FE6312519A3CD7E0072C255 /* watchparty-accessory-view@2x.png */; };
 		3FF48341194D7CAC00C05DF5 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF48340194D7CAC00C05DF5 /* Parse.framework */; };
 		3FF48343194D7CE200C05DF5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF48342194D7CE200C05DF5 /* FacebookSDK.framework */; };
 		AE7A13B0199DAECA009116C8 /* tailgate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE7A13AF199DAECA009116C8 /* tailgate@2x.png */; };
@@ -188,6 +193,11 @@
 		3FE179061952A380007AE6F6 /* GPNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPNavigationController.m; sourceTree = "<group>"; };
 		3FE179081952AB5E007AE6F6 /* GPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPRootViewController.h; sourceTree = "<group>"; };
 		3FE179091952AB5E007AE6F6 /* GPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPRootViewController.m; sourceTree = "<group>"; };
+		3FE25A8A19A42DC800A90F1E /* closeOrNo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "closeOrNo@2x.png"; path = "Assets/closeOrNo@2x.png"; sourceTree = "<group>"; };
+		3FE6311B19A1CA2C0072C255 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
+		3FE6312319A3CD7E0072C255 /* afterparty-accessory-view@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "afterparty-accessory-view@2x.png"; path = "Assets/afterparty-accessory-view@2x.png"; sourceTree = "<group>"; };
+		3FE6312419A3CD7E0072C255 /* tailgate-accessory-view@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tailgate-accessory-view@2x.png"; path = "Assets/tailgate-accessory-view@2x.png"; sourceTree = "<group>"; };
+		3FE6312519A3CD7E0072C255 /* watchparty-accessory-view@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "watchparty-accessory-view@2x.png"; path = "Assets/watchparty-accessory-view@2x.png"; sourceTree = "<group>"; };
 		3FF48340194D7CAC00C05DF5 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = GamePlan/Parse.framework; sourceTree = "<group>"; };
 		3FF48342194D7CE200C05DF5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = GamePlan/FacebookSDK.framework; sourceTree = "<group>"; };
 		AE7A13AF199DAECA009116C8 /* tailgate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tailgate@2x.png"; path = "Assets/tailgate@2x.png"; sourceTree = "<group>"; };
@@ -577,6 +587,11 @@
 		C90E814E18B944E2004BF989 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3FE25A8A19A42DC800A90F1E /* closeOrNo@2x.png */,
+				3FE6312319A3CD7E0072C255 /* afterparty-accessory-view@2x.png */,
+				3FE6312419A3CD7E0072C255 /* tailgate-accessory-view@2x.png */,
+				3FE6312519A3CD7E0072C255 /* watchparty-accessory-view@2x.png */,
+				3FE6311B19A1CA2C0072C255 /* calendar.png */,
 				3F3788B1199F08FD006B4577 /* after-party-grey.png */,
 				3F3788B2199F08FD006B4577 /* tailgate-grey.png */,
 				3F3788B3199F08FD006B4577 /* watch-party-grey.png */,
@@ -685,7 +700,7 @@
 				ORGANIZATIONNAME = "Courtney Bohrer";
 				TargetAttributes = {
 					C90E810918B94468004BF989 = {
-						DevelopmentTeam = 4S55DFZ73J;
+						DevelopmentTeam = 3H4Y2DDWVE;
 					};
 					C90E812A18B94468004BF989 = {
 						TestTargetID = C90E810918B94468004BF989;
@@ -748,6 +763,8 @@
 				AEA7779C195F954400EF19E9 /* userLocation@2x.png in Resources */,
 				3F62518C1951463C00D24EE8 /* default_profile.jpg in Resources */,
 				3FE178DA19527F3A007AE6F6 /* UzysSMMenuItemView.xib in Resources */,
+				3FE6312719A3CD7E0072C255 /* tailgate-accessory-view@2x.png in Resources */,
+				3FE6312819A3CD7E0072C255 /* watchparty-accessory-view@2x.png in Resources */,
 				3F3788B5199F08FD006B4577 /* tailgate-grey.png in Resources */,
 				3F3788AC199D9C1F006B4577 /* badge-1.png in Resources */,
 				AE7A13C0199DC8B7009116C8 /* checkmark@2x.png in Resources */,
@@ -764,16 +781,19 @@
 				3FE178EC19529BEF007AE6F6 /* plus@2x.png in Resources */,
 				3F255612198DEBEF003543CB /* afterparty-pin@2x.png in Resources */,
 				AEA7779A195F954400EF19E9 /* hamburgerMenu@2x.png in Resources */,
+				3FE25A8B19A42DC800A90F1E /* closeOrNo@2x.png in Resources */,
 				AE7A13B4199DB116009116C8 /* afterParty@2x.png in Resources */,
-				3F255613198DEBEF003543CB /* tailgate-pin@2x.png in Resources */,
+				3FE6312619A3CD7E0072C255 /* afterparty-accessory-view@2x.png in Resources */,
+				3F255613198DEBEF003543CB /* watchparty-pin@2x.png in Resources */,
 				AEDD74EE199F0F020005955F /* inviteFriends@2x.png in Resources */,
-				3F255614198DEBEF003543CB /* watchparty-pin@2x.png in Resources */,
+				3F255614198DEBEF003543CB /* tailgate-pin@2x.png in Resources */,
 				3F62518D1951463C00D24EE8 /* default_profile@2x.jpg in Resources */,
 				3F9B6DD2194E3D4500B2C3E0 /* burnt_orange.jpeg in Resources */,
 				C9ADB524198D7550001D1CE2 /* PlaybookTableViewCell.xib in Resources */,
 				3F9B6DDD194E415600B2C3E0 /* GPLettering.png in Resources */,
 				C925EEEB199C78E200196915 /* close@2x.png in Resources */,
 				AE7A13C4199DC8CE009116C8 /* addToPlaybook@2x.png in Resources */,
+				3FE6311C19A1CA2C0072C255 /* calendar.png in Resources */,
 				AE7A13BC199DC0BF009116C8 /* openInvite@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
