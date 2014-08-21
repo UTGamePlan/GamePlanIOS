@@ -163,9 +163,6 @@ NSMutableArray *suggestionTypes;
     NSString *currentUserLoggedIn = [defaults objectForKey:@"userLoggedIn"];
     
     [self queryEventNames];
-    suggestionNames = [[NSMutableArray alloc] init];
-    suggestionIDs = [[NSMutableArray alloc] init];
-    suggestionTypes = [[NSMutableArray alloc] init];
     
     if (!([currentUserLoggedIn isEqualToString:@"YES"]))
     {
@@ -916,8 +913,8 @@ NSMutableArray *suggestionTypes;
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *eventID = [eventIDs objectAtIndex:indexPath.row];
-    NSString *type = [eventTypes objectAtIndex:indexPath.row];
+    NSString *eventID = [suggestionIDs objectAtIndex:indexPath.row];
+    NSString *type = [suggestionTypes objectAtIndex:indexPath.row];
     
     PFQuery *qry = [PFQuery queryWithClassName:type];
     [qry findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -935,7 +932,6 @@ NSMutableArray *suggestionTypes;
                     [eventDetailViewController setTransitioningDelegate:transitionController];
                     eventDetailViewController.modalPresentationStyle= UIModalPresentationCustom;
                     [self presentViewController:eventDetailViewController animated:YES completion:nil];
-                    searchTableView.hidden = YES;
                 }
             }
             [searchTableView reloadData];
@@ -972,7 +968,9 @@ NSMutableArray *suggestionTypes;
     
     // Put anything that starts with this substring into the autocompleteUrls array
     // The items in this array is what will show up in the table view
-    [suggestionNames removeAllObjects];
+    suggestionNames = [[NSMutableArray alloc] init];
+    suggestionIDs = [[NSMutableArray alloc] init];
+    suggestionTypes = [[NSMutableArray alloc] init];
     substring = [substring lowercaseString];
     int index = 0;
     for(NSString *str in eventNames) {
@@ -982,6 +980,7 @@ NSMutableArray *suggestionTypes;
             NSString *eventID = [eventIDs objectAtIndex:index];
             [suggestionIDs addObject:eventID];
             NSString *eventType = [eventTypes objectAtIndex:index];
+            [suggestionTypes addObject:eventType];
         }
         index++;
     }
