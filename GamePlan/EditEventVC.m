@@ -126,8 +126,10 @@
         [doneButton setTitle:@"SAVE" forState:UIControlStateSelected];
         eventNameLabel.text = event.name;
         eventNameLabel.textColor = [UIColor darkGrayColor];
+        eventName = event.name;
         eventDescLabel.text = event.desc;
         eventDescLabel.textColor = [UIColor darkGrayColor];
+        desc = event.desc;
         tags = event.tags;
         for (NSString *tag in event.tags) {
             if ([tag isEqualToString:@"BYOB"]) {
@@ -801,26 +803,15 @@
 - (IBAction)deleteButton:(id)sender{
 //    delete = TRUE;
 //    UIAlertView *wantToDelete = [[UIAlertView alloc]
-//                                  initWithTitle:@"" message:@"Are you sure you want to delete this awesome event???" delegate:self cancelButtonTitle:@"Yes." otherButtonTitles:@"No! Party on!", nil];
-//    [wantToDelete show];
-//    delete = FALSE;
-
-    PFQuery *qry = [PFQuery queryWithClassName:eventClass];
-    [qry getObjectInBackgroundWithId:event.objectId block:^(PFObject *object, NSError *error){
-        if ( error ) {
-            NSLog(@"Error getting object in editEvent: %@",error);
-        } else {
-            [object deleteInBackground];
-        }
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+//                                  initWithTitle:@"" message:@"Are you sure you want to delete this awesome event???" delegate:self cancelButtonTitle:@"Yes." otherButtonTitles:@"No! Party onoself dismissViewControllerAnimated:YES completion:nil];
+//    }];
 }
 
 - (IBAction)doneButton:(id)sender {
     BOOL complete = TRUE;
     if (event) {
-        event.name = eventName;
-        event.desc = desc;
+        event.name = eventNameLabel.text;
+        event.desc = eventDescLabel.text;
         event.startTime = startTime;
         event.endTime = endTime;
         event.ownerId = [[PFUser currentUser] objectId];
@@ -831,115 +822,117 @@
         UIAlertView *savedEvent = [[UIAlertView alloc]
                                 initWithTitle:@"" message:@"Your changes have been saved." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [savedEvent show];
-    }
-    if(type == -1){
-        complete = false;
-        [eventTypeMissing setHidden:FALSE];
-    }
-    if([eventNameLabel.text isEqualToString:@"Event name"] || [eventNameLabel.text isEqualToString:@""] ){
-        complete = false;
-        [eventNameMissing setHidden:FALSE];
-    }
-    if(!loc){
-        complete = false;
-        [eventLocMissing setHidden:FALSE];
-    }
-    if ([endLabel.textColor isEqual:[UIColor lightGrayColor]]) {
-        complete = false;
-        [eventTimeMissing setHidden:FALSE];
-    }
-    if (!complete) {
-        UIAlertView *inCompleteFields = [[UIAlertView alloc]
-                                        initWithTitle:@"" message:@"Please complete the required fields." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [inCompleteFields show];
-        
-    }else {
-        
-        //set defaults
-        eventName = eventNameLabel.text;
-        if ([eventDescLabel.text isEqualToString:@"Description"]) {
-            desc = @"";
-        } else {
-            desc = eventDescLabel.text;
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else{
+        if(type == -1){
+            complete = false;
+            [eventTypeMissing setHidden:FALSE];
         }
-        if ([privacy isEqualToString:@""]) {
-            privacy = @"Public";
+        if([eventNameLabel.text isEqualToString:@"Event name"] || [eventNameLabel.text isEqualToString:@""] ){
+            complete = false;
+            [eventNameMissing setHidden:FALSE];
         }
-        
-        Event *genericEvent = nil;
-        
-        if (type == tailgateType) {
-            Tailgate *tg = [[Tailgate alloc]init];
-            genericEvent = tg;
-            tg.name = eventName;
-            tg.desc = desc;
-            tg.startTime = startTime;
-            tg.endTime = endTime;
-            tg.ownerId = [[PFUser currentUser] objectId];
-            tg.confirmedInvites = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
-            tg.geoPoint = loc;
-            tg.tags = tags;
-            tg.privacy = privacy;
-            [tg saveInBackground];
-            UIAlertView *savedTG = [[UIAlertView alloc]
-                                             initWithTitle:@"" message:@"Thank you for hosting your tailgate with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [savedTG show];
-        } else if(type == watchPartyType){
-            WatchParty *wp = [[WatchParty alloc]init];
-            genericEvent = wp;
-            wp.name = eventName;
-            wp.desc = desc;
-            wp.startTime = startTime;
-            wp.endTime = endTime;
-            wp.ownerId = [[PFUser currentUser] objectId];
-            wp.confirmedInvites = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
-            wp.geoPoint = loc;
-            wp.tags = tags;
-            wp.privacy = privacy;
-            [wp saveInBackground];
-            UIAlertView *savedWP = [[UIAlertView alloc]
-                                             initWithTitle:@"" message:@"Thank you for hosting your watch party with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [savedWP show];
-        } else if(type == afterPartyType){
-            AfterParty *ap = [[AfterParty alloc]init];
-            genericEvent = ap;
-            ap.name = eventName;
-            ap.desc = desc;
-            ap.startTime = startTime;
-            ap.endTime = endTime;
-            ap.ownerId = [[PFUser currentUser] objectId];
-            ap.confirmedInvites = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
-            ap.geoPoint = loc;
-            ap.tags = tags;
-            ap.privacy = privacy;
-            [ap saveInBackground];
-            UIAlertView *savedAP = [[UIAlertView alloc]
-                                    initWithTitle:@"" message:@"Thank you for hosting your after party with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [savedAP show];
+        if(!loc){
+            complete = false;
+            [eventLocMissing setHidden:FALSE];
         }
-        
-        //get parse ids for invited friends
-        PFQuery *queryUsers = [PFUser query];
-        [queryUsers whereKey:@"FacebookID" containedIn:self.peopleToPushTo];
-        
-        [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *invitedUsers, NSError *error){
+        if ([endLabel.textColor isEqual:[UIColor lightGrayColor]]) {
+            complete = false;
+            [eventTimeMissing setHidden:FALSE];
+        }
+        if (!complete) {
+            UIAlertView *inCompleteFields = [[UIAlertView alloc]
+                                             initWithTitle:@"" message:@"Please complete the required fields." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [inCompleteFields show];
             
-            if ( error ) {
-                NSLog(@"Error finding friends %@", error);
+        }else {
+            
+            //set defaults
+            eventName = eventNameLabel.text;
+            if ([eventDescLabel.text isEqualToString:@"Description"]) {
+                desc = @"";
             } else {
-                NSMutableArray *arr = [[NSMutableArray alloc] init];
-                for (PFUser *user in invitedUsers) {
-                    [arr  addObject:[user objectId]];
-                }
-                genericEvent.pendingInvites = arr;
-                [genericEvent saveInBackground];
+                desc = eventDescLabel.text;
+            }
+            if ([privacy isEqualToString:@""]) {
+                privacy = @"Public";
             }
             
-        }];
-
-        [self dismissViewControllerAnimated:YES completion:nil];
+            Event *genericEvent = nil;
+            
+            if (type == tailgateType) {
+                Tailgate *tg = [[Tailgate alloc]init];
+                genericEvent = tg;
+                tg.name = eventName;
+                tg.desc = desc;
+                tg.startTime = startTime;
+                tg.endTime = endTime;
+                tg.ownerId = [[PFUser currentUser] objectId];
+                tg.confirmedInvites = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
+                tg.geoPoint = loc;
+                tg.tags = tags;
+                tg.privacy = privacy;
+                [tg saveInBackground];
+                UIAlertView *savedTG = [[UIAlertView alloc]
+                                        initWithTitle:@"" message:@"Thank you for hosting your tailgate with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [savedTG show];
+            } else if(type == watchPartyType){
+                WatchParty *wp = [[WatchParty alloc]init];
+                genericEvent = wp;
+                wp.name = eventName;
+                wp.desc = desc;
+                wp.startTime = startTime;
+                wp.endTime = endTime;
+                wp.ownerId = [[PFUser currentUser] objectId];
+                wp.confirmedInvites = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
+                wp.geoPoint = loc;
+                wp.tags = tags;
+                wp.privacy = privacy;
+                [wp saveInBackground];
+                UIAlertView *savedWP = [[UIAlertView alloc]
+                                        initWithTitle:@"" message:@"Thank you for hosting your watch party with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [savedWP show];
+            } else if(type == afterPartyType){
+                AfterParty *ap = [[AfterParty alloc]init];
+                genericEvent = ap;
+                ap.name = eventName;
+                ap.desc = desc;
+                ap.startTime = startTime;
+                ap.endTime = endTime;
+                ap.ownerId = [[PFUser currentUser] objectId];
+                ap.confirmedInvites = [NSMutableArray arrayWithObject:[[PFUser currentUser] objectId]];
+                ap.geoPoint = loc;
+                ap.tags = tags;
+                ap.privacy = privacy;
+                [ap saveInBackground];
+                UIAlertView *savedAP = [[UIAlertView alloc]
+                                        initWithTitle:@"" message:@"Thank you for hosting your after party with Game Plan!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [savedAP show];
+            }
+            
+            //get parse ids for invited friends
+            PFQuery *queryUsers = [PFUser query];
+            [queryUsers whereKey:@"FacebookID" containedIn:self.peopleToPushTo];
+            
+            [queryUsers findObjectsInBackgroundWithBlock:^(NSArray *invitedUsers, NSError *error){
+                
+                if ( error ) {
+                    NSLog(@"Error finding friends %@", error);
+                } else {
+                    NSMutableArray *arr = [[NSMutableArray alloc] init];
+                    for (PFUser *user in invitedUsers) {
+                        [arr  addObject:[user objectId]];
+                    }
+                    genericEvent.pendingInvites = arr;
+                    [genericEvent saveInBackground];
+                }
+                
+            }];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
     }
-
+    
 }
 
 - (IBAction)didTouchCancelButton:(UIButton *)sender{
